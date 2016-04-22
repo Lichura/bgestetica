@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   end
   def schedule
   	@equipos = Equipo.all.map do |equipo|
-  		{key: equipo.key, label: equipo.nombre}
+  		{key: equipo.id, label: equipo.nombre}
   	end
 	@equipos.to_json
   end

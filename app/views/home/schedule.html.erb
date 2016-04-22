@@ -34,12 +34,23 @@
       nuevo_medico.label = "medico " + i;
       medicos_opts.push(nuevo_medico);
     };
-    
 
+    console.log(medicos_opts);
+    
+    var equipos = <%= raw @equipos %>;
+    var equipos_opt = [];
+    for (var i = 1; i < equipos.lenght, i++){
+      var nuevo_equipo ={};
+      nuevo_equipo.key = nuevo_equipo[i].key;
+      nuevo_equipo.label = nuevo_equipo[i].label;
+      equipos_opt.push(nuevo_equipo);
+    };
+
+    console.log(medicos_opts);
     scheduler.config.lightbox.sections=[
       {name:"Paciente",height:20, type:"textarea", map_to:"paciente"},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-      {name:"Equipo",height:20, type:"select", options:<% @equipos %>, map_to:"equipos"},
+      {name:"Equipo",height:20, type:"select", options:equipos_opt, map_to:"equipos"},
       {name:"time",height:20, type: "time", map_to: "auto"},
       {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
     ];
