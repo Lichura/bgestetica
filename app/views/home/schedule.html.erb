@@ -1,4 +1,5 @@
-<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:800px;'>
+
+<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:80vh;'>
  <div class="dhx_cal_navline">
    <div class="dhx_cal_prev_button">&nbsp;</div>
    <div class="dhx_cal_next_button">&nbsp;</div>
@@ -13,7 +14,7 @@
  <div class="dhx_cal_data">
  </div>
 </div>
-
+ 
 <script>
     scheduler.config.xml_date="%Y-%m-%d %H:%i";
     scheduler.init("scheduler_here");
@@ -21,4 +22,25 @@
     var dp = new dataProcessor("<%= db_action_path %>");
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
+
+
+
+ 
+    var medicos_opts = [];
+
+    for (var i = 1; i < 4; i++){
+      var nuevo_medico = {};
+      nuevo_medico.key = i;
+      nuevo_medico.label = "medico " + i;
+      medicos_opts.push(nuevo_medico);
+    };
+    
+
+    scheduler.config.lightbox.sections=[
+      {name:"Paciente",height:20, type:"textarea", map_to:"paciente"},
+      {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
+      {name:"Equipo",height:20, type:"select", options:<% @equipos %>, map_to:"equipos"},
+      {name:"time",height:20, type: "time", map_to: "auto"},
+      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
+    ];
 </script>

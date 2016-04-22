@@ -3,7 +3,13 @@ class HomeController < ApplicationController
   def index
   end
   def schedule
-  	
+  	@equipos = Equipo.all.map do |equipo|
+  		{key: equipo.key, label: equipo.nombre}
+  	end
+	@equipos.to_json
+  end
+  def equipos
+  	equipos = Equipo.all
   end
   def data
    events = Event.all

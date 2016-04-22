@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :equipos
   get 'home/index'
 
   get 'sessions/new'
