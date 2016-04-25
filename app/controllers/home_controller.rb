@@ -40,10 +40,11 @@ class HomeController < ApplicationController
 	   start_date = params["start_date"]
 	   end_date = params["end_date"]
 	   text = params["text"]
+	   color = params["color"]
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo
+	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo, :color => color
 	       tid = event.id
 
 	     when "deleted"
@@ -58,6 +59,7 @@ class HomeController < ApplicationController
 	       event.paciente = paciente
 	       event.medico = medico
 	       event.equipo = equipo
+	       event.color = color
 	       event.save
 	       tid = id
 	   end

@@ -44,8 +44,9 @@
     function search_button(){
       var user_input = document.getElementById("search_nombre").value;
       scheduler.filter_week = function(id, event){
-        if(event.paciente == 'Lisandro Gurman')
+        if(event.color == user_input){
           return true;
+        }
       };
     };
 
@@ -84,9 +85,7 @@
 
     // Modificar colores por equipo
 
-    scheduler.templates.event_class = function(start, end, ev){
-      ev.color = color
-    } ;
+
     // Tab de equipos
     scheduler.locale.labels.agenda_tab = "Equipos";
 
@@ -102,7 +101,7 @@
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
       {name:"Equipo",height:20, type:"select", options:equipos1, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
-      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
+      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true},
       {name:"color", height: 60, map_to:"color", type: "textarea"}
     ];
 </script>
