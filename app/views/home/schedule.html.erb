@@ -14,43 +14,49 @@
  <div class="dhx_cal_data">
  </div>
 </div>
- 
+
 <script>
     scheduler.config.xml_date="%Y-%m-%d %H:%i";
     scheduler.init("scheduler_here");
-    scheduler.load("<%= data_path %>", "json");
     var dp = new dataProcessor("<%= db_action_path %>");
+    scheduler.load("<%= data_path %>", "json");
+
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
 
+    scheduler.locale.labels.button_new="nuevo";
 
-
- 
+scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
+    alert("nuevo paciente");
+};
     var medicos_opts = [];
 
-    for (var i = 1; i < 4; i++){
-      var nuevo_medico = {};
-      nuevo_medico.key = i;
-      nuevo_medico.label = "medico " + i;
-      medicos_opts.push(nuevo_medico);
-    };
+    <% @medicos.each do |medico| %>
+        var nuevo_medico = {}
+        nuevo_medico.key = <%= medico.id %>
+        nuevo_medico.label = '<%= medico.nombre %>'
+        medicos_opts.push(nuevo_medico)
+    <% end %>
 
     console.log(medicos_opts);
     
-    var equipos = <%= raw @equipos %>;
-    var equipos_opt = [];
-    for (var i = 1; i < equipos.lenght, i++){
-      var nuevo_equipo ={};
-      nuevo_equipo.key = nuevo_equipo[i].key;
-      nuevo_equipo.label = nuevo_equipo[i].label;
-      equipos_opt.push(nuevo_equipo);
-    };
 
-    console.log(medicos_opts);
+    var equipos1 = []
+
+    <% @equipos_todos.each do |status| %>
+        var nuevo_equipo = {}
+        nuevo_equipo.key = <%= status.id %>
+        nuevo_equipo.label = '<%= status.nombre %>'
+        equipos1.push(nuevo_equipo)
+    <% end %>
+
+    console.log(equipos1);
+    //console.log(equipos_opt);
+
     scheduler.config.lightbox.sections=[
-      {name:"Paciente",height:20, type:"textarea", map_to:"paciente"},
+      {name:"Paciente",height:20, width: 100, type:"textarea", map_to:"paciente", button:"new"},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-      {name:"Equipo",height:20, type:"select", options:equipos_opt, map_to:"equipos"},
+      {name:"Equipo",height:20, type:"select", options:equipos1, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
       {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
     ];

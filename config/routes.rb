@@ -1,20 +1,26 @@
 Rails.application.routes.draw do
+  resources :pacientes
+  resources :medicos
   resources :equipos
   get 'home/index'
 
   get 'sessions/new'
 
   get 'users/new'
+  # => get 'home/equipos.xml'
+
 
   get 'home/schedule'
   get 'home/db_action', :as => "db_action"
   get "home/data", :as => "data"
+
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   root :to => "home#index"
   resources :users
   resources :sessions
+  resources :equipos_todos
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -3,35 +3,51 @@ class HomeController < ApplicationController
   def index
   end
   def schedule
-  	@equipos = Equipo.all.map do |equipo|
-  		{key: equipo.id, label: equipo.nombre}
-  	end
-	@equipos.to_json
+  	#@equipos = [key: 1, label: "equipo 1"]
+
+  	#@equipos = [[:key => 1, :label => "equipo1"],
+  	#			{"key":2, "label":"equipo2"}]
+  	#@equipos.push << [1, "equipo 1"]
+  	#@equipos.push << [2, "equipo 2"]
+	#@equipos.to_json
+
+	@equipos_todos = Equipo.all
+	@medicos = Medico.all
   end
-  def equipos
-  	equipos = Equipo.all
+  def equipos_todos
+   @equipos_todos = Equipo.all
+
+   render :json => @equipos_todos.map {|equipo| {
+              :key => equipo.id,
+              :label => equipo.nombre
+          }}
+
+    @equipos_todos.to_json
   end
+  
   def data
    events = Event.all
-
    render :json => events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
               :text => event.text
           }}
-	 end
+    end
 
 	 def db_action
 	   mode = params["!nativeeditor_status"]
 	   id = params["id"]
+	   paciente = params["paciente"]
+	   equipo = params["equipo"]
+	   medico = params["medico"]
 	   start_date = params["start_date"]
 	   end_date = params["end_date"]
 	   text = params["text"]
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text
+	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo
 	       tid = event.id
 
 	     when "deleted"
@@ -43,6 +59,9 @@ class HomeController < ApplicationController
 	       event.start_date = start_date
 	       event.end_date = end_date
 	       event.text = text
+	       event.paciente = paciente
+	       event.medico = medico
+	       event.equipo = equipo
 	       event.save
 	       tid = id
 	   end
