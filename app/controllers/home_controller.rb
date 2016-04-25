@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   def index
   end
   def schedule
+<<<<<<< Updated upstream
   	#@equipos = [key: 1, label: "equipo 1"]
 
   	#@equipos = [[:key => 1, :label => "equipo1"],
@@ -13,6 +14,12 @@ class HomeController < ApplicationController
 
 	@equipos_todos = Equipo.all
 	@medicos = Medico.all
+=======
+  	@equipos = Equipo.all.map {|equipo|
+  		{:key => equipo.id, :label => equipo.nombre}}
+  	end
+	@equipos.to_json
+>>>>>>> Stashed changes
   end
   def equipos_todos
    @equipos_todos = Equipo.all
