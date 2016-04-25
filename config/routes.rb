@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'perfiles/home'
+
   resources :pacientes
   resources :medicos
   resources :equipos
@@ -8,7 +10,6 @@ Rails.application.routes.draw do
 
   get 'users/new'
   # => get 'home/equipos.xml'
-
 
   get 'home/schedule'
   get 'home/db_action', :as => "db_action"

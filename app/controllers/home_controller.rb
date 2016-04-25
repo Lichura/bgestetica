@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
   end
   def schedule
-<<<<<<< Updated upstream
+
   	#@equipos = [key: 1, label: "equipo 1"]
 
   	#@equipos = [[:key => 1, :label => "equipo1"],
@@ -14,22 +14,10 @@ class HomeController < ApplicationController
 
 	@equipos_todos = Equipo.all
 	@medicos = Medico.all
-=======
-  	@equipos = Equipo.all.map {|equipo|
-  		{:key => equipo.id, :label => equipo.nombre}}
-  	end
-	@equipos.to_json
->>>>>>> Stashed changes
+	@paciente = Paciente.new
   end
   def equipos_todos
-   @equipos_todos = Equipo.all
 
-   render :json => @equipos_todos.map {|equipo| {
-              :key => equipo.id,
-              :label => equipo.nombre
-          }}
-
-    @equipos_todos.to_json
   end
   
   def data
@@ -38,7 +26,8 @@ class HomeController < ApplicationController
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text
+              :text => event.text,
+              :color => event.color
           }}
     end
 

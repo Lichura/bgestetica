@@ -1,5 +1,13 @@
 
-<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:80vh;'>
+   <div class="search_button">
+      <div class"search_button_campos">
+        <input id="search_nombre" type="text" name="nombre" placeholder="nombre"></input>
+        <input type="text" name="mail" placeholder="mail"></input>
+        <input type="text" name="dni" placeholder="dni"></input>
+        <button onclick="search_button()">enviar</button>
+      </div>
+   </div>
+<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:800px;'>
  <div class="dhx_cal_navline">
    <div class="dhx_cal_prev_button">&nbsp;</div>
    <div class="dhx_cal_next_button">&nbsp;</div>
@@ -8,6 +16,7 @@
    <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
    <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
    <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+   <div class="dhx_cal_tab" name="equipos_tab" style="right: 278px;"></div>
  </div>
  <div class="dhx_cal_header">
  </div>
@@ -15,6 +24,12 @@
  </div>
 </div>
 
+<div id="overlay">
+  <div>
+    <%= render 'pacientes/form' %>
+    <a href='#' onclick="overlay()">close</a>
+  </div>
+</div>
 <script>
     scheduler.config.xml_date="%Y-%m-%d %H:%i";
     scheduler.init("scheduler_here");
@@ -24,40 +39,70 @@
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
 
-    scheduler.locale.labels.button_new="nuevo";
 
-scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
-    alert("nuevo paciente");
-};
+    //buscar por usuario
+    function search_button(){
+      var user_input = document.getElementById("search_nombre").value;
+      scheduler.filter_week = function(id, event){
+        if(event.paciente == 'Lisandro Gurman')
+          return true;
+      };
+    };
+
+    //Boton de agregar nuevo usuario
+    scheduler.locale.labels.button_new="nuevo";
+    scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
+    modal = document.getElementById('overlay');
+    modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
+    scheduler.hideCover();
+    };
+
+    function overlay(){
+          modal = document.getElementById('overlay');
+    modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
+    };
+
+    //load data para los combobox
     var medicos_opts = [];
 
     <% @medicos.each do |medico| %>
         var nuevo_medico = {}
         nuevo_medico.key = <%= medico.id %>
-        nuevo_medico.label = '<%= medico.nombre %>'
+        nuevo_medico.label = '<%= medico.nombre + ' ' + medico.apellido %>'
         medicos_opts.push(nuevo_medico)
     <% end %>
-
-    console.log(medicos_opts);
-    
 
     var equipos1 = []
 
     <% @equipos_todos.each do |status| %>
         var nuevo_equipo = {}
         nuevo_equipo.key = <%= status.id %>
-        nuevo_equipo.label = '<%= status.nombre %>'
+        nuevo_equipo.label = '<%= status.nombre %>' 
         equipos1.push(nuevo_equipo)
     <% end %>
 
-    console.log(equipos1);
-    //console.log(equipos_opt);
 
+    // Modificar colores por equipo
+
+    scheduler.templates.event_class = function(start, end, ev){
+      ev.color = color
+    } ;
+    // Tab de equipos
+    scheduler.locale.labels.agenda_tab = "Equipos";
+
+    // Tab de grid
+    //scheduler.createGridView({
+    //  name: "grid",
+    //  fields: equipos1
+    //});
+
+    //secciones del lightbox
     scheduler.config.lightbox.sections=[
-      {name:"Paciente",height:20, width: 100, type:"textarea", map_to:"paciente", button:"new"},
+      { name:"Paciente", options:medicos_opts, map_to:"equipo", type:"combo", height:20, filtering:true},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
       {name:"Equipo",height:20, type:"select", options:equipos1, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
       {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
+      {name:"color", height: 60, map_to:"color", type: "textarea"}
     ];
 </script>

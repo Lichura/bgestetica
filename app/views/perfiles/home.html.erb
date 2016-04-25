@@ -1,0 +1,26 @@
+<h1>Perfiles#home</h1>
+<p>Find me in app/views/perfiles/home.html.erb</p>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellid</th>
+      <th>Email</th>
+      <th>perfil</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.lastname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.profile %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
