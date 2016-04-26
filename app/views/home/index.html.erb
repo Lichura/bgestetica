@@ -1,3 +1,41 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<html>
+<body>
 
+<%= form_tag(home_index_path, :method => "get", id: "search-form", :class => 'search_input') do %>
+	<%= text_field_tag :search,  params[:search], placeholder: "Buscar turnos" %>
+	<%= submit_tag "Buscar", :class => 'search_input_button' %>
+<% end %>
+<div id="turnos_resultados">
+	<table>
+		<thead>
+			<tr>
+				<th>DNI</th>
+				<th>Nombre</th>			
+				<th>Apellido</th>
+				<th>email</th>	
+				<th>Proximo Turno</th>
+				<th>Equipo</th>	
+				<th>Medico</th>			
+			</tr>
+		</thead>
+		<tbody>
+
+
+			<% if @eventos.present? %>
+				<% @eventos.each do |evento| %>
+					<tr class="<%= cycle('even', 'odd') -%>">
+						<td><%= evento.dni %></td>
+						<td><%= evento.nombre %></td>
+						<td><%= evento.apellido %></td>
+						<td><%= evento.email %></td>			
+						<td><%= evento.start_date %></td>
+						<td><%= evento.equipo %></td>
+						<td><%= evento.medico %></td>			
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+</body>
+<html>

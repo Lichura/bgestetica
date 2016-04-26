@@ -11,7 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 
-Rails.application.config.assets.precompile += %w( dhtmlxscheduler.css )
+Rails.application.config.assets.precompile += %w( dhtmlxscheduler_flat.css )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler.js )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_editors.js )
 Rails.application.config.assets.precompile += %w( dhtmlxcombo.css )

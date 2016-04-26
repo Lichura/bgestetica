@@ -37,7 +37,8 @@
     scheduler.init("scheduler_here");
     var dp = new dataProcessor("<%= db_action_path %>");
     scheduler.load("<%= data_path %>", "json");
-
+    scheduler.xy.nav_height=30;
+    scheduler.xy.margin_top = 50;
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
 
@@ -81,15 +82,22 @@
         medicos_opts.push(nuevo_medico)
     <% end %>
 
-    var equipos1 = []
+    var equipos = []
 
-    <% @equipos_todos.each do |status| %>
+    <% @equipos_todos.each do |equipo| %>
         var nuevo_equipo = {}
-        nuevo_equipo.key = <%= status.id %>
-        nuevo_equipo.label = '<%= status.nombre %>' 
-        equipos1.push(nuevo_equipo)
+        nuevo_equipo.key = <%= equipo.id %>
+        nuevo_equipo.label = '<%= equipo.nombre %>' 
+        equipos.push(nuevo_equipo)
     <% end %>
 
+    var pacientes = []
+    <% @pacientes.each do |paciente| %>
+      var nuevo_paciente = {}
+      nuevo_paciente.key = <%= paciente.id %>
+      nuevo_paciente.label = "<%= paciente.nombre + ' ' + paciente.apellido %>"
+      pacientes.push(nuevo_paciente) 
+    <% end %>
 
     // Modificar colores por equipo
 
@@ -105,11 +113,14 @@
 
     //secciones del lightbox
     scheduler.config.lightbox.sections=[
-      { name:"Paciente", map_to:"paciente", type:"textarea", height:20, button: "new"},
+      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo", height:20, image_path:"../common/dhtmlxCombo/imgs/", height:30, filtering:true},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-      {name:"Equipo",height:20, type:"select", options:equipos1, map_to:"equipo"},
+      {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
+      {name:"estado", height: 20, type:"radio", map_to: "estado",
+          options:[{key:1, label:"activo"},
+                  {key: 2, label:"completado"}, 
+                  {key: 3, label:"cancelado"}]},
       {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
-      //{name:"color", height: 20, map_to:"color", type: "textarea"}
     ];
 </script>

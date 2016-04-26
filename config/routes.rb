@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :medicos
   resources :equipos
   get 'home/index'
-
+  post "home/buscar" => "home#buscar_turno"
   get 'sessions/new'
 
   get 'users/new'

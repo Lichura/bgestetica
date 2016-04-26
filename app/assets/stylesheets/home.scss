@@ -64,3 +64,64 @@
 		position: relative;
 	}
 }
+
+.odd{
+	background-color: #CFCACA;
+}
+
+.search_input{
+	display: block;
+	position: relative;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	text-align: center;
+	input{
+		height: 20px;
+	}
+
+}
+
+.search_input_button{
+		height: 15px;
+		width: 100px;
+		background-color: #5CA5EC;
+		color: white;
+		border: none;
+		border-radius: 3%;
+}
+
+#turnos_resultados{
+	table{
+	margin:0px;padding:0px;
+	width:80%;
+	margin-left: 10%;
+	box-shadow: 10px 10px 5px #888888;
+	border:1px solid #000000;
+	
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	border-bottom-left-radius:8px;
+	
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-right-radius:8px;
+	border-bottom-right-radius:8px;
+	
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-right-radius:8px;
+	border-top-right-radius:8px;
+	
+	-moz-border-radius-topleft:8px;
+	-webkit-border-top-left-radius:8px;
+	border-top-left-radius:8px;
+	thead{
+		background-color: #5CA5EC;
+	}
+	tr, td{
+	white-space: nowrap;
+	}
+	th, td {
+    	padding: 5px;
+    	text-align: center;
+    	}
+	}
+}
