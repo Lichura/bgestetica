@@ -28,12 +28,20 @@
 	z-index: 10001;
 	display: fixed;
 	top: 30%;
-	width: 30px;
-	height: 30px;
-	background-color: rgba(100,150,200,0.5);
+	right: 1%;
+	width: 40px;
+	height: 40px;
+	background-color: rgba(220,220,220,0.5);
 	transition: all 1s ease;
 	position: absolute;
 	border-radius: 50%;
+	img{
+		width: 60%;
+		height: 60%;
+		top: 20%;
+		left: 20%;
+		position: relative;
+	}
 	div{
 		display: none;
 		width: 0%;
@@ -44,8 +52,15 @@
 	width: 200px;
 	height: 200px;
 	border-radius: 5%;
+	img{
+		display: none;
+	}
 	div{
 		display: block;
 		width: 100%;
+		top: 20%;
+
+		text-align: center;
+		position: relative;
 	}
 }

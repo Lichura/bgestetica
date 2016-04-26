@@ -3,15 +3,6 @@ class HomeController < ApplicationController
   def index
   end
   def schedule
-
-  	#@equipos = [key: 1, label: "equipo 1"]
-
-  	#@equipos = [[:key => 1, :label => "equipo1"],
-  	#			{"key":2, "label":"equipo2"}]
-  	#@equipos.push << [1, "equipo 1"]
-  	#@equipos.push << [2, "equipo 2"]
-	#@equipos.to_json
-
 	@equipos_todos = Equipo.all
 	@medicos = Medico.all
 	@paciente = Paciente.new
@@ -27,6 +18,9 @@ class HomeController < ApplicationController
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
               :text => event.text,
+              :paciente => event.paciente,
+              :medico => event.medico,
+              :equipo => event.equipo,
               :color => event.color
           }}
     end
@@ -44,7 +38,7 @@ class HomeController < ApplicationController
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo, :color => color
+	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :color => Equipo.find(1).color, :equipo => equipo
 	       tid = event.id
 
 	     when "deleted"
@@ -59,7 +53,7 @@ class HomeController < ApplicationController
 	       event.paciente = paciente
 	       event.medico = medico
 	       event.equipo = equipo
-	       event.color = color
+	       event.color = @equipos_todos[1].color
 	       event.save
 	       tid = id
 	   end

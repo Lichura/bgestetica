@@ -1,10 +1,12 @@
 
    <div class="search_button">
+      <img src=<%= asset_path('search-icon.png') %>/>
       <div class"search_button_campos">
         <input id="search_nombre" type="text" name="nombre" placeholder="nombre"></input>
         <input type="text" name="mail" placeholder="mail"></input>
         <input type="text" name="dni" placeholder="dni"></input>
         <button onclick="search_button()">enviar</button>
+        <button onclick="clean_button()">borrar</button>
       </div>
    </div>
 <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:800px;'>
@@ -43,16 +45,22 @@
     //buscar por usuario
     function search_button(){
       var user_input = document.getElementById("search_nombre").value;
-      scheduler.filter_week = function(id, event){
-        if(event.color == user_input){
+      scheduler.filter_month = scheduler.filter_day = scheduler.filter_week = function(id, event){
+        if(event.equipo == user_input){
           return true;
         }
       };
+      scheduler.updateView();
+    };
+
+    function clean_button(){
+      scheduler.filter_week = function(id, event){return true;};
+      scheduler.updateView();
     };
 
     //Boton de agregar nuevo usuario
     scheduler.locale.labels.button_new="nuevo";
-    scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
+    scheduler.form_blocks.textarea.button_click = function(index,button,shead,sbody){
     modal = document.getElementById('overlay');
     modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
     scheduler.hideCover();
@@ -97,11 +105,11 @@
 
     //secciones del lightbox
     scheduler.config.lightbox.sections=[
-      { name:"Paciente", options:medicos_opts, map_to:"equipo", type:"combo", height:20, filtering:true},
+      { name:"Paciente", map_to:"paciente", type:"textarea", height:20, button: "new"},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
       {name:"Equipo",height:20, type:"select", options:equipos1, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
-      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true},
-      {name:"color", height: 60, map_to:"color", type: "textarea"}
+      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
+      //{name:"color", height: 20, map_to:"color", type: "textarea"}
     ];
 </script>
