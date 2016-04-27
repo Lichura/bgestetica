@@ -1,3 +1,31 @@
 // Place all the styles related to the equipos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.menu_equipos{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+
+	h1{
+		text-align: center;
+		margin-top: 15vh;
+	}
+
+	table{
+		widht: 100%;
+		border: 2px solid rgba(255,255,255,0.5);
+		position: relative;
+		left: 30%;
+		text-align: center;
+		border-radius: 15px;
+	}
+
+
+
+}
+	
+.odd{
+		background-color: rgba(255,255,255,0.2);
+	}

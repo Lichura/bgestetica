@@ -18,13 +18,15 @@
 <body>
 <div id="user_nav">
   <a href="#"><img src=""/></a>
+  <div class="user_nav_login">
 	<% if current_user %>
-		Bienvenido:  <%= current_user.name + ' ' + current_user.lastname %>
+		Bienvenido:  <%= current_user.email %>
 		<%= link_to "Desconectarse", log_out_path %>
 	<% else %>
 		<%= link_to "Registro", sign_up_path %> or
 		<%= link_to "Conectarse", log_in_path %>
 	<% end %>
+</div>
 </div>
 <% flash.each do |name, msg| %>
 	<%= content_tag :div, msg, :id => "flash_#{name}" %>

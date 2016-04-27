@@ -1,15 +1,18 @@
 <div class="login">
 	<div class="login_content">
+		<div class="login_img"><img style="width: 50px; height: 50px;" src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/edit_user-.png"/></div>
 		<%= form_tag sessions_path do %>
 			<p>
 				<%= label_tag :email %><br />
-				<%= text_field_tag :email, params[:email] %>
+				<%= text_field_tag :email, params[:email], :placeholder => "nombre@email.com" %>
 			</p>
 			<p>
 				<%= label_tag :password %><br />
-				<%= password_field_tag :password %>
+				<%= password_field_tag :password, :placeholder => "contraseña" %>
 			</p>
-			<p class="button"><%= submit_tag "Log in" %></p>
+			<p class="button"><%= submit_tag "Ingresar", :class => "login_button" %></p>
 		<% end %>
+
+		<a href="#">Recuperar contraseña</a>
 	</div>
 </div>

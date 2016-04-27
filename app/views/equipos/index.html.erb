@@ -1,6 +1,7 @@
+<div class="menu_equipos">
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Equipos</h1>
+<h1>Equipos</h1>
 
 <table>
   <thead>
@@ -15,14 +16,14 @@
 
   <tbody>
     <% @equipos.each do |equipo| %>
-      <tr>
+      <tr class="<%= cycle('even', 'odd') -%>">
         <td><%= equipo.nombre %></td>
         <td><%= equipo.descripcion %></td>
         <td><div class="equipo_color" style="width: 20px; height:20px;background-color:<%= equipo.color %>;"></div></td>
         <td><%= equipo.activo %></td>
-        <td><%= link_to 'Show', equipo %></td>
-        <td><%= link_to 'Edit', edit_equipo_path(equipo) %></td>
-        <td><%= link_to 'Destroy', equipo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Mostrar', equipo %></td>
+        <td><%= link_to 'Editar', edit_equipo_path(equipo) %></td>
+        <td><%= link_to 'Eliminar', equipo, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +31,5 @@
 
 <br>
 
-<%= link_to 'New Equipo', new_equipo_path %>
+<%= link_to 'Agregar Equipo', new_equipo_path, :class => "scaffold_links" %>
+</div>
