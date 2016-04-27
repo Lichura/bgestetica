@@ -1,6 +1,6 @@
 <html>
 <body>
-<div id="turnos_content">
+
 <%= form_tag(home_index_path, :method => "get", id: "search-form", :class => 'search_input') do %>
 	<%= text_field_tag :search,  params[:search], placeholder: "Buscar turnos" %>
 	<%= submit_tag "Buscar", :class => 'search_input_button' %>
@@ -36,7 +36,6 @@
 			<% end %>
 		</tbody>
 	</table>
-</div>
 </div>
 </body>
 <html>

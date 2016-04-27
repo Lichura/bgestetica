@@ -1,0 +1,2 @@
+class Turnos < ApplicationMailer
+end

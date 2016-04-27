@@ -18,7 +18,7 @@
       <tr>
         <td><%= equipo.nombre %></td>
         <td><%= equipo.descripcion %></td>
-        <td><%= equipo.color %></td>
+        <td><div class="equipo_color" style="width: 20px; height:20px;background-color:<%= equipo.color %>;"></div></td>
         <td><%= equipo.activo %></td>
         <td><%= link_to 'Show', equipo %></td>
         <td><%= link_to 'Edit', edit_equipo_path(equipo) %></td>

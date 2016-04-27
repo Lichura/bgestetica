@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
-  get 'perfiles/home'
+  get 'menu/index'
 
+  get 'perfiles/home'
+  get "buscar_turnos" => "home#buscar_turnos"
+  get "menu/buscar"
   resources :pacientes
   resources :medicos
   resources :equipos
   get 'home/index'
   post "home/buscar" => "home#buscar_turno"
   get 'sessions/new'
-
+  get 'home/home'
   get 'users/new'
   # => get 'home/equipos.xml'
 

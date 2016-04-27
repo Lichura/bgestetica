@@ -1,14 +1,15 @@
 class HomeController < ApplicationController
   before_filter :login_required, :except => :index
   def index
-  	@eventos = Evento.all
+
+  end
+  def buscar_turno
+  	  	@eventos = Evento.all
 	  if params[:search]
 	    @eventos = Evento.search(params[:search]).order('start_date DESC')
 	  else
 	    @eventos = Evento.all.order('created_at DESC')
 	  end
-  end
-  def buscar_turno
   end
   def schedule
 	@equipos_todos = Equipo.all
@@ -30,7 +31,7 @@ class HomeController < ApplicationController
               :paciente => event.paciente,
               :medico => event.medico,
               :equipo => event.equipo,
-              :color => event.color
+              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8)
           }}
     end
 
@@ -50,10 +51,12 @@ class HomeController < ApplicationController
 	   paciente_dni = Paciente.where(id: paciente).pluck(:dni)
 	   equipo_nombre = Equipo.where(id: equipo).pluck(:nombre)
 	   medico_nombre = Medico.where(id: medico).pluck(:nombre, :apellido)
+	   #color = Equipo.where(id: equipo).pluck(:color).to_s.slice(2,8)
+
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :color => color, :equipo => equipo
+	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo
 	       tid = event.id
 	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => medico_nombre, :nombre => paciente_nombre, :apellido => paciente_apellido, :dni => paciente_dni, :email => paciente_mail, :start_date => start_date, :end_date => end_date
 
@@ -70,7 +73,7 @@ class HomeController < ApplicationController
 	       event.paciente = paciente
 	       event.medico = medico
 	       event.equipo = equipo
-	       event.color = color
+	       #event.color = color
 	       event.save
 	       tid = id
 	   end
