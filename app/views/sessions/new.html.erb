@@ -11,8 +11,12 @@
 				<%= password_field_tag :password, :placeholder => "contraseña" %>
 			</p>
 			<p class="button"><%= submit_tag "Ingresar", :class => "login_button" %></p>
+			<p><%= link_to "recuperar contraseña", new_password_reset_path %>
+			<div class="field">
+				<%= check_box_tag :remember_me, 1, params[:remember_me] %>
+				<%= label_tag :remember_me %>
+			</div>
 		<% end %>
 
-		<a href="#">Recuperar contraseña</a>
 	</div>
 </div>
