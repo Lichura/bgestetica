@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def new
   end
 
@@ -10,6 +11,7 @@ class SessionsController < ApplicationController
       else
         cookies[:auth_token] = user.auth_token
       end
+      puts "#{current_user.name}"
   		#session[:user_id] = user.id
   		flash.now.alert = "logged in!"
   		redirect_to root_url

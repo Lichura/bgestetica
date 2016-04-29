@@ -1,42 +1,37 @@
 <html>
+<head>
+<meta name="viewport" content="widht=device-width, initial-scale=1">
+<head>
 <body>
-<div id="turnos_content">
-<%= form_tag(home_index_path, :method => "get", id: "search-form", :class => 'search_input') do %>
-	<%= text_field_tag :search,  params[:search], placeholder: "Buscar turnos" %>
-	<%= submit_tag "Buscar", :class => 'search_input_button' %>
-<% end %>
-<div id="turnos_resultados">
-	<table>
-		<thead>
-			<tr>
-				<th>DNI</th>
-				<th>Nombre</th>			
-				<th>Apellido</th>
-				<th>email</th>	
-				<th>Proximo Turno</th>
-				<th>Equipo</th>	
-				<th>Medico</th>			
-			</tr>
-		</thead>
-		<tbody>
 
-
-			<% if @eventos.present? %>
-				<% @eventos.each do |evento| %>
-					<tr class="<%= cycle('even', 'odd') -%>">
-						<td><%= evento.dni %></td>
-						<td><%= evento.nombre %></td>
-						<td><%= evento.apellido %></td>
-						<td><%= evento.email %></td>			
-						<td><%= evento.start_date %></td>
-						<td><%= evento.equipo %></td>
-						<td><%= evento.medico %></td>			
-					</tr>
-				<% end %>
-			<% end %>
-		</tbody>
-	</table>
+<div id="seccion-principal" class="container-fluid">
+		<div src="" class="img-responsive" alt="Imagen responsive">
 </div>
+<div id="seccion-nosotros" class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-md-6">Quienes somos</div>
+		<div class="col-xs-12 col-md-6">Panel derecho</div>
+	</div>
+</div>
+<div id="seccion-tratamientos" class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-md-6">tratamiento 1</div>
+		<div class="col-xs-12 col-md-6">Panel derecho</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-6">tratamiento 1</div>
+		<div class="col-xs-12 col-md-6">Panel derecho</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-6">tratamiento 1</div>
+		<div class="col-xs-12 col-md-6">Panel derecho</div>
+	</div>
+</div>
+<div id="seccion-contacto" class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-md-6">Contacto</div>
+		<div class="col-xs-12 col-md-6">Mapita</div>
+	</div>
 </div>
 </body>
-<html>
+</html>
