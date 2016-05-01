@@ -126,21 +126,30 @@
 	}
 }
 #seccion-principal{
-	height: 100%;
-	position: relative;
+	height: 100vh;
 }
 #seccion-nosotros{
-	background-color: black;
-	height: 100%;
-	position: relative;
+	height: 100vh;
 }
 #seccion-terapias{
-	height: 100%;
-	position: relative;
+	height: 100vh;
 }
 
 #seccion-contacto{
-	background-color: black;
+	height: 100vh;
+}
+
+.tratamientos-imagenes{
+	width: 100%;
 	height: 100%;
-	position: relative;
+	margin: 0 auto;
+}
+
+.seccion-texto{
+	text-align: justify;
+	width: 70%;
+	margin: 0 auto;
+	h1{
+		text-align: center;
+	}
 }

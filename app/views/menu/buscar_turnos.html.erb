@@ -1,7 +1,7 @@
 <html>
 <body>
 <div class="menu_content">
-<%= form_tag(home_index_path, :method => "get", id: "search-form", :class => 'search_input') do %>
+<%= form_tag(menu_buscar_turnos_path, :method => "get", id: "search-form", :class => 'search_input') do %>
 	<%= text_field_tag :search,  params[:search], placeholder: "Buscar turnos" %>
 	<%= submit_tag "Buscar", :class => 'search_input_button' %>
 <% end %>

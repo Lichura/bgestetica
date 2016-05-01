@@ -1,21 +1,22 @@
 Rails.application.routes.draw do
-  get 'password_resets/new'
+  #get 'password_resets/new'
 
   get 'menu/index'
-
+  get 'menu/nuevo_turno'
   get 'perfiles/home'
-  get "buscar_turnos" => "home#buscar_turnos"
+  get "buscar_turnos" => "menu#buscar_turnos"
   get "menu/buscar"
   resources :pacientes
   resources :medicos
   resources :equipos
   get 'home/index'
-  post "home/buscar" => "home#buscar_turno"
-  get 'sessions/new'
+  post "menu/buscar" => "menu#buscar_turnos"
+  #get 'sessions/new'
   get 'home/home'
-  get 'users/new'
+  #get 'users/new'
   # => get 'home/equipos.xml'
 
+  get 'menu/buscar_turnos'
   get 'home/schedule'
   get 'home/db_action', :as => "db_action"
   get "home/data", :as => "data"

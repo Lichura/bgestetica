@@ -1,0 +1,29 @@
+<div id="turnos_resultados">
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>	
+				<th>inicio</th>
+				<th>Fin</th>
+				<th>Inicio menos una hora</th>
+				<th>Equipo</th>	
+				<th>Medico</th>			
+			</tr>
+		</thead>
+		<tbody>
+
+
+			<% if @eventos.present? %>
+				<% @eventos.each do |evento| %>
+					<tr class="<%= cycle('even', 'odd') -%>">
+						<td><%= evento.id %></td>		
+						<td><%= evento.start_date %></td>
+						<td><%= evento.end_date %></td>
+						<td><%= evento.equipo %></td>
+						<td><%= evento.medico %></td>			
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>

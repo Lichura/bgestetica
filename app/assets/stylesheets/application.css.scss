@@ -17,10 +17,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
-body{
-	height: 100%;
-	margin-top: 10vh;
 
+html, body {
+    height: 100%; /* IMPORTANT!!! stretches viewport to 100% */
+}
+body{
+	margin-top: 10vh;
 }
 #user_nav{
 	font-family: 'Roboto', sans-serif;

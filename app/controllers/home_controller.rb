@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
 
   end
-  def buscar_turno
+  def buscar_turnos
   	  	@eventos = Evento.all
 	  if params[:search]
 	    @eventos = Evento.search(params[:search]).order('start_date DESC')
