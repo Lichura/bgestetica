@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :equipos
   get 'home/index'
   post "menu/buscar" => "menu#buscar_turnos"
+  get "nuevo_turno" => "menu#nuevo_turno"
+  post "nuevo_turno" => "menu#nuevo_turno"
   #get 'sessions/new'
   get 'home/home'
   #get 'users/new'

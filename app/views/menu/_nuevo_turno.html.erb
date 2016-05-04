@@ -1,0 +1,8 @@
+<%= form_tag :controller=>'home', :action=>'nuevo_turno' do %>
+  <p>
+    <%= text_field_tag :medico, params[:medico] %>
+    <%= text_field_tag :equipo, params[:equipo] %>
+    <%= datetime_field_tag :start_date, params[:start_date] %>
+    <%= submit_tag "Aceptar", :nombre => nil %>
+  </p>
+<% end %>

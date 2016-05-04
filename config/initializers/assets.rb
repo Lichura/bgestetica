@@ -20,3 +20,4 @@ Rails.application.config.assets.precompile += %w( dhtmlxscheduler_agenda_view.js
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_units.js )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_timeline.js )
 Rails.application.config.assets.precompile += %w( bootstrap.js )
+Rails.application.config.assets.precompile += %w( home.js )

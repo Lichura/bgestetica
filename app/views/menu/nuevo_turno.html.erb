@@ -1,11 +1,21 @@
-<div id="turnos_resultados">
+<html>
+<body>
+<div>
+<%= form_tag(menu_nuevo_turno_path, :method => "get", id: "search-form", :class => 'search_input') do %>
+	<%= text_field_tag :medico,  params[:medico], placeholder: "medico" %>
+	<%= text_field_tag :equipo,  params[:equipo], placeholder: "equipo" %>
+	<%= text_field_tag :start_date,  params[:start_date], :class => "datepicker" %>
+	<%= submit_tag "Buscar", :class => 'search_input_button' %>
+<% end %>
+</div>
+
+<div class="menu_content">
 	<table>
 		<thead>
 			<tr>
 				<th>id</th>	
 				<th>inicio</th>
 				<th>Fin</th>
-				<th>Inicio menos una hora</th>
 				<th>Equipo</th>	
 				<th>Medico</th>			
 			</tr>
@@ -13,17 +23,19 @@
 		<tbody>
 
 
-			<% if @eventos.present? %>
-				<% @eventos.each do |evento| %>
+			<% if @turnos.present? %>
+				<% @turnos.each do |turno| %>
 					<tr class="<%= cycle('even', 'odd') -%>">
-						<td><%= evento.id %></td>		
-						<td><%= evento.start_date %></td>
-						<td><%= evento.end_date %></td>
-						<td><%= evento.equipo %></td>
-						<td><%= evento.medico %></td>			
+						<td><%= turno.id %></td>		
+						<td><%= turno.start_date %></td>
+						<td><%= turno.end_date %></td>
+						<td><%= turno.equipo %></td>
+						<td><%= turno.medico %></td>			
 					</tr>
 				<% end %>
 			<% end %>
 		</tbody>
 	</table>
 </div>
+</body>
+</html>

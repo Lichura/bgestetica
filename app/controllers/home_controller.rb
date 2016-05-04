@@ -59,7 +59,8 @@ class HomeController < ApplicationController
 	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo
 	       tid = event.id
 	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => medico_nombre, :nombre => paciente_nombre, :apellido => paciente_apellido, :dni => paciente_dni, :email => paciente_mail, :start_date => start_date, :end_date => end_date
-
+	       buscar_turno = Turno.where("(medico = ? OR equipo = ?) AND start_date <= ? AND end_date >= ?", medico, equipo, end_date, start_date)
+	       buscar_turno.delete_all
 
 	     when "deleted"
 	       Event.find(id).destroy
