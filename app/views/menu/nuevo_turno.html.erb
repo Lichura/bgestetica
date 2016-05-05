@@ -1,18 +1,26 @@
 <html>
 <body>
-<div style="margin-top: 15vh;">
+
+
+<div class="container">
+	<div class="row">
 <%= form_tag(menu_nuevo_turno_path, :method => "get", id: "search-form", :class => 'search_input') do %>
 	<%= text_field_tag :medico,  params[:medico], placeholder: "medico" %>
 	<%= text_field_tag :equipo,  params[:equipo], placeholder: "equipo" %>
 	<%= text_field_tag :start_date,  params[:start_date], :class => "datepicker" %>
 	<%= submit_tag "Buscar", :class => 'search_input_button' %>
 <% end %>
-<input type="text" data-behaviour="datepicker">
-</div>
-<div>
-<%= button_to 'generar turnos', menu_generar_turnos_path, method: :post %>
-</div>
-<div class="menu_content">
+	</div>
+    <div class="row">
+        <div class='col-sm-6'>
+				    <input id="txtDate" type="text" />
+        </div>
+
+    </div>
+    <div class="row">
+		<%= button_to 'generar turnos', menu_generar_turnos_path, method: :post %>
+	</div>
+	<div class="row">
 	<table>
 		<thead>
 			<tr>
@@ -39,6 +47,7 @@
 			<% end %>
 		</tbody>
 	</table>
+</div>
 </div>
 </body>
 </html>

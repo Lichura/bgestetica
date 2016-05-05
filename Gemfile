@@ -27,6 +27,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7', :require => 'bcrypt'
 gem 'gon'
 gem 'bootstrap-datepicker-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 # Use Unicorn as the app server
