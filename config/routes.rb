@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get 'home/index'
   post "menu/buscar" => "menu#buscar_turnos"
   get "nuevo_turno" => "menu#nuevo_turno"
+  get "generar_turnos" => "menu#generar_turnos"
   post "nuevo_turno" => "menu#nuevo_turno"
+  post "menu/generar_turnos" 
   #get 'sessions/new'
   get 'home/home'
   #get 'users/new'

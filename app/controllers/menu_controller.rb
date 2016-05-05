@@ -20,8 +20,22 @@ class MenuController < ApplicationController
     else
       @turnos = Turno.all
     end
+  end
 
- 
+  def generar_turnos
+      medicos = Medico.all
+      equipos = Equipo.all 
+      d = DateTime.now.beginning_of_hour + 20.days
+    medicos.each do |medico|
+      equipos.each do |equipo|
+        for horas in 1..24
+          start_date = d + (30 * horas).minutes
+          end_date = start_date + 30.minutes
+          Turno.create([{medico: medico.id, equipo: equipo.id, start_date: start_date, end_date: end_date}])
+        end
+      end
+    end
+    redirect_to root_url
   end
 
 end
