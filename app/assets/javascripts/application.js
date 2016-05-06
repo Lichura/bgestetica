@@ -18,17 +18,26 @@
 //= require moment
 //= require_tree .
 
-
+	$(document).ready(function(){
 
 		var availableDates = ["5-5-2016","6-5-2016"];
-
+		var eventDates = {};
+		eventDates[ new Date( '05/10/2016')] = new Date('05/10/2016');
 		$(function()
 		{
 		    $('#txtDate').datepicker({ beforeShowDay:
-		      function(dt)
-		      { 
-		        return [dt.getDay() == 0 || dt.getDay() == 6 || available(dt), "" ];
-		      },
+		      //function(dt)
+		      //{ 
+		      //  return [dt.getDay() == 0 || dt.getDay() == 6 || available(dt), "" ];
+		      //},
+		      function( date ) {
+                var highlight = eventDates[date];
+                if( highlight ) {
+                     return [true, "event", "highlight"];
+                } else {
+                     return [true, '', ''];
+                }
+             },
 			 changeMonth: true, 
 		     changeYear: false, 
 		     todayHighlight: true,
@@ -46,3 +55,5 @@
 		    return false;
 		  }
 		}
+
+	});
