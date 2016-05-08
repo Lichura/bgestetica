@@ -8,13 +8,16 @@ class MenuController < ApplicationController
 	  	#@eventos.start_date = @eventos.start_date - (30*60)
 	    @eventos = Evento.search(params[:search]).order('start_date DESC')
 	  else
-	    @eventos = Evento.all.order('created_at DESC')
+	    @eventos = Evento.all.order('created_at DESC').limit(10)
 	  end
   end
 
   def nuevo_turno
+    @medicos = Medico.all
+    @equipos = Equipo.all
   	@eventos = Evento.where('start_date >= ?',Date.today).order('start_Date DESC')
     @turnos = Turno.all
+    @turno_unico = Turno.group("strftime('%Y%m%d', start_date)")
     if params[:medico]
       @turnos = Turno.search(params[:medico], params[:equipo], params[:start_date].to_s)
     else

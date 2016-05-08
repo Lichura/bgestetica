@@ -1,7 +1,19 @@
 class HomeController < ApplicationController
   before_filter :login_required, :except => :index
   def index
+  	@contactos = Contacto.all
+  end
 
+  def nuevo_contacto
+ 	
+  	@contacto = Contacto.new(contacto_params)
+  		if @contacto.save
+  			redirect_to root_url,
+  			contacto_error: "Muchas gracias por contactarte con BG Estetica. Nos pondremos en contacto contigo a la brevedad."
+  		else
+  			redirect_to root_url,
+  			contacto_error: "Hubo un problema con tu solicitud, por favor intenta nuevamente"
+  		end
   end
   def buscar_turnos
   	  	@eventos = Evento.all
@@ -87,4 +99,7 @@ class HomeController < ApplicationController
 	 end
 
 	 private
+	 def contacto_params
+	 	params.require(:contacto).permit(:nombre, :mail, :telefono, :texto)
+	 end
 end

@@ -1,63 +1,57 @@
 <html>
-<head>
-	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-<script src="js/jquery-1.7.min.js" > </script>
-<script src="js/jquery-ui-1.8.16.custom.min.js" > </script>
-<style>
-.event a{
-	background-color: red;
-}
-</style>
-</head>
 <body>
 
 
 <div class="container">
 	<div class="row">
 <%= form_tag(menu_nuevo_turno_path, :method => "get", id: "search-form", :class => 'search_input') do %>
-	<%= text_field_tag :medico,  params[:medico], placeholder: "medico" %>
-	<%= text_field_tag :equipo,  params[:equipo], placeholder: "equipo" %>
-	<%= text_field_tag :start_date,  params[:start_date], :class => "datepicker" %>
+	<%= select_tag "medico", options_from_collection_for_select(@medicos, "id", "nombre") %>
+	<%= select_tag "equipo", options_from_collection_for_select(@equipos, "id", "nombre") %>
+	<%= select_tag "turno", options_from_collection_for_select(@turnos, "id", "start_date") %>
 	<%= submit_tag "Buscar", :class => 'search_input_button' %>
 <% end %>
 	</div>
-    <div class="row">
-        <div class='col-sm-6'>
-				    <input id="txtDate" type="text" />
+<div class="container">
+    <div class="col-sm-6" style="height:130px;">
+        <div class="form-group">
+        	<div id="datepicker"></div>
+                </span>
+            </div>
         </div>
-
     </div>
-    <div class="row">
-		<%= button_to 'generar turnos', menu_generar_turnos_path, method: :post %>
-	</div>
-	<div class="row">
-	<table>
-		<thead>
-			<tr>
-				<th>id</th>	
-				<th>inicio</th>
-				<th>Fin</th>
-				<th>Equipo</th>	
-				<th>Medico</th>			
-			</tr>
-		</thead>
-		<tbody>
+    <script type="text/javascript">
+        var availableDates = [];
 
+    <% @turno_unico.each do |turno| %>
+        availableDates.push("<%= turno.start_date.strftime("%-d-%-m-%Y") %>")
+    <% end %>
+    console.log(availableDates)
+        $(function () {
+            $('#datepicker').datepicker({
+            	todayHighLight: true,
+            	changeMonth: true,
+            	autoSize: true,
+            	autoClose: true,
+            	showAnim: "fold",
+                beforeShowDay:
+         			 function(dt)
+				          { 
+				            // use dt.getDay() to restrict to certain days of the week
+				            // or a custom function like "available" below to do more complex things
+				            return [available(dt), "" ];
+				          }
+            });
+        });
 
-			<% if @turnos.present? %>
-				<% @turnos.each do |turno| %>
-					<tr class="<%= cycle('even', 'odd') -%>">
-						<td><%= turno.id %></td>		
-						<td><%= turno.start_date %></td>
-						<td><%= turno.end_date %></td>
-						<td><%= turno.equipo %></td>
-						<td><%= turno.medico %></td>			
-					</tr>
-				<% end %>
-			<% end %>
-		</tbody>
-	</table>
-</div>
+        function available(date) {
+		    dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+		    if ($.inArray(dmy, availableDates) != -1) {
+		        return true;
+		    } else {
+		        return false;
+		    }
+		}
+    </script>
 </div>
 </body>
 </html>

@@ -61,7 +61,7 @@
 
     //Boton de agregar nuevo usuario
     scheduler.locale.labels.button_new="nuevo";
-    scheduler.form_blocks.textarea.button_click = function(index,button,shead,sbody){
+    scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
     modal = document.getElementById('overlay');
     modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
     scheduler.hideCover();
@@ -141,7 +141,7 @@
 
     //secciones del lightbox
     scheduler.config.lightbox.sections=[
-      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo", height:20, image_path:"../common/dhtmlxCombo/imgs/", height:30, filtering:true},
+      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../common/dhtmlxCombo/imgs/", height:40, filtering:true},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
       {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
@@ -149,6 +149,6 @@
           options:[{key:1, label:"activo"},
                   {key: 2, label:"completado"}, 
                   {key: 3, label:"cancelado"}]},
-      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true}
+      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"}
     ];
 </script>
