@@ -197,7 +197,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f3c17a', endColorstr='#f3e97a', GradientType=0);
   border-color: #f3e97a #f3e97a #edde34;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: unquote"(progid:DXImageTransform.Microsoft.gradient(enabled=false)");
+  filter: unquote("progid:DXImageTransform.Microsoft.gradient(enabled=false)");
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
