@@ -771,7 +771,7 @@ div.icon_delete {
     -webkit-box-shadow: 3px 3px 3px #888;
     -o-box-shadow: 3px 3px 3px #888;
     box-shadow: 3px 3px 3px #888;
-    filter: progid: DXImageTransform.Microsoft.Shadow(color='#888888', Direction=135, Strength=5);
+    filter: unquote("progid: DXImageTransform.Microsoft.Shadow(color='#888888', Direction=135, Strength=5)");
     background-color: #fff;
     cursor: default;
     padding: 10px;
