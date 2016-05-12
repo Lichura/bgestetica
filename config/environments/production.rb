@@ -82,8 +82,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
    :address              => "smtp.zoho.com",
    :port                 => 587,
-   :user_name            => ENV['usuarioMail']  
-   :password             => ENV['passMail']   
+   :user_name            => ENV['usuarioMail'], 
+   :password             => ENV['passMail'],  
    :authentication       => :login,
    :enable_starttls_auto => true
   }
