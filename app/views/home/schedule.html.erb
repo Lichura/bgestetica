@@ -1,4 +1,17 @@
-
+<html>
+<head>
+  <%= javascript_include_tag 'dhtmlxscheduler', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxscheduler_dhx_terrace', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'dhtmlxscheduler_dhx_terrace', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxscheduler_editors', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'dhtmlxcombo', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxcombo', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxscheduler_agenda_view', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxscheduler_units', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxscheduler_timeline', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxscheduler_recurring', 'data-turbolinks-track' => true %>
+</head>
+<body>
    <div class="search_button">
       <img src=<%= asset_path('search-icon.png') %>/>
       <div class"search_button_campos">
@@ -9,9 +22,23 @@
         <button onclick="clean_button()">borrar</button>
       </div>
    </div>
-<div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
+<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:900px;'>
  <div class="dhx_cal_navline">
-   <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+        <div class="dhx_cal_today_button"></div>
+        <div class="dhx_cal_date"></div>
+        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+
+
+
+
+
+
+
+   <!--<div class="dhx_cal_prev_button">&nbsp;</div>
    <div class="dhx_cal_next_button">&nbsp;</div>
    <div class="dhx_cal_today_button"></div>
    <div class="dhx_cal_date"></div>
@@ -20,7 +47,7 @@
    <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
    <div class="dhx_cal_tab" name="agenda_tab" style="right: 280px;"></div>
    <div class="dhx_cal_tab" name="equipos_tab" style="right:350px;"></div>
-   <div class="dhx_cal_tab" name="medicos_tab" style="right:350px;"></div>
+   <div class="dhx_cal_tab" name="medicos_tab" style="right:350px;"></div>-->
  </div>
  <div class="dhx_cal_header">
  </div>
@@ -149,6 +176,10 @@
           options:[{key:1, label:"activo"},
                   {key: 2, label:"completado"}, 
                   {key: 3, label:"cancelado"}]},
-      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"}
+      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"},
+      {name:"recurring", height:115, type:"recurring", map_to:"rec_type", 
+    button:"recurring"},
     ];
 </script>
+</body>
+</html>

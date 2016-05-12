@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507203815) do
+ActiveRecord::Schema.define(version: 20160510192828) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
@@ -50,12 +50,15 @@ ActiveRecord::Schema.define(version: 20160507203815) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "paciente"
     t.string   "medico"
     t.string   "equipo"
     t.string   "color"
+    t.string   "rec_type"
+    t.integer  "event_length"
+    t.integer  "event_pid"
   end
 
   create_table "medicos", force: :cascade do |t|
