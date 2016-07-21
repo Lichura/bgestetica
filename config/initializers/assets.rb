@@ -10,7 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-
+Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_flat.css )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler.js )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_editors.js )
@@ -23,7 +23,6 @@ Rails.application.config.assets.precompile += %w( bootstrap.js )
 Rails.application.config.assets.precompile += %w( homes.js )
 Rails.application.config.assets.precompile += %w( bootstrap-datepicker3.css )
 Rails.application.config.assets.precompile += %w( bootstrap-datepicker.css )
-Rails.application.config.assets.precompile += %w( datepicker.css )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_recurring.js )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_dhx_terrace.js )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_dhx_terrace.css )
