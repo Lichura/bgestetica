@@ -15,4 +15,5 @@ class UserMailer < ApplicationMailer
   	@user = user
 
   	mail(:to => user.email, :subject => "Su turno en BG Estetica")
+  end
 end
