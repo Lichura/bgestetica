@@ -35,22 +35,30 @@ class HomeController < ApplicationController
   
   def data
    events = Event.all
-   render :json => events.map {|event| {
+  render :json => events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text,
-              :paciente => event.paciente,
-              :medico => event.medico,
-              :equipo => event.equipo,
-              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
-              :rec_type => event.rec_type,
-              :event_length => event.event_length,
-              :event_pid => event.event_pid
+              :text => event.text
           }}
-    end
 
-	 def db_action
+
+  #render :json => events.map {|event| {
+  #            :id => event.id,
+  #            :start_date => event.start_date.to_formatted_s(:db),
+  #            :end_date => event.end_date.to_formatted_s(:db),
+  #            :text => event.text,
+  #            :paciente => event.paciente,
+  #            :medico => event.medico,
+  #            :equipo => event.equipo,
+  #            :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
+  #            :rec_type => event.rec_type,
+  #            :event_length => event.event_length,
+  #            :event_pid => event.event_pid
+  #        }}
+   end
+
+	def db_action
 	   mode = params["!nativeeditor_status"]
 	   id = params["id"]
 	   paciente = params["paciente"]
@@ -114,14 +122,14 @@ class HomeController < ApplicationController
 	       event.event_pid = event_pid
 	       event.save
 	       tid = id
-	   end
-
+	   	end
 	   render :json => {
 	              :type => mode,
 	              :sid => id,
 	              :tid => tid,
 	          }
-	 end
+	 	end
+
 
 	 private
 	 def contacto_params

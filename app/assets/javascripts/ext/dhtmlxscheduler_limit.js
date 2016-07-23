@@ -47,3 +47,4 @@ var a=e?e:{};for(var r in t||{})t.hasOwnProperty(r)&&(a[r]=t[r]);return a},sched
 
 t=scheduler.date.add(scheduler._min_date,Math.floor(h/o.length),"day"),t=scheduler.date.date_part(t)}else t=scheduler.date.date_part(new Date(this._date));if(a=t.getDay(),r=t.valueOf(),n[i]&&n[i][c.key]){var p=n[i][c.key],v=scheduler._get_types_to_render(p[a],p[r]);l.push.apply(l,scheduler._get_configs_to_render(v))}}var m=n.global,g=m[r]||m[a];l.push.apply(l,scheduler._get_configs_to_render(g));for(var b=0;b<l.length;b++)d.push.apply(d,scheduler._render_marked_timespan(l[b],e,t));return d}},scheduler.attachEvent("onScaleAdd",scheduler._on_scale_add_marker),
 scheduler.dblclick_dhx_marked_timespan=function(e,t){scheduler.config.dblclick_create||scheduler.callEvent("onScaleDblClick",[scheduler.getActionData(e).date,t,e]),scheduler.addEventNow(scheduler.getActionData(e).date,null,e)}},scheduler._temp_limit_scope();
+//# sourceMappingURL=../sources/ext/dhtmlxscheduler_limit.js.map

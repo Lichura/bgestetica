@@ -65,14 +65,16 @@
 <script>
     scheduler.config.xml_date="%Y-%m-%d %H:%i";
     scheduler.init("scheduler_here");
-    var dp = new dataProcessor("<%= db_action_path %>");
     scheduler.load("<%= data_path %>", "json");
+    scheduler.updateView();
+    var dp = new dataProcessor("<%= db_action_path %>");
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
-
+    scheduler.config.first_hour = 8;
+    scheduler.config.last_hour = 22;
 
     //buscar por usuario
-    function search_button(){
+    /*function search_button(){
       var user_input = document.getElementById("search_nombre").value;
       scheduler.filter_month = scheduler.filter_day = scheduler.filter_week = function(id, event){
         if(event.equipo == user_input){
@@ -80,12 +82,12 @@
         }
       };
       scheduler.updateView();
-    };
+    };*/
 
-    function clean_button(){
+    /*function clean_button(){
       scheduler.filter_week = function(id, event){return true;};
       scheduler.updateView();
-    };
+    };*/
 
     //Boton de agregar nuevo usuario
     scheduler.locale.labels.button_new="nuevo";
@@ -131,9 +133,9 @@
 
 
     // Tab de equipos
-    scheduler.locale.labels.agenda_tab = "Agenda";
+    /*scheduler.locale.labels.agenda_tab = "Agenda";
     scheduler.locale.labels.equipos_tab = "Equipo";
-    scheduler.locale.labels.medicos_tab = "Medico";
+    scheduler.locale.labels.medicos_tab = "Medico";*/
     // Tab de grid
     //scheduler.createGridView({
     //  name: "grid",
@@ -141,7 +143,7 @@
     //});
 
     //equipos vista
-    scheduler.createTimelineView({
+    /*scheduler.createTimelineView({
       name:"equipos", //Nombre de la vista
       x_unit: "minute", //Unidad de medida de la vista
       x_date: "%H:%i",  //
@@ -165,7 +167,7 @@
       y_unit: medicos_opts,
       y_property: "medico",
       render: "bar"
-    });
+    });*/ 
 
     //secciones del lightbox
     scheduler.config.lightbox.sections=[

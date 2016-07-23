@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   get 'menu/buscar_turnos'
   get 'home/schedule'
   get 'home/db_action', :as => "db_action"
-  get "home/data", :as => "data"
+  #get "home/data", :as => "data"
+  get 'home/data', to: 'home#data', as: :data
 
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"

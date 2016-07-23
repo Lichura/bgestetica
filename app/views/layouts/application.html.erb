@@ -23,17 +23,17 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/home/index">Home</a></li>
-        <li><a href="#seccion-tratamientos">Tratamientos</a></li>
-        <li><a href="#seccion-nosotros">Nosotros</a></li>
-        <li><a href="#seccion-contacto">Contacto</a></li>
+        <li><a href="/home/index#seccion-tratamientos">Tratamientos</a></li>
+        <li><a href="/home/index#seccion-nosotros">Nosotros</a></li>
+        <li><a href="/home/index#seccion-contacto">Contacto</a></li>
         <li><a href="/home/schedule">Turnos</a></li>
         <% if !current_user.nil? %>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu<b class="caret"></b></a>
             <ul class="dropdown-menu">
             <li><a href="/equipos">Equipos</a></li>
             <li><a href="/medicos">Medicos</a></li>
-            <li><a href="#">Usuarios</a></li>
-            <li><a href="#">Pacientes</a></li>
+            <li><a href="/users">Usuarios</a></li>
+            <li><a href="/pacientes">Pacientes</a></li>
             <li><a href="/menu/buscar_turnos">Turnos</a></li>
             <li><a href="#">Perfiles</a></li>
             </ul>

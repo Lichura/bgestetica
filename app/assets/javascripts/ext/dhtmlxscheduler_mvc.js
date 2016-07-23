@@ -12,3 +12,4 @@ o=[])}l&&(d=l),i.bind("change",function(e,a){var r=n(e),i=scheduler._events[r]=e
 }),i.bind("error",function(e){e instanceof Backbone.Collection&&r(scheduler)}),scheduler.attachEvent("onEventCreated",function(e){var t=new i.model(scheduler.getEvent(e));return scheduler._events[e]=t.toJSON(),scheduler._events[e].id=e,!0}),scheduler.attachEvent("onEventAdded",function(t){if(!i.get(t)){var a=e(scheduler.getEvent(t)),r=new i.model(a),d=n(r);d!=t&&this.changeEventId(t,d),i.add(r),i.trigger("scheduler:add",r)}return!0}),scheduler.attachEvent("onEventChanged",function(t){var a=i.get(t),r=e(scheduler.getEvent(t));
 
 return a.set(r),i.trigger("scheduler:change",a),!0}),scheduler.attachEvent("onEventDeleted",function(e){var t=i.get(e);return t&&(i.trigger("scheduler:remove",t),i.remove(e)),!0})}}();
+//# sourceMappingURL=../sources/ext/dhtmlxscheduler_mvc.js.map
