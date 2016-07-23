@@ -13,4 +13,3 @@ for(var n in e)r.push({id:n,data:e[n],operation:this.getState(n)});return void t
 return this.serialize(t)},e._processResult=function(e,t,a){if(200==a.status)t=new dtmlXMLLoaderObject(function(){},this,!0),t.loadXMLString(e),t.xmlDoc=a,this.afterUpdate(this,null,null,null,t);else for(var r in this._in_progress){var n=this.getState(r);this.afterUpdateCallback(r,r,n,null)}},this._dp_init_backup(e)},window.dataProcessor&&(dataProcessor.prototype.init=function(e){this.init_original(e),e._dataprocessor=this,this.setTransactionMode("POST",!0),this.serverProcessor.$proxy||(this.serverProcessor+=(-1!=this.serverProcessor.indexOf("?")?"&":"?")+"editing=true");
 
 });
-//# sourceMappingURL=../sources/ext/dhtmlxscheduler_offline.js.map

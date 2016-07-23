@@ -6,6 +6,7 @@ This software is covered by GPL license. You also can obtain Commercial or Enter
 
 (c) Dinamenta, UAB.
 */
+
 scheduler.date.add_agenda=function(e){return scheduler.date.add(e,1,"year")},scheduler.templates.agenda_time=function(e,t,s){return s._timed?this.day_date(s.start_date,s.end_date,s)+" "+this.event_date(e):scheduler.templates.day_date(e)+" &ndash; "+scheduler.templates.day_date(t)},scheduler.templates.agenda_text=function(e,t,s){return s.text},scheduler.templates.agenda_date=function(){return""},scheduler.date.agenda_start=function(){return scheduler.date.date_part(scheduler._currentDate())},scheduler.attachEvent("onTemplatesReady",function(){
 function e(e){if(e){var t=scheduler.locale.labels;scheduler._els.dhx_cal_header[0].innerHTML="<div class='dhx_agenda_line'><div>"+t.date+"</div><span style='padding-left:25px'>"+t.description+"</span></div>",scheduler._table_view=!0,scheduler.set_sizes()}}function t(){var e=(scheduler._date,scheduler.get_visible_events());e.sort(function(e,t){return e.start_date>t.start_date?1:-1});for(var t="<div class='dhx_agenda_area'>",s=0;s<e.length;s++){var i=e[s],a=i.color?"background:"+i.color+";":"",r=i.textColor?"color:"+i.textColor+";":"",n=scheduler.templates.event_class(i.start_date,i.end_date,i);
 

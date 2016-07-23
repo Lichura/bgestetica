@@ -18,4 +18,3 @@ var a=window.event||t,r=a.target||a.srcElement,n=dhtmlXTooltip,i=n.isTooltip(r),
 n.delay(n.show,n,[o||a,d])}else n.delay(n.hide,n,[],n.config.timeout_to_hide)}),scheduler.attachEvent("onBeforeDrag",function(){return dhtmlXTooltip.hide(),!0}),scheduler.attachEvent("onEventDeleted",function(){return dhtmlXTooltip.hide(),!0}),scheduler.templates.tooltip_date_format=scheduler.date.date_to_str("%Y-%m-%d %H:%i"),scheduler.templates.tooltip_text=function(e,t,a){return"<b>Event:</b> "+a.text+"<br/><b>Start date:</b> "+scheduler.templates.tooltip_date_format(e)+"<br/><b>End date:</b> "+scheduler.templates.tooltip_date_format(t);
 
 };
-//# sourceMappingURL=../sources/ext/dhtmlxscheduler_tooltip.js.map

@@ -28,4 +28,3 @@ _=this.date.add(_,1,"month")}this._els.dhx_cal_date[0].innerHTML=this.templates[
 
 t=n[0].id}return t},scheduler._locate_year_month_cell=function(e){return"td"==e.nodeName.toLowerCase()},scheduler._locate_year_month_table=function(e){return"table"==e.nodeName.toLowerCase()},scheduler._locate_year_month_root=function(e){return e.hasAttribute&&e.hasAttribute("date")},scheduler._get_year_month_cell=function(e){return this._get_year_el_node(e,this._locate_year_month_cell)},scheduler._get_year_month_table=function(e){return this._get_year_el_node(e,this._locate_year_month_table)},scheduler._get_year_month_root=function(e){
 return this._get_year_el_node(this._get_year_month_table(e),this._locate_year_month_root)},scheduler._get_year_el_node=function(e,t){for(;e&&!t(e);)e=e.parentNode;return e}}();
-//# sourceMappingURL=../sources/ext/dhtmlxscheduler_year_view.js.map
