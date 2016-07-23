@@ -35,16 +35,20 @@ class HomeController < ApplicationController
   
   def data
    events = Event.all
-  render :json => events.map {|event| {
+
+      render :json => events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text
+              :text => event.text,
+              :rec_type => event.rec_type,
+              :event_length => event.event_length,
+              :event_pid => event.event_pid
           }}
-
+ 	end
 
   #render :json => events.map {|event| {
-  #            :id => event.id,
+  #           :id => event.id,
   #            :start_date => event.start_date.to_formatted_s(:db),
   #            :end_date => event.end_date.to_formatted_s(:db),
   #            :text => event.text,
@@ -54,9 +58,9 @@ class HomeController < ApplicationController
   #            :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
   #            :rec_type => event.rec_type,
   #            :event_length => event.event_length,
-  #            :event_pid => event.event_pid
+  #           :event_pid => event.event_pid
   #        }}
-   end
+  # end
 
 	def db_action
 	   mode = params["!nativeeditor_status"]
