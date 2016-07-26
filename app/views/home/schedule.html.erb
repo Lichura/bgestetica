@@ -48,6 +48,7 @@
     <a href='#' onclick="overlay()">close</a>
   </div>
 </div>
+
 <script>
 
     scheduler.config.multi_day = true;
@@ -61,6 +62,8 @@
     dp.setTransactionMode("GET", false);
     scheduler.config.first_hour = 8;
     scheduler.config.last_hour = 22;
+    scheduler.config.time_step  = 30;
+
 
     //buscar por usuario
     function search_button(){
@@ -97,7 +100,7 @@
     <% @medicos.each do |medico| %>
         var nuevo_medico = {}
         nuevo_medico.key = <%= medico.id %>
-        nuevo_medico.label = '<%= medico.nombre + ' ' + medico.apellido %>'
+        nuevo_medico.label = '<%= medico.name + ' ' + medico.lastname %>'
         medicos_opts.push(nuevo_medico)
     <% end %>
 
@@ -114,7 +117,7 @@
     <% @pacientes.each do |paciente| %>
       var nuevo_paciente = {}
       nuevo_paciente.key = <%= paciente.id %>
-      nuevo_paciente.label = "<%= paciente.nombre + ' ' + paciente.apellido %>"
+      nuevo_paciente.label = "<%= paciente.name + ' ' + paciente.lastname + ' ' + paciente.email %>"
       pacientes.push(nuevo_paciente) 
     <% end %>
 
@@ -154,9 +157,13 @@
       render: "bar"
     });
 
+
+
+
+
     //secciones del lightbox
     scheduler.config.lightbox.sections=[
-      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../common/dhtmlxCombo/imgs/", height:40, filtering:true},
+      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../dhtmlxCombo/", height:40, filtering:true},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
       {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},

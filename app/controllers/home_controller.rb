@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_filter :login_required, :except => :index
+  before_filter :admin_required, :only => [:schedule]
   def index
   	@contactos = Contacto.all
   end
@@ -16,17 +17,17 @@ class HomeController < ApplicationController
   		end
   end
   def buscar_turnos
-  	  	@eventos = Evento.all
+  	  	@eventos = Events
 	  if params[:search]
-	    @eventos = Evento.search(params[:search]).order('start_date DESC')
+	    @eventos = Evento.search(params[:search]).order('start_date DESC').flatten
 	  else
-	    @eventos = Evento.all.order('created_at DESC')
+	    @eventos = Events.all.order('created_at DESC').flatten
 	  end
   end
   def schedule
 	@equipos_todos = Equipo.all
-	@medicos = Medico.all
-	@pacientes = Paciente.all
+	@medicos = User.where(["profile = ? or profile = ?", "Medico", "Admin"])
+	@pacientes = User.where(profile: "Paciente")
 	@paciente = Paciente.new
   end
   def equipos_todos
@@ -41,6 +42,10 @@ class HomeController < ApplicationController
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
               :text => event.text,
+              :paciente => event.paciente,
+              :medico => event.medico,
+              :equipo => event.equipo,
+              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
               :rec_type => event.rec_type,
               :event_length => event.event_length,
               :event_pid => event.event_pid
@@ -75,12 +80,14 @@ class HomeController < ApplicationController
 	   event_length = params["event_length"]
 	   event_pid = params["event_pid"]
 	   color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
-	   paciente_nombre = Paciente.where(id: paciente).pluck(:nombre)
-	   paciente_apellido = Paciente.where(id: paciente).pluck(:apellido)
-	   paciente_mail = Paciente.where(id: paciente).pluck(:email)
-	   paciente_dni = Paciente.where(id: paciente).pluck(:dni)
-	   equipo_nombre = Equipo.where(id: equipo).pluck(:nombre)
-	   medico_nombre = Medico.where(id: medico).pluck(:nombre, :apellido)
+	   @paciente = User.find(paciente)
+	   @medico = User.find(medico)
+	   #paciente_nombre = Paciente.where(id: paciente).pluck(:nombre).first
+	   #paciente_apellido = Paciente.where(id: paciente).pluck(:apellido).first
+	   #paciente_mail = Paciente.where(id: paciente).pluck(:email).first
+	   #paciente_dni = Paciente.where(id: paciente).pluck(:dni).first
+	   equipo_nombre = Equipo.where(id: equipo).pluck(:nombre).first
+	   #medico_nombre = Medico.where(id: medico).pluck(:nombre, :apellido).first.join(" ");
 	   #color = Equipo.where(id: equipo).pluck(:color).to_s.slice(2,8)
 	   tid = id
 
@@ -88,7 +95,7 @@ class HomeController < ApplicationController
 	     when "inserted"
 	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo, :rec_type => rec_type, :event_length => event_length, :event_pid => event_pid
 	       tid = event.id
-	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => medico_nombre, :nombre => paciente_nombre, :apellido => paciente_apellido, :dni => paciente_dni, :email => paciente_mail, :start_date => start_date, :end_date => end_date
+	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => @medico.name, :nombre => @paciente.name, :apellido => @paciente.lastname, :email => @paciente.email, :start_date => start_date, :end_date => end_date
 	       if rec_type == 'none'
 	       	mode = 'deleted'
 	       end

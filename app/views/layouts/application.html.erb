@@ -12,6 +12,7 @@
   <%= javascript_include_tag 'locale/recurring/locale_recurring_es', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'dhtmlxscheduler_editors', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'dhtmlxcombo', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'dhtmlxcommon', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'dhtmlxcombo', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'dhtmlxscheduler_agenda_view', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'dhtmlxscheduler_units', 'data-turbolinks-track' => true %>
@@ -47,7 +48,7 @@
             <ul class="dropdown-menu">
             <li><a href="/equipos">Equipos</a></li>
             <li><a href="/medicos">Medicos</a></li>
-            <li><a href="/users">Usuarios</a></li>
+            <li><a href="/users/edit_multiple">Usuarios</a></li>
             <li><a href="/pacientes">Pacientes</a></li>
             <li><a href="/menu/buscar_turnos">Turnos</a></li>
             <li><a href="#">Perfiles</a></li>
@@ -58,7 +59,7 @@
 
       <p class="navbar-text navbar-right">
         <% if current_user %>
-          Bienvenido:  <%= current_user.email %>
+          Bienvenido:  <%= current_user.name + ' ' + current_user.lastname %>
           <%= link_to "Desconectarse", log_out_path  %>
         <% else %>
           <%= link_to "Registro", sign_up_path  %> or

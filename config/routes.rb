@@ -31,11 +31,25 @@ Rails.application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   root :to => "home#index"
-  resources :users
+  #get 'users/index' => "user#index"
+  #get 'users/edit_multiple' => "user#edit_multiple"
+  #resources :users, :collection => { :edit_multiple => :post, :update_multiple => :put }
+  #resources :users
   resources :sessions
   resources :equipos_todos
   resources :password_resets
   resources :events
+
+
+  resources :users do
+    collection do
+      get :edit_multiple
+      put :update_multiple
+      get :buscar
+    end
+  end
+
+  get 'users/buscar' => 'users#edit_multiple'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
