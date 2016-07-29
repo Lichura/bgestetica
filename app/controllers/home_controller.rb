@@ -95,7 +95,7 @@ class HomeController < ApplicationController
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo, :rec_type => rec_type, :event_length => event_length, :event_pid => event_pid, :color = color
+	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo, :rec_type => rec_type, :event_length => event_length, :event_pid => event_pid, :color => color
 	       tid = event.id
 	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => @medico.name, :nombre => @paciente.name, :apellido => @paciente.lastname, :email => @paciente.email, :start_date => start_date, :end_date => end_date
 	       if rec_type == 'none'
