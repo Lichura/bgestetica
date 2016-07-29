@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_required
-    if current_user.blank? || current_user.profile != "Admin"
+    if current_user.blank? || current_user.profile[:id] != 1
       redirect_to root_url, :notice => "no esta autorizado!"
     end  
   end

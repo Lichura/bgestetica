@@ -24,10 +24,10 @@
 			<% if @eventos.present? %>
 				<% @eventos do |evento| %>
 					<tr class="<%= cycle('even', 'odd') -%>">
-						<td><%= evento.dni %></td>
-						<td><%= evento.nombre %></td>
-						<td><%= evento.apellido%></td>
-						<td><%= evento.email %></td>			
+						<td><%= evento.text %></td>
+						<td><%= evento.paciente %></td>
+						<td><%= evento.medico%></td>
+						<td><%= evento.medico %></td>			
 						<td><%= evento.start_date %></td>
 						<td><%= evento.equipo %></td>
 						<td><%= evento.medico %></td>			

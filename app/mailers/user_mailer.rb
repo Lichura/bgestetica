@@ -16,4 +16,9 @@ class UserMailer < ApplicationMailer
 
   	mail(:to => user.email, :subject => "Su turno en BG Estetica")
   end
+  def envio_de_password(user, password)
+    @user = user
+    @password = password
+    mail(:to => user.email, :subject => "Detalles de su cuenta")
+  end
 end

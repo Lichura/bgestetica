@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
   end
   def edit
+        @profiles = Profile.all
   end
 
 def buscar
@@ -22,7 +23,7 @@ def buscar
 end
 
 def edit_multiple
-    #@user = User.find([params[:users_ids]])
+    @profiles = Profile.all
     @user = User.all
     if params[:search]
       @user = User.search(params[:search])
@@ -44,9 +45,15 @@ end
 
   def create
   	@user = User.new(user_params)
-    @user.profile = "paciente"
+    if @user.password.blank?
+      randomstring = SecureRandom.hex(5)
+      puts randomstring
+      @user.password = randomstring
+      @user.password_confirmation = randomstring
+    end
   	if @user.save
-  		redirect_to root_url, :notice => "Gracias por create un usuario"
+      UserMailer.envio_de_password(@user, @user.password).deliver_later
+  		redirect_to root_url, :notice => @user.password
   	else
   		render "new"
   	end
@@ -80,6 +87,6 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:name, :lastname, :email, :age, :profile, :password, :password_confirmation)
+			params.require(:user).permit(:name, :lastname, :email, :age, :profile_id, :password, :password_confirmation)
 		end
 end

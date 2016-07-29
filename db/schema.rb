@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160510192828) do
+ActiveRecord::Schema.define(version: 20160728183354) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 20160510192828) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "turnos", force: :cascade do |t|
     t.integer  "medico"
     t.integer  "equipo"
@@ -100,11 +107,11 @@ ActiveRecord::Schema.define(version: 20160510192828) do
     t.string   "password_salt"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.string   "profile"
     t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.string   "password_digest"
+    t.integer  "profile_id"
   end
 
 end

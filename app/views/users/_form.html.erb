@@ -28,13 +28,10 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.radio_button :profile, "Paciente" %>
-    <%= f.label :profile, "Paciente" %><br>
-    <%= f.radio_button :profile, "Medico" %>
-    <%= f.label :profile, "Medico" %><br>
-    <%= f.radio_button :profile, "Admin" %>
-    <%= f.label :profile, "admin" %>
-
+    <% @profiles.each do |perfil| %>
+    <%= f.radio_button :profile_id, perfil.id %>
+    <%= f.label :profile_id, perfil.nombre %><br>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -21,9 +21,9 @@
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Email</th>
-        <th>Paciente</th>
-        <th>Medico</th>
-        <th>Admin</th>
+        <% @profiles.each do |perfil| %>
+          <th><%= perfil.nombre %></th>
+        <% end %>
         <th>Editar</th>
         <th>Eliminar</th>
       </thead>
@@ -45,9 +45,9 @@
                 <td><%= user.name %></td>
                 <td><%= user.lastname %></td>
                 <td><%= user.email %></td>
-                <td><%= f.radio_button :profile, "Paciente" %></td>
-                <td><%= f.radio_button :profile, "Medico" %></td>
-                <td><%= f.radio_button :profile, "Admin" %></td>
+                <% @profiles.each do |perfil| %>
+                  <td style="padding-left: 3%;"><%= f.radio_button :profile_id, perfil.id %></td>
+                <% end %>
                 <td>
                   <%= link_to edit_user_path(user), class: "btn btn-default" do %>
                     <span class="glyphicon glyphicon-pencil"></span>

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-
-
+	after_initialize :set_defaults, unless: :persisted?
+	belongs_to :profile
+	
 	#attr_accessor :password
 	#before_save :encrypt_password
 	before_create { generate_token(:auth_token) }
@@ -11,7 +12,11 @@ class User < ActiveRecord::Base
 	validates_presence_of :email
 	validates_uniqueness_of :email
 
+	
 
+	def set_defaults
+		self.profile_id = Profile.find(3).id
+	end
 	def self.search(usuario)
 		where("name LIKE ? OR lastname LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")
 	end

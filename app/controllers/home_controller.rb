@@ -17,18 +17,20 @@ class HomeController < ApplicationController
   		end
   end
   def buscar_turnos
-  	  	@eventos = Events
-	  if params[:search]
-	    @eventos = Evento.search(params[:search]).order('start_date DESC').flatten
-	  else
-	    @eventos = Events.all.order('created_at DESC').flatten
-	  end
+  	  #	@eventos = Events
+	  #if params[:search]
+	  #  @eventos = Evento.search(params[:search]).order('start_date DESC').flatten
+	  #else
+	  #  @eventos = Events.all.order('created_at DESC').flatten
+	  #end
+	  @eventos = Event.all
   end
   def schedule
 	@equipos_todos = Equipo.all
-	@medicos = User.where(["profile = ? or profile = ?", "Medico", "Admin"])
-	@pacientes = User.where(profile: "Paciente")
-	@paciente = Paciente.new
+	@medicos = User.where("profile_id in (1,2)")
+	@pacientes = User.where("profile_id = 3")
+	@user = User.new
+	@profiles = Profile.all
   end
   def equipos_todos
 
