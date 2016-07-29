@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 	
 
 	def set_defaults
-		self.profile_id = Profile.find(3).id
+		self.profile_id = Profile.first[:id]
 	end
 	def self.search(usuario)
 		where("name LIKE ? OR lastname LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")
