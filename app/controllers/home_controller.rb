@@ -31,26 +31,32 @@ class HomeController < ApplicationController
 	@pacientes = User.where("profile_id = 3")
 	@user = User.new
 	@profiles = Profile.all
+
+
   end
   def equipos_todos
 
   end
   
   def data
-   events = Event.all
+  	if params[:search]
+  		events = Event.search(params[:search]).all
+  	else
+   		events = Event.all
+	end
 
       render :json => events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text,
-              :paciente => event.paciente,
-              :medico => event.medico,
-              :equipo => event.equipo,
-              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
-              :rec_type => event.rec_type,
-              :event_length => event.event_length,
-              :event_pid => event.event_pid
+              :text => event.text
+              # :paciente => event.paciente,
+              # :medico => event.medico,
+              # :equipo => event.equipo,
+              # :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
+              # :rec_type => event.rec_type,
+              # :event_length => event.event_length,
+              # :event_pid => event.event_pid
           }}
  	end
 
@@ -82,8 +88,8 @@ class HomeController < ApplicationController
 	   event_length = params["event_length"]
 	   event_pid = params["event_pid"]
 	   color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
-	   @paciente = User.find(paciente)
-	   @medico = User.find(medico)
+	   #@paciente = User.find(paciente)
+	   #@medico = User.find(medico)
 	   #paciente_nombre = Paciente.where(id: paciente).pluck(:nombre).first
 	   #paciente_apellido = Paciente.where(id: paciente).pluck(:apellido).first
 	   #paciente_mail = Paciente.where(id: paciente).pluck(:email).first
@@ -97,7 +103,7 @@ class HomeController < ApplicationController
 	     when "inserted"
 	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo, :rec_type => rec_type, :event_length => event_length, :event_pid => event_pid, :color => color
 	       tid = event.id
-	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => @medico.name, :nombre => @paciente.name, :apellido => @paciente.lastname, :email => @paciente.email, :start_date => start_date, :end_date => end_date
+	       #evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => @medico.name, :nombre => @paciente.name, :apellido => @paciente.lastname, :email => @paciente.email, :start_date => start_date, :end_date => end_date
 	       if rec_type == 'none'
 	       	mode = 'deleted'
 	       end

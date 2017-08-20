@@ -53,7 +53,7 @@ end
     end
   	if @user.save
       UserMailer.envio_de_password(@user, @user.password).deliver_later
-  		redirect_to root_url, :notice => @user.password
+  		redirect_to root_url, :notice => "Muchas gracias #{@user.name}"
   	else
   		render "new"
   	end
