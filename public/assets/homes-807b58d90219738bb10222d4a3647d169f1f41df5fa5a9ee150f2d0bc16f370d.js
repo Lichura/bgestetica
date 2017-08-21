@@ -1,0 +1,1 @@
+$(document).ready(function(){$(window).scroll(function(){var o=$(window).scrollTop();$(".tratamientos-imagenes").each(function(){var t=$(this).offset().top;(o=t)&&$(this).addClass("mostrar")})})});

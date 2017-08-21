@@ -3,13 +3,13 @@ class MenuController < ApplicationController
   end
 
    def buscar_turnos
-  	  @eventos = Evento.all
-	  if params[:search]
-	  	#@eventos.start_date = @eventos.start_date - (30*60)
-	    @eventos = Evento.search(params[:search]).order('start_date DESC')
-	  else
-	    @eventos = Evento.all.order('created_at DESC').limit(10)
-	  end
+      @eventos = Event.all
+  	  #@eventos = Evento.all
+	  #if params[:search]
+	   # @eventos = Evento.search(params[:search]).order('start_date DESC')
+	  #else
+	   # @eventos = Evento.all.order('created_at DESC').limit(10)
+	  #end
   end
 
   def nuevo_turno

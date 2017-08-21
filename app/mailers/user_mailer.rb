@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-
+#default from: "mbcontable@zoho.com"
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -8,6 +8,17 @@ class UserMailer < ApplicationMailer
   def password_reset(user)
     @user = user
 
-    mail to => user.email, subject => "Recuperacion de contraseña"
+    mail(:to => user.email, :subject => "Recuperacion de contraseña")
+  end
+
+  def nuevo_turno(user)
+  	@user = user
+
+  	mail(:to => user.email, :subject => "Su turno en BG Estetica")
+  end
+  def envio_de_password(user, password)
+    @user = user
+    @password = password
+    mail(:to => user.email, :subject => "Detalles de su cuenta")
   end
 end

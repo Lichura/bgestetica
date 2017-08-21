@@ -1,36 +1,54 @@
-<html>
-<body>
-<div class="menu_content">
-<%= form_tag(menu_buscar_turnos_path, :method => "get", id: "search-form", :class => 'search_input') do %>
-	<%= text_field_tag :search,  params[:search], placeholder: "Buscar turnos" %>
-	<%= submit_tag "Buscar", :class => 'search_input_button' %>
-<% end %>
-<div id="turnos_resultados">
-	<table>
-		<thead>
-			<tr>
-				<th>DNI</th>
-				<th>Nombre</th>			
-				<th>Apellido</th>
-				<th>email</th>	
-				<th>Proximo Turno</th>
-				<th>Equipo</th>	
-				<th>Medico</th>			
-			</tr>
-		</thead>
-		<tbody>
+<div class="container">
+<div class="panel panel-default">
+<div class="panel-heading"><h3>Buscar Turnos</h3></div>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-lg-6">
+        <%= form_tag menu_buscar_turnos_path, method: :get do %>
+        <div class="input-group">
+          <%= text_field_tag :search,  params[:search], placeholder: "Buscar turnos", class: "form-control"%>
+            <span class="input-group-btn">
+            <%= submit_tag "Buscar", class: 'btn btn-default'%>
+            </span>
+        </div>
+        <% end %>
+    </div>
+   </div>
+<br>
+   <div class="table-responsive">
+    <table class="table table-hover">
+      <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Proximo turno</th>
+        <th>Equipo</th>
+        <th>Medico</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </thead>
+	  <tbody>
 
 
 			<% if @eventos.present? %>
 				<% @eventos.each do |evento| %>
-					<tr class="<%= cycle('even', 'odd') -%>">
-						<td><%= evento.dni %></td>
-						<td><%= evento.nombre %></td>
-						<td><%= evento.apellido %></td>
-						<td><%= evento.email %></td>			
-						<td><%= evento.start_date %></td>
+					<tr>
+						<td><%= evento.paciente %></td>
+						<td><%= evento.paciente %></td>
+						<td><%= evento.paciente %></td>			
+						<td><%= evento.start_date.strftime(" %I:%M - %d %h %Y") %></td>
 						<td><%= evento.equipo %></td>
-						<td><%= evento.medico %></td>			
+						<td><%= evento.medico %></td>
+						<td>
+		                  <%= link_to '', class: "btn btn-default" do %>
+		                    <span class="glyphicon glyphicon-pencil"></span>
+		                  <% end %>
+		                </td>
+		                <td>
+		                  <%= link_to '', method: :delete, data: { confirm: 'Esta seguro que desea eliminar el registro ' + evento.id.to_s + '?' }, class: "btn btn-danger" do %>
+		                    <span class="glyphicon glyphicon-remove"></span>
+		                  <% end %>
+		                </td>			
 					</tr>
 				<% end %>
 			<% end %>
@@ -38,5 +56,3 @@
 	</table>
 </div>
 </div>
-</body>
-<html>

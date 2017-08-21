@@ -1,30 +1,32 @@
+
 <div class="panel-group">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapse1">Filtrar turno</a>
-        <%= @buscar %>
+        <a data-toggle="collapse" href="#collapse1">Buscar turnos</a>
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
-        <%= form_tag schedule_path do %>
-          <p><%= text_field_tag :search %></p>
-      <div class="panel-footer">        
-            <%= submit_tag "Search" %>
-      </div>
-      <% end %>
+      <ul class="list-group">
+        <input id="search_nombre" type="text" name="nombre" placeholder="nombre"></input>
+      </ul>
+      <div class="panel-footer"><button>Buscar</button></div>
     </div>
   </div>
 </div>
+
 <div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
+
+
+<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:500px;'>
  <div class="dhx_cal_navline">
-   <div class="dhx_cal_prev_button">&nbsp;</div>
-   <div class="dhx_cal_next_button">&nbsp;</div>
-   <div class="dhx_cal_today_button"></div>
-   <div class="dhx_cal_date"></div>
-   <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-   <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-   <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+        <div class="dhx_cal_today_button"></div>
+        <div class="dhx_cal_date"></div>
+        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
    <div class="dhx_cal_tab" name="agenda_tab" style="right: 280px;"></div>
    <div class="dhx_cal_tab" name="equipos_tab" style="right:350px;"></div>
    <div class="dhx_cal_tab" name="medicos_tab" style="right:350px;"></div>
@@ -37,17 +39,25 @@
 
 <div id="overlay">
   <div>
-    <%= render 'pacientes/form' %>
-    <a href='#' onclick="overlay()">close</a>
+    <%= render 'users/form' %>
+    <a href='#' onclick="overlay()" class= "btn btn-default">Cerrar</a>
   </div>
 </div>
+
 <script>
+
+    scheduler.config.multi_day = true;
     scheduler.config.xml_date="%Y-%m-%d %H:%i";
     scheduler.init("scheduler_here");
+    scheduler.config.show_loading = true;
+    scheduler.load("<%= data_path %>", "json");
+    scheduler.updateView();
     var dp = new dataProcessor("<%= db_action_path %>");
-    scheduler.load("<%= @events %>", "json");
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
+    scheduler.config.first_hour = 8;
+    scheduler.config.last_hour = 22;
+    scheduler.config.time_step  = 30;
 
 
 
@@ -71,7 +81,7 @@
     <% @medicos.each do |medico| %>
         var nuevo_medico = {}
         nuevo_medico.key = <%= medico.id %>
-        nuevo_medico.label = '<%= medico.nombre + ' ' + medico.apellido %>'
+        nuevo_medico.label = '<%= medico.name + ' ' + medico.lastname %>'
         medicos_opts.push(nuevo_medico)
     <% end %>
 
@@ -88,7 +98,7 @@
     <% @pacientes.each do |paciente| %>
       var nuevo_paciente = {}
       nuevo_paciente.key = <%= paciente.id %>
-      nuevo_paciente.label = "<%= paciente.nombre + ' ' + paciente.apellido %>"
+      nuevo_paciente.label = "<%= paciente.name + ' ' + paciente.lastname + ' ' + paciente.email %>"
       pacientes.push(nuevo_paciente) 
     <% end %>
 
@@ -99,11 +109,7 @@
     scheduler.locale.labels.agenda_tab = "Agenda";
     scheduler.locale.labels.equipos_tab = "Equipo";
     scheduler.locale.labels.medicos_tab = "Medico";
-    // Tab de grid
-    //scheduler.createGridView({
-    //  name: "grid",
-    //  fields: equipos1
-    //});
+
 
     //equipos vista
     scheduler.createTimelineView({
@@ -132,9 +138,13 @@
       render: "bar"
     });
 
+
+
+
+
     //secciones del lightbox
     scheduler.config.lightbox.sections=[
-      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../common/dhtmlxCombo/imgs/", height:40, filtering:true},
+      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../dhtmlxCombo/", height:40, filtering:true},
       {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
       {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
       {name:"time",height:20, type: "time", map_to: "auto"},
@@ -142,6 +152,9 @@
           options:[{key:1, label:"activo"},
                   {key: 2, label:"completado"}, 
                   {key: 3, label:"cancelado"}]},
-      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"}
+      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"},
+      {name:"recurring", height:115, type:"recurring", map_to:"rec_type", 
+    button:"recurring"},
     ];
+
 </script>
