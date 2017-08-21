@@ -1,14 +1,21 @@
-
-   <div class="search_button">
-      <img src=<%= asset_path('search-icon.png') %>/>
-      <div class"search_button_campos">
-        <input id="search_nombre" type="text" name="nombre" placeholder="nombre"></input>
-        <input type="text" name="mail" placeholder="mail"></input>
-        <input type="text" name="dni" placeholder="dni"></input>
-        <button onclick="search_button()">enviar</button>
-        <button onclick="clean_button()">borrar</button>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Filtrar turno</a>
+        <%= @buscar %>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+        <%= form_tag schedule_path do %>
+          <p><%= text_field_tag :search %></p>
+      <div class="panel-footer">        
+            <%= submit_tag "Search" %>
       </div>
-   </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 <div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
  <div class="dhx_cal_navline">
    <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -38,26 +45,12 @@
     scheduler.config.xml_date="%Y-%m-%d %H:%i";
     scheduler.init("scheduler_here");
     var dp = new dataProcessor("<%= db_action_path %>");
-    scheduler.load("<%= data_path %>", "json");
+    scheduler.load("<%= @events %>", "json");
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
 
 
-    //buscar por usuario
-    function search_button(){
-      var user_input = document.getElementById("search_nombre").value;
-      scheduler.filter_month = scheduler.filter_day = scheduler.filter_week = function(id, event){
-        if(event.equipo == user_input){
-          return true;
-        }
-      };
-      scheduler.updateView();
-    };
 
-    function clean_button(){
-      scheduler.filter_week = function(id, event){return true;};
-      scheduler.updateView();
-    };
 
     //Boton de agregar nuevo usuario
     scheduler.locale.labels.button_new="nuevo";

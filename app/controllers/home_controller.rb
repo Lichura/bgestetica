@@ -23,29 +23,26 @@ class HomeController < ApplicationController
 	    @eventos = Evento.all.order('created_at DESC')
 	  end
   end
+
+
   def schedule
 	@equipos_todos = Equipo.all
 	@medicos = Medico.all
 	@pacientes = Paciente.all
 	@paciente = Paciente.new
+
+  	 #@events = Event.all.to_json
+  	
+  	 #puts(@events)
+
+  	#@events = [{id:1,start_date:"2017-08-14 01:50:00",end_date:"2017-08-14 01:55:00",text:"prueba"},{id:2,start_date:"2017-08-15 02:20:00",end_date:"2017-08-15 02:25:00",text:"otro"},{id:3,start_date:"2017-08-16 03:30:00",end_date:"2017-08-16 03:35:00",text:"hoa"},{id:4,start_date:"2017-08-16 02:20:00",end_date:"2017-08-16 04:25:00",text:"prueba"},{id:5,start_date:"2017-08-16 01:20:00",end_date:"2017-08-16 01:25:00",text:"prueba"},{id:6,start_date:"2017-08-16 01:20:00",end_date:"2017-08-16 01:25:00",text:"fdsa"}]
   end
+
+
   def equipos_todos
 
   end
-  
-  def data
-   events = Event.all
-   render :json => events.map {|event| {
-              :id => event.id,
-              :start_date => event.start_date.to_formatted_s(:db),
-              :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text,
-              :paciente => event.paciente,
-              :medico => event.medico,
-              :equipo => event.equipo,
-              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8)
-          }}
-    end
+
 
 	 def db_action
 	   mode = params["!nativeeditor_status"]
@@ -56,7 +53,7 @@ class HomeController < ApplicationController
 	   start_date = params["start_date"]
 	   end_date = params["end_date"]
 	   text = params["text"]
-	   color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
+	   #color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
 	   paciente_nombre = Paciente.where(id: paciente).pluck(:nombre)
 	   paciente_apellido = Paciente.where(id: paciente).pluck(:apellido)
 	   paciente_mail = Paciente.where(id: paciente).pluck(:email)
@@ -68,7 +65,7 @@ class HomeController < ApplicationController
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => medico, :paciente => paciente, :equipo => equipo
+	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => "medico1", :paciente => "paciente1", :equipo => "euqipo1"
 	       tid = event.id
 	       evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => medico_nombre, :nombre => paciente_nombre, :apellido => paciente_apellido, :dni => paciente_dni, :email => paciente_mail, :start_date => start_date, :end_date => end_date
 	       buscar_turno = Turno.where("(medico = ? OR equipo = ?) AND start_date <= ? AND end_date >= ?", medico, equipo, end_date, start_date)
@@ -97,6 +94,16 @@ class HomeController < ApplicationController
 	              :tid => tid,
 	          }
 	 end
+
+	 def data
+		   events.map {|event| {
+		              :id => event.id,
+		              :start_date => event.start_date.to_formatted_s(:db),
+		              :end_date => event.end_date.to_formatted_s(:db),
+		              :text => event.text
+		          }}
+
+	end
 
 	 private
 	 def contacto_params

@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   # => get 'home/equipos.xml'
 
   get 'menu/buscar_turnos'
-  get 'home/schedule'
+  get 'home/schedule', :as => "schedule"
+  post 'home/schedule'
   get 'home/db_action', :as => "db_action"
   get "home/data", :as => "data"
 
