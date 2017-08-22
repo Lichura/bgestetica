@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   before_action :login_required, :except => :index
   before_action :admin_required, :only => [:schedule]
-
+ 
 
 
   def index
@@ -18,15 +18,6 @@ class HomeController < ApplicationController
   			redirect_to root_url,
   			contacto_error: "Hubo un problema con tu solicitud, por favor intenta nuevamente"
   		end
-  end
-  def buscar_turnos
-  	  #	@eventos = Events
-	  #if params[:search]
-	  #  @eventos = Evento.search(params[:search]).order('start_date DESC').flatten
-	  #else
-	  #  @eventos = Events.all.order('created_at DESC').flatten
-	  #end
-	  @eventos = Event.all
   end
 
 
@@ -64,94 +55,40 @@ class HomeController < ApplicationController
 
 	def db_action
 	   mode = params[:dhx_editor_status]
-	   #id = params["id"]
-	   #paciente = params["paciente"]
-	   #equipo = params["equipo"]
-	   #medico = params["medico"]
-	   #start_date = params["start_date"]
-	   #end_date = params["end_date"]
-	   #text = params["text"]
-	   #rec_type = params["rec_type"]
-	   #event_length = params["event_length"]
-	   #event_pid = params["event_pid"]
-	   #color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
-	   #@paciente = User.find(paciente)
-	   #@medico = User.find(medico)
-	   #paciente_nombre = Paciente.where(id: paciente).pluck(:nombre).first
-	   #paciente_apellido = Paciente.where(id: paciente).pluck(:apellido).first
-	   #paciente_mail = Paciente.where(id: paciente).pluck(:email).first
-	   #paciente_dni = Paciente.where(id: paciente).pluck(:dni).first
-	   #equipo_nombre = Equipo.where(id: equipo).pluck(:nombre).first
-	   #medico_nombre = Medico.where(id: medico).pluck(:nombre, :apellido).first.join(" ");
-	   #color = Equipo.where(id: equipo).pluck(:color).to_s.slice(2,8)
-	   #tid = id
 
 	   case mode
 	     when "inserted"
-	       #event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => "medico1", :paciente => "paciente1", :equipo => "euqipo1"
-	       #tid = event.id
-	       #evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => @medico.name, :nombre => @paciente.name, :apellido => @paciente.lastname, :email => @paciente.email, :start_date => start_date, :end_date => end_date
-	       #if rec_type == 'none'
-	       #	mode = 'deleted'
-	       #end
-	       #buscar_turno = Turno.where("(medico = ? OR equipo = ?) AND start_date <= ? AND end_date >= ?", medico, equipo, end_date, start_date)
-	       #buscar_turno.delete_all
-	       @event = Event.new(event_params)
-	       if @profile.save
-	       	puts("se guardo el evento")
-	       else
-	       	puts("no se guardo un carajo")
-	       end
-
+	       @event = Event.create(event_params)
 
 	     when "deleted"
-	       if rec_type != ''
-         		Event.where(event_pid: id).destroy_all
-       		end
-	       if event_pid != 0 and event_pid != ''
-	         event = Event.find(id)
-	         event.rec_type = 'none'
-	         event.save
-	       else
-	         Event.find(id).destroy
-	       end
-	       tid = id
+	         @event = set_event
+	         @event.update(event_params)
+	         @event.destroy
 
 	     when "updated"
-	     	if rec_type != ''
-         		Event.where(event_pid: id).destroy_all
-       		end
-	       event = Event.find(id)
-	       event.start_date = start_date
-	       event.end_date = end_date
-	       event.text = text
-	       event.paciente = paciente
-	       event.medico = medico
-	       event.equipo = equipo
-	       event.color = color
-	       event.rec_type = rec_type
-	       event.event_length = event_length
-	       event.event_pid = event_pid
-	       event.save
-	       tid = id
-	   	end
+	     	@event = set_event
+	        @event.update(event_params)
+	   	 end
+
 	   render :json => {
 	              :type => mode,
-	              :sid => id,
-	              :tid => tid,
+	              :sid => @event.id,
+	              :tid => @event.id,
 	          }
-	 	end
+	end
 
 
+	private
+	 def set_event
+      @event = Event.find(params[:id])
+      end
 
-
-	 private
 	 def contacto_params
 	 	params.require(:contacto).permit(:nombre, :mail, :telefono, :texto)
 	 end
 
 	 def event_params
-	 	params.permit(:id, :text, :start_date, :end_date)
+	 	params.permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
 	 end
 
 end
