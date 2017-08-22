@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
-  before_filter :login_required, :except => :index
-  before_filter :admin_required, :only => [:schedule]
+  before_action :login_required, :except => :index
+  before_action :admin_required, :only => [:schedule]
+
+
+
   def index
   	@contactos = Contacto.all
   end
@@ -29,89 +32,76 @@ class HomeController < ApplicationController
 
   def schedule
 	@equipos_todos = Equipo.all
-	@medicos = User.where("profile_id in (1,2)")
-	@pacientes = User.where("profile_id = 3")
+	@medicos = Medico.all
+	@pacientes = Paciente.all
 	@user = User.new
 	@profiles = Profile.all
-  end
-
-
-  def equipos_todos
-
-  end
-
-  
-  def data
-  	if params[:search]
-  		events = Event.search(params[:search]).all
+	if params[:search] && params[:search] != ""
+  			puts("estoy buscando")
+  			@events = Event.search(params[:search]).all
   	else
-   		events = Event.all
+  			puts("no estoy buscando")
+   			@events = Event.all
 	end
-
-      render :json => events.map {|event| {
+	@events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text
-              # :paciente => event.paciente,
-              # :medico => event.medico,
-              # :equipo => event.equipo,
-              # :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
-              # :rec_type => event.rec_type,
-              # :event_length => event.event_length,
-              # :event_pid => event.event_pid
-          }}
- 	end
+              :text => event.text,
+              :paciente => event.paciente,
+              :medico => event.medico,
+              :equipo => event.equipo,
+              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
+              :rec_type => event.rec_type,
+              :event_length => event.event_length,
+              :event_pid => event.event_pid}}.to_json
 
-  #render :json => events.map {|event| {
-  #           :id => event.id,
-  #            :start_date => event.start_date.to_formatted_s(:db),
-  #            :end_date => event.end_date.to_formatted_s(:db),
-  #            :text => event.text,
-  #            :paciente => event.paciente,
-  #            :medico => event.medico,
-  #            :equipo => event.equipo,
-  #            :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
-  #            :rec_type => event.rec_type,
-  #            :event_length => event.event_length,
-  #           :event_pid => event.event_pid
-  #        }}
-  # end
+              puts(@events)
+  end
+
+
+
 
 	def db_action
-	   mode = params["!nativeeditor_status"]
-	   id = params["id"]
-	   paciente = params["paciente"]
-	   equipo = params["equipo"]
-	   medico = params["medico"]
-	   start_date = params["start_date"]
-	   end_date = params["end_date"]
-	   text = params["text"]
-	   rec_type = params["rec_type"]
-	   event_length = params["event_length"]
-	   event_pid = params["event_pid"]
-	   color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
+	   mode = params[:dhx_editor_status]
+	   #id = params["id"]
+	   #paciente = params["paciente"]
+	   #equipo = params["equipo"]
+	   #medico = params["medico"]
+	   #start_date = params["start_date"]
+	   #end_date = params["end_date"]
+	   #text = params["text"]
+	   #rec_type = params["rec_type"]
+	   #event_length = params["event_length"]
+	   #event_pid = params["event_pid"]
+	   #color = Equipo.where(id: equipo).pluck(:color).to_s[2,8]
 	   #@paciente = User.find(paciente)
 	   #@medico = User.find(medico)
 	   #paciente_nombre = Paciente.where(id: paciente).pluck(:nombre).first
 	   #paciente_apellido = Paciente.where(id: paciente).pluck(:apellido).first
 	   #paciente_mail = Paciente.where(id: paciente).pluck(:email).first
 	   #paciente_dni = Paciente.where(id: paciente).pluck(:dni).first
-	   equipo_nombre = Equipo.where(id: equipo).pluck(:nombre).first
+	   #equipo_nombre = Equipo.where(id: equipo).pluck(:nombre).first
 	   #medico_nombre = Medico.where(id: medico).pluck(:nombre, :apellido).first.join(" ");
 	   #color = Equipo.where(id: equipo).pluck(:color).to_s.slice(2,8)
-	   tid = id
+	   #tid = id
 
 	   case mode
 	     when "inserted"
-	       event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => "medico1", :paciente => "paciente1", :equipo => "euqipo1"
-	       tid = event.id
+	       #event = Event.create :start_date => start_date, :end_date => end_date, :text => text, :medico => "medico1", :paciente => "paciente1", :equipo => "euqipo1"
+	       #tid = event.id
 	       #evento = Evento.create :event_id => tid, :equipo => equipo_nombre, :medico => @medico.name, :nombre => @paciente.name, :apellido => @paciente.lastname, :email => @paciente.email, :start_date => start_date, :end_date => end_date
-	       if rec_type == 'none'
-	       	mode = 'deleted'
+	       #if rec_type == 'none'
+	       #	mode = 'deleted'
+	       #end
+	       #buscar_turno = Turno.where("(medico = ? OR equipo = ?) AND start_date <= ? AND end_date >= ?", medico, equipo, end_date, start_date)
+	       #buscar_turno.delete_all
+	       @event = Event.new(event_params)
+	       if @profile.save
+	       	puts("se guardo el evento")
+	       else
+	       	puts("no se guardo un carajo")
 	       end
-	       buscar_turno = Turno.where("(medico = ? OR equipo = ?) AND start_date <= ? AND end_date >= ?", medico, equipo, end_date, start_date)
-	       buscar_turno.delete_all
 
 
 	     when "deleted"
@@ -153,18 +143,15 @@ class HomeController < ApplicationController
 	 	end
 
 
-	 def data
-		   events.map {|event| {
-		              :id => event.id,
-		              :start_date => event.start_date.to_formatted_s(:db),
-		              :end_date => event.end_date.to_formatted_s(:db),
-		              :text => event.text
-		          }}
 
-	end
 
 	 private
 	 def contacto_params
 	 	params.require(:contacto).permit(:nombre, :mail, :telefono, :texto)
 	 end
+
+	 def event_params
+	 	params.permit(:id, :text, :start_date, :end_date)
+	 end
+
 end

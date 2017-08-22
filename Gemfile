@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '>= 5.0.0.rc2', '< 5.1'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 
@@ -18,7 +18,6 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -32,11 +31,13 @@ require 'securerandom'
 gem 'bcrypt', '~> 3.1.7', :require => 'bcrypt'
 gem 'gon'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'sass-rails', '>= 3.2'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+gem 'bootstrap', '~> 4.0.0.alpha3'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
 gem 'autoprefixer-rails'
 gem "figaro"
+
+gem 'rails_admin', '~> 1.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

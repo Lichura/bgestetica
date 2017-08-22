@@ -6,19 +6,22 @@
         <a data-toggle="collapse" href="#collapse1">Buscar turnos</a>
       </h4>
     </div>
+    
     <div id="collapse1" class="panel-collapse collapse">
+      <%= form_tag schedule_path do %>
       <ul class="list-group">
-        <input id="search_nombre" type="text" name="nombre" placeholder="nombre"></input>
+        <p><%= text_field_tag 'search'  %></p>
       </ul>
-      <div class="panel-footer"><button>Buscar</button></div>
+      <div class="panel-footer"><%= submit_tag "enviar", id: "search_button" %></div>
+      <% end %>
     </div>
+
   </div>
 </div>
 
 <div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
 
 
-<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:500px;'>
  <div class="dhx_cal_navline">
         <div class="dhx_cal_prev_button">&nbsp;</div>
         <div class="dhx_cal_next_button">&nbsp;</div>
@@ -45,16 +48,18 @@
 </div>
 
 <script>
+    var data = <%= @events.html_safe %>
 
     scheduler.config.multi_day = true;
-    scheduler.config.xml_date="%Y-%m-%d %H:%i";
+    scheduler.config.xml_date="%Y-%m-%j %H:%i:%s";
     scheduler.init("scheduler_here");
     scheduler.config.show_loading = true;
-    scheduler.load("<%= data_path %>", "json");
+    scheduler.parse(JSON.stringify(data), "json");
     scheduler.updateView();
     var dp = new dataProcessor("<%= db_action_path %>");
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
+    dp.action_param = "dhx_editor_status";
     scheduler.config.first_hour = 8;
     scheduler.config.last_hour = 22;
     scheduler.config.time_step  = 30;
@@ -62,26 +67,26 @@
 
 
 
-    //Boton de agregar nuevo usuario
-    scheduler.locale.labels.button_new="nuevo";
-    scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
-    modal = document.getElementById('overlay');
-    modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
-    scheduler.hideCover();
-    };
+    // //Boton de agregar nuevo usuario
+    // scheduler.locale.labels.button_new="nuevo";
+    // scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
+    // modal = document.getElementById('overlay');
+    // modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
+    // scheduler.hideCover();
+    // };
 
-    function overlay(){
-          modal = document.getElementById('overlay');
-    modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
-    };
+    // function overlay(){
+    //       modal = document.getElementById('overlay');
+    // modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
+    // };
 
-    //load data para los combobox
+    // //load data para los combobox
     var medicos_opts = [];
 
     <% @medicos.each do |medico| %>
         var nuevo_medico = {}
         nuevo_medico.key = <%= medico.id %>
-        nuevo_medico.label = '<%= medico.name + ' ' + medico.lastname %>'
+        nuevo_medico.label = '<%= medico.nombre %>' + ' ' + '<%= medico.apellido %>'
         medicos_opts.push(nuevo_medico)
     <% end %>
 
@@ -98,63 +103,78 @@
     <% @pacientes.each do |paciente| %>
       var nuevo_paciente = {}
       nuevo_paciente.key = <%= paciente.id %>
-      nuevo_paciente.label = "<%= paciente.name + ' ' + paciente.lastname + ' ' + paciente.email %>"
+      nuevo_paciente.label = "<%= paciente.nombre + ' ' + paciente.apellido + ' ' + paciente.email %>"
       pacientes.push(nuevo_paciente) 
     <% end %>
 
-    // Modificar colores por equipo
+    // // Modificar colores por equipo
 
 
-    // Tab de equipos
+    // // Tab de equipos
     scheduler.locale.labels.agenda_tab = "Agenda";
     scheduler.locale.labels.equipos_tab = "Equipo";
     scheduler.locale.labels.medicos_tab = "Medico";
 
 
-    //equipos vista
-    scheduler.createTimelineView({
-      name:"equipos", //Nombre de la vista
-      x_unit: "minute", //Unidad de medida de la vista
-      x_date: "%H:%i",  //
-      x_step: 30, // Salta de 30 minutos en 30 minutos
-      x_size: 24, // el numero de intervalos mostrados (en este caso 12 horas)
-      x_start: 16, // Desde que hora arranca por steps, en este caso a las 8am
-      x_lenght: 48, //la longitud del día, en este caso 48 steps de 30 minutos
-      y_unit: equipos, //la info para llenar
-      y_property: "equipo", //el campo que tiene en cuenta para llenar
-      render: "bar"  //el modo de mostrar la vista
-    });
+    // //equipos vista
+    // scheduler.createTimelineView({
+    //   name:"equipos", //Nombre de la vista
+    //   x_unit: "minute", //Unidad de medida de la vista
+    //   x_date: "%H:%i",  //
+    //   x_step: 30, // Salta de 30 minutos en 30 minutos
+    //   x_size: 24, // el numero de intervalos mostrados (en este caso 12 horas)
+    //   x_start: 16, // Desde que hora arranca por steps, en este caso a las 8am
+    //   x_lenght: 48, //la longitud del día, en este caso 48 steps de 30 minutos
+    //   y_unit: equipos, //la info para llenar
+    //   y_property: "equipo", //el campo que tiene en cuenta para llenar
+    //   render: "bar"  //el modo de mostrar la vista
+    // });
 
-        scheduler.createTimelineView({
-      name:"medicos",
-      x_unit: "minute",
-      x_date: "%H:%i",
-      x_step: 30,
-      x_size: 24,
-      x_start: 16,
-      x_lenght: 48,
-      y_unit: medicos_opts,
-      y_property: "medico",
-      render: "bar"
-    });
-
-
+    //     scheduler.createTimelineView({
+    //   name:"medicos",
+    //   x_unit: "minute",
+    //   x_date: "%H:%i",
+    //   x_step: 30,
+    //   x_size: 24,
+    //   x_start: 16,
+    //   x_lenght: 48,
+    //   y_unit: medicos_opts,
+    //   y_property: "medico",
+    //   render: "bar"
+    // });
 
 
 
-    //secciones del lightbox
+
+
+    // //secciones del lightbox
+    //scheduler.config.lightbox.sections=[
+      //{ name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../dhtmlxCombo/", height:40, filtering:true},
+      //{name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
+      //{name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
+      //{name:"time",height:20, type: "time", map_to: "auto"},
+      //{name:"estado", height: 20, type:"radio", map_to: "estado",
+       //   options:[{key:1, label:"activo"},
+       //           {key: 2, label:"completado"}, 
+      //            {key: 3, label:"cancelado"}]},
+     // {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"}
+      //{name:"recurring", height:115, type:"recurring", map_to:"rec_type", 
+   // button:"recurring"},
+    //];
+
     scheduler.config.lightbox.sections=[
-      { name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../dhtmlxCombo/", height:40, filtering:true},
-      {name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-      {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
-      {name:"time",height:20, type: "time", map_to: "auto"},
-      {name:"estado", height: 20, type:"radio", map_to: "estado",
-          options:[{key:1, label:"activo"},
-                  {key: 2, label:"completado"}, 
-                  {key: 3, label:"cancelado"}]},
-      {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"},
-      {name:"recurring", height:115, type:"recurring", map_to:"rec_type", 
-    button:"recurring"},
+    { name:"Paciente", map_to:"paciente", options:pacientes, type:"select", height:20},
+    { name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
+    {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
+    {name:"time",height:20, type: "time", map_to: "auto"},
+    {name:"description", height:100, map_to:"text", type:"textarea" , focus:true}
     ];
+
+  scheduler.attachEvent("onClick", function (id, e){
+    scheduler.showLightbox(id);
+    return true;
+  });
+
+
 
 </script>

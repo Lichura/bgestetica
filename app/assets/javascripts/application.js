@@ -11,11 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
-//= require moment
-//= require bootstrap-datetimepicker
+//= require bootstrap
 //= require jquery_ujs
-//= require jquery-ui
 //= require turbolinks
 //= require_tree .
 

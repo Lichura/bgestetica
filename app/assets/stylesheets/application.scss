@@ -1,0 +1,55 @@
+
+@import "bootstrap";
+@import "font-awesome";
+@import "menu";
+@import "equipos";
+@import "home";
+@import "scaffolds";
+@import "dhtmlxscheduler";
+@import "dhtmlxcombo";
+@import "sessions";
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+html, body {
+    height: 100%; /* IMPORTANT!!! stretches viewport to 100% */
+}
+body{
+	margin-top: 10vh;
+}
+#user_nav{
+	font-family: 'Roboto', sans-serif;
+	background-color: rgba(255,255,255,0.6);
+	position: fixed;
+	color: #BA006D;
+	margin: 0 0 0;
+	padding: 0 0 0 0;
+	width: 100%;
+	height: 10vh;
+	z-index:1000;
+	font-size: 150%;
+}
+
+.user_nav_login{
+	float: right;	
+	margin-right: 2%;
+	line-height:10vh;
+
+}
+
+.scaffold_links{
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+	font-size: 150%;
+	color: white;
+}
+
+
+.datepicker table tr td.disabled{
+	background-color: #FF6C6C;
+}
+
+.event a {
+    background-color: #42B373 !important;
+    background-image :none !important;
+    color: #ffffff !important;
+}
