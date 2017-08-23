@@ -47,6 +47,12 @@
   </div>
 </div>
 
+
+<form id="custom_form" >
+<input></input>
+<button>done</button>
+</form>
+
 <script>
     var data = <%= @events.html_safe %>
 
@@ -162,13 +168,17 @@
    // button:"recurring"},
     //];
 
-    scheduler.config.lightbox.sections=[
-    { name:"Paciente", map_to:"paciente", options:pacientes, type:"select", height:20},
-    { name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-    {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
-    {name:"time",height:20, type: "time", map_to: "auto"},
-    {name:"description", height:100, map_to:"text", type:"textarea" , focus:true}
-    ];
+
+
+
+
+    // scheduler.config.lightbox.sections=[
+    // { name:"Paciente", map_to:"paciente", options:pacientes, type:"select", height:20},
+    // { name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
+    // {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
+    // {name:"time",height:20, type: "time", map_to: "auto"},
+    // {name:"description", height:100, map_to:"text", type:"textarea" , focus:true}
+    // ];
 
   scheduler.attachEvent("onClick", function (id, e){
     scheduler.showLightbox(id);
@@ -176,5 +186,25 @@
   });
 
 
+
+var custom_form = document.getElementById("overlay");
+
+ 
+scheduler.showLightbox = function(id){
+    var ev = scheduler.getEvent(id);
+    scheduler.startLightbox(id, custom_form );
+
+    //document.getElementById("some_input").value = ev.text;
+};
+//needs to be attached to the 'save' button
+function save_form() {
+    var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
+    //ev.text = document.getElementById("some_input").value;
+    scheduler.endLightbox(true, custom_form);
+};
+//needs to be attached to the 'cancel' button
+function close_form(argument) {
+    scheduler.endLightbox(false, custom_form);
+};
 
 </script>

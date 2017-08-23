@@ -37,6 +37,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'autoprefixer-rails'
 gem "figaro"
 
+gem 'sprockets-rails'
+
 gem 'rails_admin', '~> 1.2'
 # Use Unicorn as the app server
 # gem 'unicorn'

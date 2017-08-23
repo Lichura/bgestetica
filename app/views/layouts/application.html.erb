@@ -13,44 +13,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav class="navbar navbar-default  navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse"
-            data-target=".navbar-ex1-collapse">
-      <span class="sr-only">Desplegar navegación</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-        <a class="navbar-brand" href="/home/index">BG</a>
-      </div>
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/home/index">Home</a></li>
-        <li><a href="/home/index#seccion-tratamientos">Tratamientos</a></li>
-        <li><a href="/home/index#seccion-nosotros">Nosotros</a></li>
-        <li><a href="/home/index#seccion-contacto">Contacto</a></li>
-        <% if !current_user.nil? %>
-          <% if current_user.profile_id == 1 || current_user.profile_id == 2 %>
-            <li><a href="/home/schedule">Turnos</a></li>
-          <% else %>
-            <li><a href="/menu/buscar_turnos">Turnos</a></li>
-          <% end %>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            <li><a href="/equipos">Equipos</a></li>
-            <li><a href="/medicos">Medicos</a></li>
-            <li><a href="/users/edit_multiple">Usuarios</a></li>
-            <li><a href="/pacientes">Pacientes</a></li>
-            <li><a href="/menu/buscar_turnos">Turnos</a></li>
-            <li><a href="#">Perfiles</a></li>
-            </ul>
-        </li>
-        <% end %>
-      </ul>
-
-      <p class="navbar-text navbar-right">
+<nav class="navbar navbar-toggleable-md navbar-light fixed-top bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">BG</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Tratamientos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Nosotros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contactos</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/equipos">Equipos</a>
+            <a class="dropdown-item" href="/medicos">Medicos</a>
+            <a class="dropdown-item" href="/users/edit_multiple">Usuarios</a>
+            <a class="dropdown-item" href="/pacientes">Pacientes</a>
+            <a class="dropdown-item" ref="/menu/buscar_turnos">Turnos</a>
+            <a class="dropdown-item" href="#">Perfiles</a>
+        </div>
+      </li>
+    </ul>
+    <span class="navbar-text navbar-right">
         <% if current_user %>
           Bienvenido:  <%= current_user.name + ' ' + current_user.lastname %>
           <%= link_to "Desconectarse", log_out_path  %>
@@ -58,15 +54,28 @@
           <%= link_to "Registro", sign_up_path  %> or
           <%= link_to "Conectarse", log_in_path %>
         <% end %>
-        </p>
-        <p class_"navbar-text navbar-right">
+        </span>
+        <span class="navbar-text navbar-right">
           <% flash.each do |name, msg| %>
             <%= content_tag :div, msg, :id => "flash_#{name}" %>
           <% end %>
-      </p>
-    </div>
+      </span>
   </div>
 </nav>
+
+
+
+
+
+<!--         <% if !current_user.nil? %>
+          <% if current_user.profile_id == 1 || current_user.profile_id == 2 %>
+            <li><a href="/home/schedule">Turnos</a></li>
+          <% else %>
+            <li><a href="/menu/buscar_turnos">Turnos</a></li>
+          <% end %>
+        <% end %> -->
+
+
 
 <div id="content"><%= content_for?(:content) ? yield(:content) : yield %></div>
 </body>
