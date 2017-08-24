@@ -10,7 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-# Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
+
 # #Rails.application.config.assets.precompile += %w( locale/locale_es.js )
 # #Rails.application.config.assets.precompile += %w( locale/recurring/locale_recurring_es.js )
  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_flat.css )
@@ -19,6 +19,7 @@ Rails.application.config.assets.version = '1.0'
  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_editors.js )
  Rails.application.config.assets.precompile += %w( dhtmlxcombo.css )
  Rails.application.config.assets.precompile += %w( dhtmlxcombo.js )
+ Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_agenda_view.js )
  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_units.js )
  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_timeline.js )

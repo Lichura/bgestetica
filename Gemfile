@@ -32,6 +32,7 @@ gem 'bcrypt', '~> 3.1.7', :require => 'bcrypt'
 gem 'gon'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'popper_js', '~> 1.11', '>= 1.11.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'autoprefixer-rails'

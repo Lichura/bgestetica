@@ -6,8 +6,12 @@ class HomeController < ApplicationController
 
   def index
   	@contactos = Contacto.all
-  end
 
+  end
+  # GET /medicos/new
+  def new
+    @event = Event.new
+  end
   def nuevo_contacto
  	
   	@contacto = Contacto.new(contacto_params)
@@ -34,6 +38,7 @@ class HomeController < ApplicationController
   			puts("no estoy buscando")
    			@events = Event.all
 	end
+	@new_event = Event.new
 	@events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
@@ -49,6 +54,8 @@ class HomeController < ApplicationController
 
               puts(@events)
   end
+
+
 
 
 

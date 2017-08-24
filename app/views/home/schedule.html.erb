@@ -1,3 +1,28 @@
+  <style type="text/css" >
+    html, body {
+      margin: 0px;
+      padding: 0px;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #my_form {
+      position: absolute;
+      top: 100px;
+      left: 200px;
+      z-index: 10001;
+      display: none;
+      background-color: white;
+      border: 2px outset gray;
+      padding: 20px;
+      font-family: Tahoma;
+      font-size: 10pt;
+    }
+
+    #my_form label {
+      width: 200px;
+    }
+  </style>
 
 <div class="panel-group">
   <div class="panel panel-default">
@@ -48,16 +73,19 @@
 </div>
 
 
-<form id="custom_form" >
-<input></input>
-<button>done</button>
-</form>
+
+<div id="my_form">
+  <%= render 'events#new'  %>
+</div>
+
 
 <script>
     var data = <%= @events.html_safe %>
 
     scheduler.config.multi_day = true;
-    scheduler.config.xml_date="%Y-%m-%j %H:%i:%s";
+    scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+    scheduler.config.details_on_dblclick = true;
+    scheduler.config.details_on_create = true;
     scheduler.init("scheduler_here");
     scheduler.config.show_loading = true;
     scheduler.parse(JSON.stringify(data), "json");
@@ -117,9 +145,9 @@
 
 
     // // Tab de equipos
-    scheduler.locale.labels.agenda_tab = "Agenda";
-    scheduler.locale.labels.equipos_tab = "Equipo";
-    scheduler.locale.labels.medicos_tab = "Medico";
+    //scheduler.locale.labels.agenda_tab = "Agenda";
+    //scheduler.locale.labels.equipos_tab = "Equipo";
+    //scheduler.locale.labels.medicos_tab = "Medico";
 
 
     // //equipos vista
@@ -180,31 +208,42 @@
     // {name:"description", height:100, map_to:"text", type:"textarea" , focus:true}
     // ];
 
-  scheduler.attachEvent("onClick", function (id, e){
-    scheduler.showLightbox(id);
-    return true;
-  });
+  //scheduler.attachEvent("onClick", function (id, e){
+ //   scheduler.showLightbox(id);
+ //  return true;
+  //});
 
 
 
-var custom_form = document.getElementById("overlay");
+
 
  
-scheduler.showLightbox = function(id){
-    var ev = scheduler.getEvent(id);
-    scheduler.startLightbox(id, custom_form );
+var html = function(id) { return document.getElementById(id); }; //just a helper
 
-    //document.getElementById("some_input").value = ev.text;
-};
-//needs to be attached to the 'save' button
-function save_form() {
-    var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
-    //ev.text = document.getElementById("some_input").value;
-    scheduler.endLightbox(true, custom_form);
-};
-//needs to be attached to the 'cancel' button
-function close_form(argument) {
-    scheduler.endLightbox(false, custom_form);
-};
+    scheduler.showLightbox = function(id) {
+      var ev = scheduler.getEvent(id);
+      scheduler.startLightbox(id, html("my_form"));
+    };
+
+
+    function save_form() {
+      var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
+      ev.text = html("description").value;
+      ev.custom1 = html("custom1").value;
+      ev.custom2 = html("custom2").value;
+
+      scheduler.endLightbox(true, html("my_form"));
+    }
+
+    function close_form() {
+      scheduler.endLightbox(false, html("my_form"));
+    }
+
+    function delete_event() {
+      var event_id = scheduler.getState().lightbox_id;
+      scheduler.endLightbox(false, html("my_form"));
+      scheduler.deleteEvent(event_id);
+    }
+
 
 </script>
