@@ -1,23 +1,26 @@
 class EventsController < ApplicationController
-before_action :set_event, only: [:show, :edit, :update, :destroy]
+before_action :set_event, only: [ :show, :edit, :update, :destroy]
 
 	def new
-		@event = Event.new
-		render :partial=> 'events/new'
+    puts("renderizando")
+		 if Event.find(params[:id])
+        @event = Event.find(params[:id])
+      else
+        @event = Event.new
+      end 
+    respond_to do |format|  
+		  format.html
+    end
 	end
+
+
   def create
     @event = Event.new(event_params)
-	@event.save
+	  @event.save
   end
 
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { notice: 'Medico was successfully updated.' }
-      else
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
-    end
+      @event.update(event_params)
   end
 
   def destroy
@@ -29,7 +32,11 @@ before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   private
   	 def set_event
-      @event = Event.find(params[:id])
+      if Event.find(params[:id])
+        @event = Event.find(params[:id])
+      else
+        @event = Event.new
+      end 
       end
 
 

@@ -38,7 +38,9 @@ class HomeController < ApplicationController
   			puts("no estoy buscando")
    			@events = Event.all
 	end
-	@new_event = Event.new
+@event = Event.new
+
+	
 	@events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
@@ -52,7 +54,7 @@ class HomeController < ApplicationController
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
 
-              puts(@events)
+
   end
 
 
@@ -88,7 +90,7 @@ class HomeController < ApplicationController
 	private
 	 def set_event
       @event = Event.find(params[:id])
-      end
+     end
 
 	 def contacto_params
 	 	params.require(:contacto).permit(:nombre, :mail, :telefono, :texto)

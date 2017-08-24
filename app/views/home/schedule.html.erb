@@ -75,7 +75,7 @@
 
 
 <div id="my_form">
-  <%= render 'events#new'  %>
+  <%= render 'events/new'  %>
 </div>
 
 
@@ -222,6 +222,7 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
 
     scheduler.showLightbox = function(id) {
       var ev = scheduler.getEvent(id);
+      console.log(id);
       scheduler.startLightbox(id, html("my_form"));
     };
 
