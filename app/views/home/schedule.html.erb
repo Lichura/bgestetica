@@ -74,9 +74,8 @@
 
 
 
-<div id="my_form">
-  <%= render 'events/new'  %>
-</div>
+<div id="formulario"></div>
+
 
 
 <script>
@@ -84,7 +83,6 @@
 
     scheduler.config.multi_day = true;
     scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-    scheduler.config.details_on_dblclick = true;
     scheduler.config.details_on_create = true;
     scheduler.init("scheduler_here");
     scheduler.config.show_loading = true;
@@ -223,7 +221,19 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
     scheduler.showLightbox = function(id) {
       var ev = scheduler.getEvent(id);
       console.log(id);
-      scheduler.startLightbox(id, html("my_form"));
+      scheduler.startLightbox(id, null);
+      scheduler.hideCover();
+      $.ajax({
+        url:'/events/create_or_update',
+        dataType: 'script',
+        type: 'POST',
+        data:{
+            id: id
+        },
+        error:function(data){
+            debugger;
+        }
+    });
     };
 
 

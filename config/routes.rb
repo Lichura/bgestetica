@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'home/data', to: 'home#data', as: :data
   post 'home/data', to: 'home#data'
   get 'events/new'
+  post 'events/create_or_update', to: "events#create_or_update"
 
 
   get "log_out" => "sessions#destroy", :as=> "log_out"
