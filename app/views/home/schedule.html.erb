@@ -1,28 +1,3 @@
-  <style type="text/css" >
-    html, body {
-      margin: 0px;
-      padding: 0px;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    #my_form {
-      position: absolute;
-      top: 100px;
-      left: 200px;
-      z-index: 10001;
-      display: none;
-      background-color: white;
-      border: 2px outset gray;
-      padding: 20px;
-      font-family: Tahoma;
-      font-size: 10pt;
-    }
-
-    #my_form label {
-      width: 200px;
-    }
-  </style>
 
 <div class="panel-group">
   <div class="panel panel-default">
@@ -81,6 +56,11 @@
 <script>
     var data = <%= @events.html_safe %>
 
+
+// we can block specific dates
+
+
+
     scheduler.config.multi_day = true;
     scheduler.config.xml_date = "%Y-%m-%d %H:%i";
     scheduler.config.details_on_create = true;
@@ -95,7 +75,6 @@
     scheduler.config.first_hour = 8;
     scheduler.config.last_hour = 22;
     scheduler.config.time_step  = 30;
-
 
 
 
@@ -220,7 +199,7 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
 
     scheduler.showLightbox = function(id) {
       var ev = scheduler.getEvent(id);
-      console.log(id);
+      console.log(ev);
       scheduler.startLightbox(id, null);
       scheduler.hideCover();
       $.ajax({
@@ -228,7 +207,10 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
         dataType: 'script',
         type: 'POST',
         data:{
-            id: id
+            id: id,
+            start_date: ev.start_date,
+            end_date: ev.end_date,
+            text: ev.text
         },
         error:function(data){
             debugger;
@@ -255,6 +237,9 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
       scheduler.endLightbox(false, html("my_form"));
       scheduler.deleteEvent(event_id);
     }
+
+
+
 
 
 </script>

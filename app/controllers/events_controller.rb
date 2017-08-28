@@ -5,12 +5,14 @@ before_action :set_event, only: [:show, :edit, :update, :destroy]
 	end
 
   def create_or_update
-    puts("se llamo correctamente")
+    @medicos = Medico.all
+    @equipos = Equipo.all
+    @pacientes = Paciente.all
     if params[:id].length < 13
       @event = Event.find(params[:id])
       puts("estoy haciendo un update")
     else
-     @event = Event.new
+     @event = Event.new(start_date: params[:start_date], end_date: params[:end_date], text: params[:text])
     end
     respond_to do |format|
       format.js { render :action => "new_event" }

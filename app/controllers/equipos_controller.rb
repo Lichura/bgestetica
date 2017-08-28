@@ -4,7 +4,8 @@ class EquiposController < ApplicationController
   # GET /equipos
   # GET /equipos.json
   def index
-    @equipos = Equipo.all
+        @equipos = Equipo.order(:nombre).where("nombre like ?", "%#{params[:term]}%")
+    render json: @equipos.map(&:nombre)
   end
 
   # GET /equipos/1

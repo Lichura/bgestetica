@@ -4,7 +4,8 @@ class PacientesController < ApplicationController
   # GET /pacientes
   # GET /pacientes.json
   def index
-    @pacientes = Paciente.all
+    @pacientes = Paciente.order(:nombre).where("nombre like ?", "%#{params[:term]}%")
+    render json: @pacientes.map(&:nombre)
   end
 
   # GET /pacientes/1
