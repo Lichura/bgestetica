@@ -57,8 +57,8 @@
 
 
 <script>
-    var data = <%= @events.html_safe %>
-
+    var data = <%= @events.html_safe %>;
+    var recurring = <%= @recurring.html_safe %>;
 
 // we can block specific dates
 
@@ -74,6 +74,7 @@
 
     scheduler.config.show_loading = true;
     scheduler.parse(JSON.stringify(data), "json");
+    scheduler.parse(JSON.stringify(recurring), "json");
     scheduler.updateView();
     var dp = new dataProcessor("<%= db_action_path %>");
     dp.init(scheduler);

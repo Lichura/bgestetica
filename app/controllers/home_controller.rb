@@ -38,9 +38,18 @@ class HomeController < ApplicationController
   			puts("no estoy buscando")
    			@events = Event.all
 	end
-@event = Event.new
+	@event = Event.new
 
-	
+	@recurring = Recurring.all.map {|event| {
+			  :id => event.id,
+              :start_date => event.start_date.to_formatted_s(:db),
+              :end_date => event.end_date.to_formatted_s(:db),
+              :text => event.text,
+              :rec_type => event.rec_type,
+              :event_length => event.event_lenght,
+              :event_pid => event.event_pid
+		}}.to_json
+
 	@events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
