@@ -19,6 +19,11 @@ before_action :set_event, only: [:show, :edit, :update, :destroy]
     end
   end
 
+  def recurring
+    @event = Event.new
+    
+  end
+
   def create
     @event = Event.new(event_params)
 	  @event.save
@@ -40,6 +45,10 @@ before_action :set_event, only: [:show, :edit, :update, :destroy]
 
     def set_event
       @event = Event.find(params[:id])
+    end
+
+    def recurring_event_params
+      params.require(:event).permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
     end
 
 	 def event_params

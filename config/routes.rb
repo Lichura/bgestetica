@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   resources :pacientes
   resources :medicos
   resources :equipos
-  resources :events
   get 'home/index'
   post "menu/buscar" => "menu#buscar_turnos"
   post "home/nuevo_contacto" => "home#nuevo_contacto"
@@ -33,7 +32,7 @@ Rails.application.routes.draw do
   post 'home/data', to: 'home#data'
   get 'events/new'
   post 'events/create_or_update', to: "events#create_or_update"
-
+  get 'events/recurring', to: "events#recurring"
 
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"

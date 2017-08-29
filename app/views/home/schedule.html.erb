@@ -1,4 +1,7 @@
 
+<head>
+
+</head>
 <div class="panel-group">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -60,11 +63,15 @@
 // we can block specific dates
 
 
-
     scheduler.config.multi_day = true;
     scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+    scheduler.config.first_hour = 8;
+    scheduler.config.last_hour = 22;
+    scheduler.config.time_step  = 30;
     scheduler.config.details_on_create = true;
+    
     scheduler.init("scheduler_here");
+
     scheduler.config.show_loading = true;
     scheduler.parse(JSON.stringify(data), "json");
     scheduler.updateView();
@@ -72,9 +79,8 @@
     dp.init(scheduler);
     dp.setTransactionMode("GET", false);
     dp.action_param = "dhx_editor_status";
-    scheduler.config.first_hour = 8;
-    scheduler.config.last_hour = 22;
-    scheduler.config.time_step  = 30;
+
+
 
 
 

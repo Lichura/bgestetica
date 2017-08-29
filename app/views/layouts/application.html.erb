@@ -3,12 +3,10 @@
 <head>
   <title>BgEstetica</title>
     <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'dhtmlxscheduler', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'dhtmlxscheduler_editors', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'dhtmlxcombo', 'data-turbolinks-track' => true %>
-
+  <%= stylesheet_link_tag    'application' %>
+  <%= javascript_include_tag 'application'%>
+  <%= javascript_include_tag "dhtmlxscheduler" %>
+<%= javascript_include_tag 'dhtmlxscheduler_limit' %>
 </head>
 <body>
   <nav class="navbar fixed-top navbar-light bg-faded">
