@@ -1,0 +1,39 @@
+<table id="proximos_turnos">
+  <caption>Proximos turnos</caption>
+  <thead>
+    <tr>
+      <th scope="col">Paciente</th>
+      <th scope="col">Equipo</th>
+      <th scope="col">Comentarios</th>
+      <th scope="col">Inicio</th>
+      <th scope="col">Fin</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Confirmar</th>
+      <th scope="col">Cancelar</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @proximos_eventos.each do |evento| %>
+      <tr>
+      <td data-label="Paciente"><%= evento.paciente %></td>
+      <td data-label="Equipo"><%= evento.equipo %></td>
+      <td data-label="Comentarios"><%= evento.text %></td>
+      <td data-label="Inicio"><%= evento.start_date %></td>
+      <td data-label="Fin"><%= evento.end_date %></td>
+      <td data-label="Editar">editar</td>
+      <td data-label="Confirmar">confirmar</td>
+      <td data-label="Cancelar">cancelar</td>
+    </tr>
+	<% end %>
+  </tbody>
+</table>
+
+
+
+
+<p>al cancelarlos se envia un correo</p>
+<p>al confirmarlos se abre la ventana para agregar detalles</p>
+
+
+
+

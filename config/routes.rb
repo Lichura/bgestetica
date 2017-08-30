@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post "menu/generar_turnos" 
   #get 'sessions/new'
   get 'home/home'
+  get 'home/medico_index', to: 'home#medico_index'
   #get 'users/new'
   # => get 'home/equipos.xml'
 
