@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829141757) do
+ActiveRecord::Schema.define(version: 20170831094647) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170829141757) do
     t.string   "rec_type"
     t.integer  "event_length"
     t.integer  "event_pid"
+    t.integer  "estado"
   end
 
   create_table "historia_clinicas", force: :cascade do |t|

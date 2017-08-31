@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-before_action :set_event, only: [:show, :edit, :update, :destroy]
+before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 
 	def new
 	end
@@ -22,6 +22,16 @@ before_action :set_event, only: [:show, :edit, :update, :destroy]
   def recurring
     @event = Event.new
     
+  end
+
+  def edit
+
+  end
+  
+  def confirm
+    @event.estado = 3
+    @event.save
+    @historia_clinica = HistoriaClinica.new
   end
 
   def create

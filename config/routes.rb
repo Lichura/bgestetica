@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :profiles
+  resources :events
   #get 'password_resets/new'
 
   get 'menu/index'
@@ -34,6 +35,9 @@ Rails.application.routes.draw do
   get 'events/new'
   post 'events/create_or_update', to: "events#create_or_update"
   get 'events/recurring', to: "events#recurring"
+  #get 'events/edit', to: "events#edit"
+  get 'events/:id/confirm', to: "events#confirm", :as => "event_confirm"
+
 
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
@@ -46,7 +50,7 @@ Rails.application.routes.draw do
   resources :sessions
   resources :equipos_todos
   resources :password_resets
-  resources :events
+  resources :historias_clinicas  
 
 
   resources :users do

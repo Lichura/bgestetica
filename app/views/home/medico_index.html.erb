@@ -20,9 +20,15 @@
       <td data-label="Comentarios"><%= evento.text %></td>
       <td data-label="Inicio"><%= evento.start_date %></td>
       <td data-label="Fin"><%= evento.end_date %></td>
-      <td data-label="Editar">editar</td>
-      <td data-label="Confirmar">confirmar</td>
-      <td data-label="Cancelar">cancelar</td>
+      <td data-label="Editar"><%= link_to 'Editar turno', edit_event_path(evento), class: "btn btn-default pull-right" %></td>
+      <td data-label="Confirmar"><%= link_to  event_confirm_path(evento) do %>
+
+      <i class="fa fa-check" aria-hidden="true"></i>
+      <% end %>
+      </td>
+      <td data-label="Cancelar"><%= link_to evento, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' }, class: "btn btn-danger" do %>
+                      <span><eliminar/span>
+                    <% end %></td>
     </tr>
 	<% end %>
   </tbody>
