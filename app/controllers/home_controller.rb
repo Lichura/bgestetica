@@ -53,7 +53,7 @@ class HomeController < ApplicationController
               :event_length => event.event_lenght,
               :event_pid => event.event_pid
 		}}.to_json
-
+puts @events.each { |event| event.id}
 	@events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
@@ -62,7 +62,7 @@ class HomeController < ApplicationController
               :paciente => event.paciente,
               :medico => event.medico,
               :equipo => event.equipo,
-              :color => Equipo.where(id: event.equipo).pluck(:color).to_s.slice(2,8),
+              :color => event.color,
               :rec_type => event.rec_type,
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
