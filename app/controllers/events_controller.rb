@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
-
+  
 	def new
 	end
 
@@ -46,6 +46,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 
   def create
     @event = Event.new(event_params)
+    @event.color = Equipo.find(params[:equipo]).color
 	  @event.save
   end
 
