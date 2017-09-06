@@ -1,11 +1,10 @@
 class EquiposController < ApplicationController
   before_action :set_equipo, only: [:show, :edit, :update, :destroy]
-
+  autocomplete :equipo, :nombre
   # GET /equipos
   # GET /equipos.json
   def index
-        @equipos = Equipo.order(:nombre).where("nombre like ?", "%#{params[:term]}%")
-    render json: @equipos.map(&:nombre)
+
   end
 
   # GET /equipos/1

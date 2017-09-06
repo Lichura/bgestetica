@@ -39,6 +39,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'autoprefixer-rails'
 gem "figaro"
 
+gem 'rails-jquery-autocomplete'
 gem 'sprockets-rails'
 gem 'jquery-ui-rails'
 gem 'rails_admin', '~> 1.2'

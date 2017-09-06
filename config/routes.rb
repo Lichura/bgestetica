@@ -53,6 +53,10 @@ Rails.application.routes.draw do
   resources :historias_clinicas  
 
 
+resources :equipos do
+  get :autocomplete_equipo_nombre, :on => :collection
+end
+
   resources :users do
     collection do
       get :edit_multiple
