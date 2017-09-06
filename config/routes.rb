@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :profiles
-  resources :events
+  resources :events do
+  get :autocomplete_equipo_nombre, :on => :collection
+end
   #get 'password_resets/new'
 
   get 'menu/index'
@@ -54,9 +56,7 @@ Rails.application.routes.draw do
   resources :historias_clinicas  
 
 
-resources :equipos do
-  get :autocomplete_equipo_nombre, :on => :collection
-end
+
 
   resources :users do
     collection do

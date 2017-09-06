@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
+  autocomplete :equipo, :nombre
 before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
-  
+
 	def new
 	end
 

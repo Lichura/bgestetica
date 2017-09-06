@@ -1,6 +1,6 @@
 class EquiposController < ApplicationController
   before_action :set_equipo, only: [:show, :edit, :update, :destroy]
-  autocomplete :equipo, :nombre
+
   # GET /equipos
   # GET /equipos.json
   def index
