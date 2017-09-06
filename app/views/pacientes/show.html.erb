@@ -35,5 +35,6 @@
   <%= @paciente.direccion %>
 </p>
 
+<%= link_to 'Historia Clinica', paciente_historia_clinica_path(@paciente) %>
 <%= link_to 'Edit', edit_paciente_path(@paciente) %> |
 <%= link_to 'Back', pacientes_path %>

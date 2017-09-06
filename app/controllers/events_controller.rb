@@ -30,8 +30,18 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
   
   def confirm
     @event.estado = 3
-    @event.save
+    @paciente = Paciente.find_by(nombre: @event.paciente)
+    puts @event.paciente
     @historia_clinica = HistoriaClinica.new
+    @event.save
+  end
+
+  def confirmar
+    @historia_clinica = HistoriaClinica.new(historia_clinica_params)
+    @historia_clinica.save
+    respond_to do |format|
+      format.html { render 'home/medico_index' }
+    end
   end
 
   def create
@@ -64,4 +74,8 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 	 def event_params
 	 	params.require(:event).permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
 	 end
+
+   def historia_clinica_params
+    params.require(:historia_clinica).permit(:text, :paciente_id)
+   end
 end

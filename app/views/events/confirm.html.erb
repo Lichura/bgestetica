@@ -17,5 +17,6 @@
       <%= f.text_field :text, size: "360x10", class: "form-control" %>
     </div>
   </div>
+  <%= f.hidden_field :paciente_id, :value => @paciente %>
   <%= f.submit "Enviar" %>
   <% end %>

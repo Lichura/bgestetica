@@ -13,32 +13,32 @@
     </tr>
   </thead>
   <tbody>
+  <% if @proximos_eventos %>
   <% @proximos_eventos.each do |evento| %>
       <tr>
       <td data-label="Paciente"><%= evento.paciente %></td>
       <td data-label="Equipo"><%= evento.equipo %></td>
       <td data-label="Comentarios"><%= evento.text %></td>
-      <td data-label="Inicio"><%= evento.start_date %></td>
-      <td data-label="Fin"><%= evento.end_date %></td>
-      <td data-label="Editar"><%= link_to 'Editar turno', edit_event_path(evento), class: "btn btn-default pull-right" %></td>
+      <td data-label="Inicio"><%= evento.start_date.to_formatted_s(:short) %></td>
+      <td data-label="Fin"><%= evento.end_date.to_formatted_s(:short) %></td>
+      <td data-label="Editar"><%= link_to edit_event_path(evento) do %>
+        
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+        <% end %>
+      </td>
       <td data-label="Confirmar"><%= link_to  event_confirm_path(evento) do %>
 
       <i class="fa fa-check" aria-hidden="true"></i>
       <% end %>
       </td>
-      <td data-label="Cancelar"><%= link_to evento, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' }, class: "btn btn-danger" do %>
-                      <span><eliminar/span>
+      <td data-label="Cancelar"><%= link_to evento, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' } do %>
+                      <i class="fa fa-times" aria-hidden="true"></i>
                     <% end %></td>
     </tr>
 	<% end %>
+  <% end %>
   </tbody>
 </table>
-
-
-
-
-<p>al cancelarlos se envia un correo</p>
-<p>al confirmarlos se abre la ventana para agregar detalles</p>
 
 
 

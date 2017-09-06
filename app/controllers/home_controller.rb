@@ -27,7 +27,7 @@ class HomeController < ApplicationController
 
   def medico_index
     @proximos_eventos = Event.today
-  end
+      end
 
   def schedule
 	@equipos_todos = Equipo.all

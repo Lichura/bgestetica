@@ -1,5 +1,5 @@
 class PacientesController < ApplicationController
-  before_action :set_paciente, only: [:show, :edit, :update, :destroy]
+  before_action :set_paciente, only: [:paciente_historia_clinica, :show, :edit, :update, :destroy]
 
   # GET /pacientes
   # GET /pacientes.json
@@ -20,6 +20,11 @@ class PacientesController < ApplicationController
 
   # GET /pacientes/1/edit
   def edit
+  end
+
+  def paciente_historia_clinica
+    puts @paciente.id
+    @historia_clinicas = HistoriaClinica.where(paciente_id: @paciente.id ).all
   end
 
   # POST /pacientes
