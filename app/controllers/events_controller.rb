@@ -47,8 +47,12 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 
   def create
     @event = Event.new(event_params)
-    @event.color = Equipo.find(params[:equipo]).color
-	  @event.save
+    @event.color = Equipo.find(@event.equipo).color
+    respond_to do |format|
+	   if @event.save
+        format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
+      end
+    end
   end
 
   def update
