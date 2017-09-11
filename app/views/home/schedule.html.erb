@@ -12,9 +12,7 @@
     
     <div id="collapse1" class="panel-collapse collapse">
       <%= form_tag schedule_path do %>
-      <ul class="list-group">
-        <%= text_field_tag 'search', class: "form-group"  %>
-      </ul>
+        <%= text_field_tag 'search', '' , class: "form-control"  %>
       <div class="panel-footer"><%= submit_tag "enviar", id: "search_button", class: "btn btn-success" %></div>
       <% end %>
     </div>
@@ -104,32 +102,7 @@
     // modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
     // };
 
-    // //load data para los combobox
-    var medicos_opts = [];
 
-    <% @medicos.each do |medico| %>
-        var nuevo_medico = {}
-        nuevo_medico.key = <%= medico.id %>
-        nuevo_medico.label = '<%= medico.nombre %>' + ' ' + '<%= medico.apellido %>'
-        medicos_opts.push(nuevo_medico)
-    <% end %>
-
-    var equipos = []
-
-    <% @equipos_todos.each do |equipo| %>
-        var nuevo_equipo = {}
-        nuevo_equipo.key = <%= equipo.id %>
-        nuevo_equipo.label = '<%= equipo.nombre %>' 
-        equipos.push(nuevo_equipo)
-    <% end %>
-
-    var pacientes = []
-    <% @pacientes.each do |paciente| %>
-      var nuevo_paciente = {}
-      nuevo_paciente.key = <%= paciente.id %>
-      nuevo_paciente.label = "<%= paciente.nombre + ' ' + paciente.apellido + ' ' + paciente.email %>"
-      pacientes.push(nuevo_paciente) 
-    <% end %>
 
     // // Modificar colores por equipo
 

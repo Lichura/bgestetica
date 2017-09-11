@@ -57,6 +57,11 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 
   def update
       @event.update(event_params)
+          respond_to do |format|
+     if @event.save
+        format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
+      end
+    end
   end
 
   def destroy

@@ -26,8 +26,8 @@ class HomeController < ApplicationController
 
 
   def medico_index
-    @proximos_eventos = Event.today
-      end
+    @proximos_eventos = Event.today.order(start_date: :asc).limit(10)
+  end
 
   def schedule
 	@equipos_todos = Equipo.all
@@ -54,6 +54,8 @@ class HomeController < ApplicationController
               :event_pid => event.event_pid
 		}}.to_json
 puts @events.each { |event| event.id}
+
+
 	@events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
@@ -89,7 +91,7 @@ puts @events.each { |event| event.id}
 
 	     when "updated"
 	     	@event = set_event
-	        @event.update(event_params)
+	        @event.update(update_params)
 	   	 end
 
 	   render :json => {
@@ -111,6 +113,10 @@ puts @events.each { |event| event.id}
 
 	 def event_params
 	 	params.permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
+	 end
+
+	 def update_params
+	 	params.permit(:start_date, :end_date)
 	 end
 
 end

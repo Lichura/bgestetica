@@ -7,10 +7,12 @@ class Event < ActiveRecord::Base
 	end
 
 	def self.search(term)
-		where("text LIKE ? OR paciente LIKE ? OR equipo LIKE ?", "%#{term}","%#{term}","%#{term}")
+		paciente = Paciente.where("nombre LIKE ?", "%#{term}%").ids
+		equipo = Equipo.where("nombre LIKE ?", "%#{term}%").ids
+		where("text LIKE ? OR paciente IN (?) OR equipo IN (?)", "%#{term}%",paciente,equipo)
 	end
 
 	def self.today
-		where("start_date > ? AND start_date <= ? AND estado = ?", Date.yesterday, (Date.tomorrow + 1.day), "1")
+		where("start_date > ? AND estado = ?", Date.yesterday, "1")
 	end
 end

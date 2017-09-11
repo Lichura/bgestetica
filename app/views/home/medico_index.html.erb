@@ -1,5 +1,7 @@
+  <h3>Proximos turnos</h3>
+
 <table id="proximos_turnos">
-  <caption>Proximos turnos</caption>
+
   <thead>
     <tr>
       <th scope="col">Paciente</th>
@@ -16,8 +18,8 @@
   <% if @proximos_eventos %>
   <% @proximos_eventos.each do |evento| %>
       <tr>
-      <td data-label="Paciente"><%= evento.paciente %></td>
-      <td data-label="Equipo"><%= evento.equipo %></td>
+      <td data-label="Paciente"><%= Paciente.find(evento.paciente).nombre %></td>
+      <td data-label="Equipo"><%= Equipo.find(evento.equipo).nombre %></td>
       <td data-label="Comentarios"><%= evento.text %></td>
       <td data-label="Inicio"><%= evento.start_date.to_formatted_s(:short) %></td>
       <td data-label="Fin"><%= evento.end_date.to_formatted_s(:short) %></td>
