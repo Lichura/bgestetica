@@ -29,6 +29,22 @@ class HomeController < ApplicationController
     @proximos_eventos = Event.today.order(start_date: :asc).limit(10)
   end
 
+  def schedule_paciente
+ 
+    @events = Event.all
+    @events = @events.map {|event| {
+              :id => event.id,
+              :start_date => event.start_date.to_formatted_s(:db),
+              :end_date => event.end_date.to_formatted_s(:db),
+              :text => event.text,
+              :paciente => Paciente.find(event.paciente).nombre,
+              :medico => Medico.find(event.medico).nombre,
+              :equipo => Equipo.find(event.equipo).nombre,
+              :color => event.color,
+              :rec_type => event.rec_type,
+              :event_length => event.event_length,
+              :event_pid => event.event_pid}}.to_json
+  end
   def schedule
 	@equipos_todos = Equipo.all
 	@medicos = Medico.all

@@ -1,14 +1,169 @@
 /*
 @license
-dhtmlxScheduler v.4.4.9 Professional Evaluation
+dhtmlxScheduler v.4.4.0 Stardard
 
-This software is covered by DHTMLX Evaluation License. Contact sales@dhtmlx.com to get Commercial or Enterprise license. Usage without proper license is prohibited.
+This software is covered by GPL license. You also can obtain Commercial or Enterprise license to use it in non-GPL project - please contact sales@dhtmlx.com. Usage without proper license is prohibited.
 
 (c) Dinamenta, UAB.
 */
-Scheduler.plugin(function(e){e.form_blocks.combo={render:function(e){e.cached_options||(e.cached_options={});var t="";return t+="<div class='"+e.type+"' style='height:"+(e.height||20)+"px;' ></div>"},set_value:function(t,i,a,n){!function(){function i(){if(t._combo&&t._combo.DOMParent){var e=t._combo;e.unload?e.unload():e.destructor&&e.destructor(),e.DOMParent=e.DOMelem=null}}i();var a=e.attachEvent("onAfterLightbox",function(){i(),e.detachEvent(a)})}(),window.dhx_globalImgPath=n.image_path||"/",t._combo=new dhtmlXCombo(t,n.name,t.offsetWidth-8),
-n.onchange&&t._combo.attachEvent("onChange",n.onchange),n.options_height&&t._combo.setOptionHeight(n.options_height);var r=t._combo;if(r.enableFilteringMode(n.filtering,n.script_path||null,!!n.cache),n.script_path){var s=a[n.map_to];s?n.cached_options[s]?(r.addOption(s,n.cached_options[s]),r.disable(1),r.selectOption(0),r.disable(0)):dhtmlxAjax.get(n.script_path+"?id="+s+"&uid="+e.uid(),function(e){var t=e.doXPath("//option")[0],i=t.childNodes[0].nodeValue;n.cached_options[s]=i,r.addOption(s,i),r.disable(1),
-r.selectOption(0),r.disable(0)}):r.setComboValue("")}else{for(var d=[],o=0;o<n.options.length;o++){var l=n.options[o],_=[l.key,l.label,l.css];d.push(_)}if(r.addOption(d),a[n.map_to]){var h=r.getIndexByValue(a[n.map_to]);r.selectOption(h)}}},get_value:function(e,t,i){var a=e._combo.getSelectedValue();return i.script_path&&(i.cached_options[a]=e._combo.getSelectedText()),a},focus:function(e){}},e.form_blocks.radio={render:function(t){var i="";i+="<div class='dhx_cal_ltext dhx_cal_radio' style='height:"+t.height+"px;' >";
-for(var a=0;a<t.options.length;a++){var n=e.uid();i+="<input id='"+n+"' type='radio' name='"+t.name+"' value='"+t.options[a].key+"'><label for='"+n+"'> "+t.options[a].label+"</label>",t.vertical&&(i+="<br/>")}return i+="</div>"},set_value:function(e,t,i,a){for(var n=e.getElementsByTagName("input"),r=0;r<n.length;r++){n[r].checked=!1;var s=i[a.map_to]||t;n[r].value==s&&(n[r].checked=!0)}},get_value:function(e,t,i){for(var a=e.getElementsByTagName("input"),n=0;n<a.length;n++)if(a[n].checked)return a[n].value;
-},focus:function(e){}},e.form_blocks.checkbox={render:function(t){return e.config.wide_form?'<div class="dhx_cal_wide_checkbox" '+(t.height?"style='height:"+t.height+"px;'":"")+"></div>":""},set_value:function(t,i,a,n){t=document.getElementById(n.id);var r=e.uid(),s="undefined"!=typeof n.checked_value?i==n.checked_value:!!i;t.className+=" dhx_cal_checkbox";var d="<input id='"+r+"' type='checkbox' value='true' name='"+n.name+"'"+(s?"checked='true'":"")+"'>",o="<label for='"+r+"'>"+(e.locale.labels["section_"+n.name]||n.name)+"</label>";
-if(e.config.wide_form?(t.innerHTML=o,t.nextSibling.innerHTML=d):t.innerHTML=d+o,n.handler){var l=t.getElementsByTagName("input")[0];l.onclick=n.handler}},get_value:function(e,t,i){e=document.getElementById(i.id);var a=e.getElementsByTagName("input")[0];return a||(a=e.nextSibling.getElementsByTagName("input")[0]),a.checked?i.checked_value||!0:i.unchecked_value||!1},focus:function(e){}}});
+scheduler.form_blocks['combo']={
+	render:function(sns) {
+		if (!sns.cached_options)
+			sns.cached_options = {};
+		var res = '';
+		res += "<div class='"+sns.type+"' style='height:"+(sns.height||20)+"px;' ></div>";
+		return res;
+	},
+	set_value:function(node,value,ev,config){
+		(function(){
+			resetCombo();
+			var id = scheduler.attachEvent("onAfterLightbox",function(){
+				// otherwise destructor will never be called after form reset(e.g. in readonly event mode)
+				resetCombo();
+				scheduler.detachEvent(id);
+			});
+			function resetCombo(){
+				if(node._combo && node._combo.DOMParent) {
+					var combo = node._combo;
+					if(combo.unload){
+						combo.unload();
+					}else if(combo.destructor){
+						combo.destructor();
+					}
+					// dhtmlxCombo 4.1.0 bug
+					combo.DOMParent = combo.DOMelem = null;
+				}
+			}
+		})();
+		window.dhx_globalImgPath = config.image_path||'/';
+		node._combo = new dhtmlXCombo(node, config.name, node.offsetWidth-8);
+		if (config.onchange)
+			node._combo.attachEvent("onChange", config.onchange);
+
+		if (config.options_height)
+			node._combo.setOptionHeight(config.options_height);
+		var combo = node._combo;
+		combo.enableFilteringMode(config.filtering, config.script_path||null, !!config.cache);
+		
+		if (!config.script_path) { // script-side filtration is used
+			var all_options = [];
+			for (var i = 0; i < config.options.length; i++) {
+				var option = config.options[i];
+				var single_option = [
+					option.key,
+					option.label,
+					option.css
+				];
+				all_options.push(single_option);
+			}
+			combo.addOption(all_options);
+			if (ev[config.map_to]) {
+				var index = combo.getIndexByValue(ev[config.map_to]);
+				combo.selectOption(index);
+			}
+		} else { // server-side filtration is used
+			var selected_id = ev[config.map_to];
+			if (selected_id) {
+				if (config.cached_options[selected_id]) {
+					combo.addOption(selected_id, config.cached_options[selected_id]);
+					combo.disable(1);
+					combo.selectOption(0);
+					combo.disable(0);
+				} else {
+					dhtmlxAjax.get(config.script_path+"?id="+selected_id+"&uid="+scheduler.uid(), function(result){
+						var option = result.doXPath("//option")[0];
+						var label = option.childNodes[0].nodeValue;
+						config.cached_options[selected_id] = label;
+						combo.addOption(selected_id, label);
+						combo.disable(1);
+						combo.selectOption(0);
+						combo.disable(0);
+					});
+				}
+			} else {
+				combo.setComboValue("");
+			}
+		}
+	},
+	get_value:function(node,ev,config) {
+		var selected_id = node._combo.getSelectedValue(); // value = key
+		if (config.script_path) {
+			config.cached_options[selected_id] = node._combo.getSelectedText();
+		}
+		return selected_id;
+	},
+	focus:function(node){
+	}
+};
+
+scheduler.form_blocks['radio']={
+	render:function(sns) {
+		var res = '';
+		res += "<div class='dhx_cal_ltext dhx_cal_radio' style='height:"+sns.height+"px;' >";
+		for (var i=0; i<sns.options.length; i++) {
+			var id = scheduler.uid();
+			res += "<input id='"+id+"' type='radio' name='"+sns.name+"' value='"+sns.options[i].key+"'><label for='"+id+"'>"+" "+sns.options[i].label+"</label>";
+			if(sns.vertical)
+				res += "<br/>";
+		}
+		res += "</div>";
+		
+		return res;
+	},
+	set_value:function(node,value,ev,config){
+		var radiobuttons = node.getElementsByTagName('input');
+		for (var i = 0; i < radiobuttons.length; i++) {
+			radiobuttons[i].checked = false;
+			var checked_value = ev[config.map_to]||value;
+			if (radiobuttons[i].value == checked_value) {
+				radiobuttons[i].checked = true;
+			}
+		}
+	},
+	get_value:function(node,ev,config){
+		var radiobuttons = node.getElementsByTagName('input');
+		for(var i=0; i<radiobuttons.length; i++) {
+			if(radiobuttons[i].checked) {
+				return radiobuttons[i].value;
+			}
+		}
+	},
+	focus:function(node){
+	}
+};
+
+scheduler.form_blocks['checkbox']={
+	render:function(sns) {
+		if (scheduler.config.wide_form)
+			return '<div class="dhx_cal_wide_checkbox" '+(sns.height?("style='height:"+sns.height+"px;'"):"")+'></div>';
+		else
+			return '';
+	},
+	set_value:function(node,value,ev,config){
+		node=document.getElementById(config.id);
+		var id = scheduler.uid();
+		var isChecked = (typeof config.checked_value != "undefined") ? value == config.checked_value : !!value;
+		node.className += " dhx_cal_checkbox";
+		var check_html = "<input id='"+id+"' type='checkbox' value='true' name='"+config.name+"'"+((isChecked)?"checked='true'":'')+"'>"; 
+		var label_html = "<label for='"+id+"'>"+(scheduler.locale.labels["section_"+config.name]||config.name)+"</label>";
+		if (scheduler.config.wide_form){
+			node.innerHTML = label_html;
+			node.nextSibling.innerHTML=check_html;
+		} else 
+			node.innerHTML=check_html+label_html;
+
+		if (config.handler) {
+			var checkbox = node.getElementsByTagName('input')[0];
+			checkbox.onclick = config.handler;
+		}
+	},
+	get_value:function(node,ev,config){
+		node=document.getElementById(config.id);
+		var checkbox = node.getElementsByTagName('input')[0]; // moved to the header
+		if (!checkbox)
+			checkbox = node.nextSibling.getElementsByTagName('input')[0];
+		return (checkbox.checked)?(config.checked_value||true):(config.unchecked_value||false);
+	},
+	focus:function(node){
+	}
+};

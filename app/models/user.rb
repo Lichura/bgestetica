@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 	after_initialize :set_defaults, unless: :persisted?
 	belongs_to :profile
+
+	enum estado: { admin: 0, medico: 1, usuario: 2, paciente: 3 }
 	
 	#attr_accessor :password
 	#before_save :encrypt_password
@@ -13,6 +15,9 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of :email
 
 	
+	def is_admin
+		return true if self.estado == [:admin]
+	end
 
 	def set_defaults
 		self.profile_id = Profile.first[:id]

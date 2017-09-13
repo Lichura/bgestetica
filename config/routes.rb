@@ -29,6 +29,7 @@ end
 
   get 'menu/buscar_turnos'
   get 'home/schedule', :as => "schedule"
+  get 'home/schedule_paciente', :as => "schedule_paciente"
   post 'home/schedule'
   get 'home/db_action', :as => "db_action"
   #get "home/data", :as => "data"
