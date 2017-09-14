@@ -16,9 +16,11 @@ Rails.application.config.assets.version = '1.0'
 
   Rails.application.config.assets.precompile += %w( dhtmlxscheduler.js )
  # Rails.application.config.assets.precompile += %w( dhtmlxscheduler.css )
-  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_limit.js )
+
   Rails.application.config.assets.precompile += %w( dhtmlxscheduler_editors.js )
+  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_limit.js )
 Rails.application.config.assets.precompile += %w( dhtmlxscheduler_readonly.js )
+  Rails.application.config.assets.precompile += %w( dhtmlxscheduler_timeline.js )
  # Rails.application.config.assets.precompile += %w( dhtmlxscheduler_agenda_view.js )
  # Rails.application.config.assets.precompile += %w( dhtmlxscheduler_units.js )
  # Rails.application.config.assets.precompile += %w( dhtmlxscheduler_timeline.js )
