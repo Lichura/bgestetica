@@ -20,6 +20,21 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
     end
   end
 
+
+
+  def evento_paciente
+    @fecha_inicio = params[:start_date]
+    @fecha_fin = params[:end_date]
+    @medico = Medico.first
+    @equipo = Equipo.first
+    @paciente = current_user
+    @event = Event.new( text: params[:text])
+    respond_to do |format|
+      format.js { render :action => "new_event_paciente" }
+    end
+  end
+
+
   def recurring
     @event = Event.new
     

@@ -1,7 +1,5 @@
 
-<head>
 
-</head>
 <div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
 
 
@@ -18,11 +16,11 @@
  </div>
 </div>
 
-
+<div id="formulario"></div>
 
 <script>
     var data = <%= @events.html_safe %>;
-    
+    var dias_bloqueados = <%= @fechas_bloqueadas.html_safe %>;
 
 // we can block specific dates
 
@@ -39,9 +37,44 @@
 
     scheduler.config.show_loading = true;
     scheduler.parse(JSON.stringify(data), "json");
-    scheduler.getEvent(64).readonly = true;
+
+
+  
+
+    var block_to = new Date(Date.now());
+
+  var time_id = scheduler.addMarkedTimespan({
+       start_date: new Date(2017-08-10),
+       end_date: new Date(Date.now()),
+       type: "dhx_time_block"
+    });
+
+scheduler.attachEvent("onBeforeViewChange", function(old_mode,old_date,mode,date){
+    if(time_id) 
+      scheduler.deleteMarkedTimespan(time_id);
+    
+  
+    var view_from = scheduler.date[mode + "_start"](new Date(date));
+    var view_to = scheduler.date.add(view_from, 1, mode);
+  
+    time_id = scheduler.addMarkedTimespan({
+       start_date: view_from,
+       end_date: new Date(Math.min(+block_to, +view_to)),
+       type: "dhx_time_block"
+    });
+  
+    return true;
+});
+
+
     scheduler.updateView();
     var dp = new dataProcessor("<%= db_action_path %>");
+
+
+
+
+
+
 
     dp.init(scheduler);
     
@@ -51,19 +84,31 @@
 
     //marks and blocks dates
 
-//prueba con array
+//prueba con arra
+//var dias_bloqueados = [{"start_date":"2017-09-04,11:00","end_date":"2017-09-04,12:30"},{"start_date":"2017-09-07,08:30","end_date":"2017-09-07,10:30"},{"start_date":"2017-09-14,09:00","end_date":"2017-09-14,09:30"},{"start_date":"2017-09-12,10:30","end_date":"2017-09-12,12:00"}];
+
+var index,len
+for (index = 0, len = dias_bloqueados.length; index < len; ++index) {
+    bloquear = {
+    start_date: new Date(dias_bloqueados[index].start_date),
+    end_date: new Date(dias_bloqueados[index].end_date),
+    type: "dhx_time_block",
+    html: "No disponible",
+    css: "dias_bloqueados"
+    }
+    console.log(bloquear);
+    scheduler.addMarkedTimespan(bloquear);
+};
 
 
-scheduler.addMarkedTimespan({
-  start_date: new Date(2017, 9, 13, 8),
-  end_date: new Date(2017, 9, 13, 20),
-  css: "gray"
-});
 
-
-//scheduler.addMarkedTimespan(bloqueos);
 
 scheduler.updateView();
+//scheduler.addMarkedTimespan(bloqueos);
+
+
+// block time
+
 // Setting up holidays
       // var holidays = [ new Date(2017, 7, 4), new Date(2017,7,7), new Date(2017,7,30) ];
       // for (var i=0; i<holidays.length; i++) {
@@ -78,5 +123,30 @@ scheduler.updateView();
       //   scheduler.addMarkedTimespan(options);
       // }
 
+
+var html = function(id) { return document.getElementById(id); }; //just a helper
+var paciente = <%= current_user.id %>;
+
+    scheduler.showLightbox = function(id) {
+      var ev = scheduler.getEvent(id);
+      console.log(ev);
+      scheduler.startLightbox(id, null);
+      scheduler.hideCover();
+      $.ajax({
+        url:'/events/evento_paciente',
+        dataType: 'script',
+        type: 'POST',
+        data:{
+            id: id,
+            start_date: ev.start_date,
+            end_date: ev.end_date,
+            text: ev.text
+
+        },
+        error:function(data){
+            debugger;
+        }
+    });
+    };
 
 </script>

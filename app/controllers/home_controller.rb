@@ -31,7 +31,8 @@ class HomeController < ApplicationController
 
   def schedule_paciente
  
-    @events = Event.all
+    @eventos = Event.where('start_date >= ? AND paciente != ?', Time.now, 1).all
+    @events = Event.where('start_date >= ? AND paciente == ?', Time.now, 1).all
     @events = @events.map {|event| {
               :id => event.id,
               :start_date => event.start_date.to_formatted_s(:db),
@@ -40,10 +41,15 @@ class HomeController < ApplicationController
               :paciente => Paciente.find(event.paciente).nombre,
               :medico => Medico.find(event.medico).nombre,
               :equipo => Equipo.find(event.equipo).nombre,
-              :color => "#bec0c4",
               :rec_type => event.rec_type,
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
+
+    @fechas_bloqueadas = @eventos.map {|event| {
+              :start_date => event.start_date.strftime("%Y-%m-%d,%H:%M"),
+              :end_date => event.end_date.strftime("%Y-%m-%d,%H:%M")}}.to_json
+
+    puts @fechas_bloqueadas
   end
   def schedule
 	@equipos_todos = Equipo.all
