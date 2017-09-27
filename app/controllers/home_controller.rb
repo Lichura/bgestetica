@@ -38,8 +38,8 @@ class HomeController < ApplicationController
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
               :text => event.text,
-              :paciente => Paciente.find(event.paciente).nombre,
-              :medico => Medico.find(event.medico).nombre,
+              :paciente => User.find(event.paciente).fullname,
+              :medico => User.find(event.medico).fullname,
               :equipo => Equipo.find(event.equipo).nombre,
               :rec_type => event.rec_type,
               :event_length => event.event_length,
@@ -53,8 +53,8 @@ class HomeController < ApplicationController
   end
   def schedule
 	@equipos_todos = Equipo.all
-	@medicos = Medico.all
-	@pacientes = Paciente.all
+	@medicos = User.where(profile: [:medico]).all
+	@pacientes = Paciente.where(profile: [:paciente]).all
 	@user = User.new
 	@profiles = Profile.all
 	if params[:search] && params[:search] != ""
@@ -83,8 +83,8 @@ puts @events.each { |event| event.id}
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
               :text => event.text,
-              :paciente => Paciente.find(event.paciente).nombre,
-              :medico => Medico.find(event.medico).nombre,
+              :paciente => User.find(event.paciente).fullname,
+              :medico => User.find(event.medico).fullname,
               :equipo => Equipo.find(event.equipo).nombre,
               :color => event.color,
               :rec_type => event.rec_type,

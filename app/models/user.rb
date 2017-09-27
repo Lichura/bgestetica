@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-	after_initialize :set_defaults, unless: :persisted?
-	belongs_to :profile
+	#after_create :set_defaults, unless: :persisted?
 
-	enum estado: { admin: 0, medico: 1, usuario: 2, paciente: 3 }
+	enum profile: [:admin, :medico, :usuario, :paciente ]
 	
 	#attr_accessor :password
 	#before_save :encrypt_password
@@ -14,13 +13,15 @@ class User < ActiveRecord::Base
 	validates_presence_of :email
 	validates_uniqueness_of :email
 
+
+
 	
 	def is_admin
-		return true if self.estado == [:admin]
+		return true if self.admin?
 	end
 
-	def set_defaults
-		self.profile_id = Profile.first[:id]
+	def fullname
+		self.name + " " + self.lastname
 	end
 	def self.search(usuario)
 		where("name LIKE ? OR lastname LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")

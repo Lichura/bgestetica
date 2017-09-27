@@ -6,9 +6,9 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 	end
 
   def create_or_update
-    @medicos = Medico.all
+    @medicos = User.where(profile: [:medico]).all
     @equipos = Equipo.all
-    @pacientes = Paciente.all
+    @pacientes = User.where(profile: [:paciente]).all
     if params[:id].length < 13
       @event = Event.find(params[:id])
       puts("estoy haciendo un update")
@@ -46,7 +46,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
   
   def confirm
     @event.estado = 3
-    @paciente = Paciente.find_by(nombre: @event.paciente)
+    @paciente = User.find_by(nombre: @event.paciente)
     puts @event.paciente
     @historia_clinica = HistoriaClinica.new
     @event.save
@@ -65,7 +65,11 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
     @event.color = Equipo.find(@event.equipo).color
     respond_to do |format|
 	   if @event.save
+      if current_user.is_admin
         format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
+      else
+        format.html { redirect_to root_url , notice: 'El turno se creo con exito' }
+      end
       end
     end
   end
