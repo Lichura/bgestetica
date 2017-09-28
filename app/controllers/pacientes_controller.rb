@@ -22,6 +22,9 @@ class PacientesController < ApplicationController
   def edit
   end
 
+  def paciente_inicio
+    @proximos_turnos = Event.where(paciente: current_user.id).all
+  end
   def paciente_historia_clinica
     puts @paciente.id
     @historia_clinicas = HistoriaClinica.where(paciente_id: @paciente.id ).all

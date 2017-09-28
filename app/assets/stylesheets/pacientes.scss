@@ -6,3 +6,28 @@
 .new_paciente{
 	width: 100%;
 }
+
+.paciente-box{
+	width: 200px;
+	height: 200px;
+	border-radius: 5px;
+}
+
+.p-2{
+-webkit-box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 36px 0px rgba(0,0,0,0.75);
+}
+
+.p-2{
+    i{
+	position: relative;
+	margin-left: 50%;
+	margin-top: 5%;
+	}
+	span{
+position: relative;
+margin-top: 50%;
+}
+}
+

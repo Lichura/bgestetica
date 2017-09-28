@@ -43,6 +43,7 @@ end
   get 'events/:id/confirm', to: "events#confirm", :as => "event_confirm"
  post 'events/:id/confirm', to: "events#confirmar"
   get 'pacientes/:id/paciente_historia_clinica', to: 'pacientes#paciente_historia_clinica', :as => "paciente_historia_clinica"
+  get 'paciente_inicio', to: 'pacientes#paciente_inicio'
 
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"

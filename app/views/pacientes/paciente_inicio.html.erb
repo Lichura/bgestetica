@@ -1,0 +1,49 @@
+
+<div class="d-flex justify-content-around flex-row justify-content-around">
+  <div class="p-2">
+	  <div class="paciente-box">
+	  <i class="fa fa-address-card-o" aria-hidden="true"></i>
+	  <span>Cambiar datos personales</span>
+	  </div>
+  </div>
+  <div class="p-2">
+  <div class="paciente-box">
+	 <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+	  <span>Solicitar nuevo turno</span>
+</div>
+	  </div>
+  <div class="p-2"><div class="paciente-box">
+	 <i class="fa fa-user-md" aria-hidden="true"></i>
+	  <span>Ver mi historial</span>
+	  </div>
+	  </div>
+</div>
+
+<h4>Proximos turnos</h4>
+
+
+
+
+<table id="proximos_turnos">
+
+  <thead>
+    <tr>
+      <th scope="col">Comentarios</th>
+      <th scope="col">Inicio</th>
+      <th scope="col">Cancelar</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @proximos_turnos %>
+  <% @proximos_turnos.each do |evento| %>
+      <tr>
+      <td data-label="Comentarios"><%= evento.text %></td>
+      <td data-label="Inicio"><%= evento.start_date.to_formatted_s(:short) %></td>
+      <td data-label="Cancelar"><%= link_to evento, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' } do %>
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    <% end %></td>
+    </tr>
+	<% end %>
+  <% end %>
+  </tbody>
+</table>
