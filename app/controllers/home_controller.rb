@@ -31,25 +31,23 @@ class HomeController < ApplicationController
 
   def schedule_paciente
  
-    @eventos = Event.where('start_date >= ? AND paciente != ?', Time.now, 1).all
-    @events = Event.where('start_date >= ? AND paciente == ?', Time.now, 1).all
-    @events = @events.map {|event| {
-              :id => event.id,
-              :start_date => event.start_date.to_formatted_s(:db),
-              :end_date => event.end_date.to_formatted_s(:db),
-              :text => event.text,
-              :paciente => User.find(event.paciente).fullname,
-              :medico => User.find(event.medico).fullname,
-              :equipo => Equipo.find(event.equipo).nombre,
-              :rec_type => event.rec_type,
-              :event_length => event.event_length,
-              :event_pid => event.event_pid}}.to_json
+    @eventos = Event.where('start_date >= ?', Time.now).all
+    #@events = Event.where('start_date >= ? AND paciente == ?', Time.now, 1).all
+    #@events = @events.map {|event| {
+              # :id => event.id,
+              # :start_date => event.start_date.to_formatted_s(:db),
+              # :end_date => event.end_date.to_formatted_s(:db),
+              # :text => event.text,
+              # :paciente => User.find(event.paciente).fullname,
+              # :medico => User.find(event.medico).fullname,
+              # :equipo => Equipo.find(event.equipo).nombre,
+              # :rec_type => event.rec_type,
+              # :event_length => event.event_length,
+              # :event_pid => event.event_pid}}.to_json
 
     @fechas_bloqueadas = @eventos.map {|event| {
               :start_date => event.start_date.strftime("%Y-%m-%d,%H:%M"),
               :end_date => event.end_date.strftime("%Y-%m-%d,%H:%M")}}.to_json
-
-    puts @fechas_bloqueadas
   end
   def schedule
 	@equipos_todos = Equipo.all

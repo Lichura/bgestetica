@@ -19,7 +19,7 @@
 <div id="formulario"></div>
 
 <script>
-    var data = <%= @events.html_safe %>;
+  
     var dias_bloqueados = <%= @fechas_bloqueadas.html_safe %>;
 
 // we can block specific dates
@@ -31,12 +31,15 @@
     scheduler.config.last_hour = 20;
     scheduler.config.time_step  = 30;
     scheduler.config.details_on_create = true;
-
+    scheduler.ignore_week = function(date){
+        if (date.getDay() == 7 || date.getDay() == 0) //hides Saturdays and Sundays
+            return true;
+    };
     scheduler.init("scheduler_here");
 
 
     scheduler.config.show_loading = true;
-    scheduler.parse(JSON.stringify(data), "json");
+    //scheduler.parse(JSON.stringify(data), "json");
 
 
   
