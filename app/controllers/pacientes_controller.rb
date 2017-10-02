@@ -4,7 +4,7 @@ class PacientesController < ApplicationController
   # GET /pacientes
   # GET /pacientes.json
   def index
-    @pacientes = Paciente.order(:nombre).where("nombre like ?", "%#{params[:term]}%")
+    @pacientes = User.order(:nombre).where("nombre like ?", "%#{params[:term]}%")
     render json: @pacientes.map(&:nombre)
   end
 
@@ -15,7 +15,7 @@ class PacientesController < ApplicationController
 
   # GET /pacientes/new
   def new
-    @paciente = Paciente.new
+    @paciente = User.new
   end
 
   # GET /pacientes/1/edit
@@ -33,7 +33,7 @@ class PacientesController < ApplicationController
   # POST /pacientes
   # POST /pacientes.json
   def create
-    @paciente = Paciente.new(paciente_params)
+    @paciente = User.new(paciente_params)
 
     respond_to do |format|
       if @paciente.save
@@ -73,7 +73,7 @@ class PacientesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_paciente
-      @paciente = Paciente.find(params[:id])
+      @paciente = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

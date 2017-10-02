@@ -1,10 +1,12 @@
 
 <div class="d-flex justify-content-around flex-row justify-content-around">
   <div class="p-2">
+  <%= link_to user_path(current_user.id) do %>
 	  <div class="paciente-box">
 	  <i class="fa fa-address-card-o" aria-hidden="true"></i>
 	  <span>Cambiar datos personales</span>
 	  </div>
+	  <% end %>
   </div>
   <div class="p-2">
   <%= link_to schedule_paciente_url do %>
@@ -14,11 +16,14 @@
 </div>
 <% end %>
 	  </div>
-  <div class="p-2"><div class="paciente-box">
+  <div class="p-2">
+  <%= link_to paciente_historia_clinica_url(current_user.id) do %>
+  <div class="paciente-box">
 	 <i class="fa fa-user-md" aria-hidden="true"></i>
 	  <span>Ver mi historial</span>
 	  </div>
-	  </div>
+	<% end %>
+	</div>
 </div>
 
 

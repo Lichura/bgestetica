@@ -4,7 +4,7 @@ before_filter :admin_required
   	@users = User.all
   end
   def new
-    @paciente = Paciente.new
+    @paciente = User.new
   end
   def edit
   end
