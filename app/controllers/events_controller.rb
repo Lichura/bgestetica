@@ -68,7 +68,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
       if current_user.is_admin
         format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
       else
-        format.html { redirect_to root_url , notice: 'El turno se creo con exito' }
+        format.html { redirect_to paciente_inicio_url , notice: 'El turno se creo con exito' }
       end
       end
     end

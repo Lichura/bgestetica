@@ -1,5 +1,34 @@
-  <h3>Proximos turnos</h3>
+<div class="d-flex justify-content-around flex-row justify-content-around">
+  <div class="p-2">
+  <%= link_to user_path(current_user.id) do %>
+    <div class="paciente-box">
+    <i class="fa fa-address-card-o" aria-hidden="true"></i>
+    <span>Cambiar datos personales</span>
+    </div>
+    <% end %>
+  </div>
+  <div class="p-2">
+  <%= link_to schedule_url do %>
+  <div class="paciente-box">
+   <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+    <span>Generar turno</span>
+</div>
+<% end %>
+    </div>
+  <div class="p-2">
+  <%= link_to pacientes_path do %>
+  <div class="paciente-box">
+   <i class="fa fa-user-md" aria-hidden="true"></i>
+    <span>Ver pacientes</span>
+    </div>
+  <% end %>
+  </div>
+</div>
 
+
+
+<div class="container-fluid">
+<h4 style="text-align: center">Proximos turnos</h4>
 <table id="proximos_turnos">
 
   <thead>
@@ -18,7 +47,7 @@
   <% if @proximos_eventos %>
   <% @proximos_eventos.each do |evento| %>
       <tr>
-      <td data-label="Paciente"><%= Paciente.find(evento.paciente).nombre %></td>
+      <td data-label="Paciente"><%= User.find(evento.paciente).fullname %></td>
       <td data-label="Equipo"><%= Equipo.find(evento.equipo).nombre %></td>
       <td data-label="Comentarios"><%= evento.text %></td>
       <td data-label="Inicio"><%= evento.start_date.to_formatted_s(:short) %></td>
@@ -41,7 +70,7 @@
   <% end %>
   </tbody>
 </table>
-
+</div>
 
 
 
