@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required, only: [:update, :index, :edit, :show]
+  before_action :admin_required, only: [:index, :edit, :show]
+  before_action :admin_required, only: [:update],  :unless => :user_is_current_user?
+
+  def user_is_current_user?
+    puts current_user.id
+    puts params[:id]
+    return true if (current_user == User.find(params[:id]))
+  end
   def new
   	@user = User.new
   end
@@ -62,8 +69,8 @@ end
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'Usuario was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.html { redirect_to root_url, notice: 'Usuario was successfully updated.' }
+        format.json { render root_url, status: :ok }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -87,6 +94,6 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:name, :lastname, :email, :age, :profile_id, :password, :password_confirmation)
+			params.require(:user).permit(:name, :lastname, :email, :address, :phone, :age, :profile_id, :password, :password_confirmation)
 		end
 end

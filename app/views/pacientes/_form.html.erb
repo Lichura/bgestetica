@@ -15,11 +15,19 @@
 <form sytle="width:100%;">
   <div class="form-group">
     <label for="exampleInputEmail1">Nombre</label>
-    <%= f.text_field :nombre, class: "form-control"  %>
+    <%= f.text_field :name, class: "form-control"  %>
   </div>
   <div class="form-group">
     <label for="ejemplo_password_3">Apellido</label>
-          <%= f.text_field :apellido, class: "form-control"  %>
+          <%= f.text_field :lastname, class: "form-control"  %>
+  </div>
+  <div class="form-group">
+    <label for="ejemplo_password_3">Contraseña</label>
+          <%= f.text_field :password, class: "form-control"  %>
+  </div>
+    <div class="form-group">
+    <label for="ejemplo_password_3">Confirmar contraseña</label>
+          <%= f.text_field :password_confirmation, class: "form-control"  %>
   </div>
   <div class="form-group">
     <label for="ejemplo_password_3">Email</label>
@@ -27,19 +35,15 @@
   </div>
   <div class="form-group">
     <label for="ejemplo_password_3">Fecha de nacimiento</label>
-        <%= f.text_field :fecha_nacimiento, class: "form-control"  %>
-  </div>
-  <div class="form-group">
-    <label for="ejemplo_password_3">Dni</label>
-     <%= f.number_field :dni, class: "form-control"  %>
+        <%= f.text_field :age, class: "form-control"  %>
   </div>
   <div class="form-group">
     <label for="ejemplo_email_3" >Telefono</label>
-      <%= f.text_field :telefono, class: "form-control"  %>
+      <%= f.text_field :phone, class: "form-control"  %>
   </div>
   <div class="form-group">
     <label for="ejemplo_email_3">Direccion</label>
-      <%= f.text_field :direccion, class: "form-control"  %>
+      <%= f.text_field :address, class: "form-control"  %>
   </div>
   <div class="actions">
     <%= f.submit 'Aceptar', class: "btn btn-default" %>

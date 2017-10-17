@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927093242) do
+ActiveRecord::Schema.define(version: 20171017090511) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
@@ -131,6 +131,8 @@ ActiveRecord::Schema.define(version: 20170927093242) do
     t.datetime "password_reset_sent_at"
     t.string   "password_digest"
     t.integer  "profile",                default: 3
+    t.string   "phone"
+    t.string   "address"
   end
 
 end

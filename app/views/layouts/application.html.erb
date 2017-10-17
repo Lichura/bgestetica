@@ -65,13 +65,14 @@
         <%= link_to "Conectarse", log_in_path %>
         <% end %>
       </span>
-      <span class="navbar-text navbar-right">
+
+    </div>
+  </nav>
+        <span class="flash-message">
         <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
         <% end %>
       </span>
-    </div>
-  </nav>
   <%= yield %>
 </body>
 </html>

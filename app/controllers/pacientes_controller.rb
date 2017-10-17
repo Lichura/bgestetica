@@ -1,5 +1,5 @@
 class PacientesController < ApplicationController
-  before_action :set_paciente, only: [:paciente_historia_clinica, :show, :edit, :update, :destroy]
+  before_action :set_paciente, only: [:paciente_historia_clinica, :show, :update, :destroy]
 
   # GET /pacientes
   # GET /pacientes.json
@@ -20,6 +20,7 @@ class PacientesController < ApplicationController
 
   # GET /pacientes/1/edit
   def edit
+    @paciente = User.find(params[:id])
   end
 
   def paciente_inicio
@@ -49,6 +50,7 @@ class PacientesController < ApplicationController
   # PATCH/PUT /pacientes/1
   # PATCH/PUT /pacientes/1.json
   def update
+    @paciente = User.find(params[:id])
     respond_to do |format|
       if @paciente.update(paciente_params)
         format.html { redirect_to @paciente, notice: 'Paciente was successfully updated.' }
@@ -78,6 +80,6 @@ class PacientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def paciente_params
-      params.require(:paciente).permit(:nombre, :apellido, :email, :fecha_nacimiento, :telefono, :dni, :direccion)
+      params.require(:paciente).permit(:name, :lastname, :password, :password_confirmation, :email, :age, :phone, :address)
     end
 end
