@@ -1,0 +1,23 @@
+<h4>Cargar vacaciones</h4>
+
+<%= form_for @vacaciones do |f| %>
+  </div>
+    <div class="form-group">
+    <%= f.label :start_date, "Comienzo", class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.datetime_field :start_date, class: "form-control" %>
+    </div>
+    </div>
+        <div class="form-group">
+    <%= f.label :end_date, "Fin", class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.datetime_field :end_date, class: "form-control" %>
+    </div>
+  </div>
+<%= f.hidden_field :equipo %>
+<%= f.hidden_field :medico %>
+<%= f.hidden_field :paciente %>
+<%= f.hidden_field :text %>
+<%= f.submit "Enviar" %>
+<% end %>
+<h4>Proximas vacaciones</h4>

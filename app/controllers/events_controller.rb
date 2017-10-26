@@ -20,7 +20,9 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
     end
   end
 
-
+  def vacaciones
+    @vacaciones = Event.new(text: "Vacaciones", medico: current_user.id, equipo: 1, paciente: current_user.id)
+  end
 
   def evento_paciente
     @fecha_inicio = params[:start_date]
