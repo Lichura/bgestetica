@@ -41,11 +41,10 @@
     scheduler.config.show_loading = true;
     //scheduler.parse(JSON.stringify(data), "json");
 
-
+cargar_datos();
   
-
-    var block_to = new Date(Date.now());
-
+  function cargar_datos(){
+  var block_to = new Date(Date.now());
   var time_id = scheduler.addMarkedTimespan({
        start_date: new Date(2017-08-10),
        end_date: new Date(Date.now()),
@@ -70,26 +69,14 @@ scheduler.attachEvent("onBeforeViewChange", function(old_mode,old_date,mode,date
 });
 
 
-    scheduler.updateView();
-    var dp = new dataProcessor("<%= db_action_path %>");
+scheduler.updateView();
+var dp = new dataProcessor("<%= db_action_path %>");
+dp.init(scheduler);
+dp.setTransactionMode("GET", false);
+dp.action_param = "dhx_editor_status";
 
 
-
-
-
-
-
-    dp.init(scheduler);
-    
-    dp.setTransactionMode("GET", false);
-    dp.action_param = "dhx_editor_status";
-
-
-    //marks and blocks dates
-
-//prueba con arra
-//var dias_bloqueados = [{"start_date":"2017-09-04,11:00","end_date":"2017-09-04,12:30"},{"start_date":"2017-09-07,08:30","end_date":"2017-09-07,10:30"},{"start_date":"2017-09-14,09:00","end_date":"2017-09-14,09:30"},{"start_date":"2017-09-12,10:30","end_date":"2017-09-12,12:00"}];
-
+//marcar y bloquear fechas
 var index,len
 for (index = 0, len = dias_bloqueados.length; index < len; ++index) {
     bloquear = {
@@ -103,28 +90,12 @@ for (index = 0, len = dias_bloqueados.length; index < len; ++index) {
     scheduler.addMarkedTimespan(bloquear);
 };
 
-
-
-
 scheduler.updateView();
 //scheduler.addMarkedTimespan(bloqueos);
 
+}
 
-// block time
 
-// Setting up holidays
-      // var holidays = [ new Date(2017, 7, 4), new Date(2017,7,7), new Date(2017,7,30) ];
-      // for (var i=0; i<holidays.length; i++) {
-      //   var date = holidays[i];
-      //   var options = {
-      //     start_date: date,
-      //     end_date: scheduler.date.add(date, 1, "day"),
-      //     type: "dhx_time_block", /* creating events on those dates will be disabled - dates are blocked */
-      //     css: "holiday",
-      //     html: "Holiday"
-      //   };
-      //   scheduler.addMarkedTimespan(options);
-      // }
 
 
 var html = function(id) { return document.getElementById(id); }; //just a helper
@@ -151,5 +122,14 @@ var paciente = <%= current_user.id %>;
         }
     });
     };
+
+
+//Que quiero que haga cuando cancelo el modal
+$("#formulario").on("hidden.bs.modal", function () {
+  scheduler.clearAll();
+  scheduler.updateView();
+  console.log("funciona");
+  cargar_datos();
+});
 
 </script>
