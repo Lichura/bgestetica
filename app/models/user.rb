@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
 		return true if self.admin?
 	end
 
+	def is_paciente
+		return true if self.paciente?
+	end
 	def fullname
 		self.name + " " + self.lastname
 	end

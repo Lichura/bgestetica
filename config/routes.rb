@@ -23,6 +23,7 @@ end
   post "menu/generar_turnos" 
   #get 'sessions/new'
   get 'home/home'
+  get 'vacaciones', to: 'events#vacaciones'
   get 'medico_index', to: 'home#medico_index'
   #get 'users/new'
   # => get 'home/equipos.xml'
@@ -34,6 +35,7 @@ end
   get 'home/db_action', :as => "db_action"
   #get "home/data", :as => "data"
   get 'home/data', to: 'home#data', as: :data
+
   post 'home/data', to: 'home#data'
   get 'events/new'
   post 'events/create_or_update', to: "events#create_or_update"
