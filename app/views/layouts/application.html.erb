@@ -24,14 +24,18 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
-        <% if current_user.is_paciente %>
+        <% if current_user && current_user.is_paciente %>
         <li class="nav-item">
-          <a class="nav-link" href="home/schedule_paciente">Turnos</a>
+        <%= link_to schedule_paciente_path, class: "nav-link" do %>
+          Turnos
+        <% end %>
         </li>
         <% end %>
         <% if current_user && current_user.is_admin %>
         <li class="nav-item">
-          <a class="nav-link" href="home/schedule_paciente">Turnos</a>
+        <%= link_to schedule_path, class: "nav-link" do %>
+          Turnos
+        <% end %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

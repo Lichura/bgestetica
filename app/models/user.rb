@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 	end
 
 	def is_paciente
-		return true if self.paciente?
+		return true if self.paciente? 
 	end
 	def fullname
 		self.name + " " + self.lastname
