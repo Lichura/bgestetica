@@ -98,14 +98,14 @@ ActiveRecord::Schema.define(version: 20171017090511) do
 
   create_table "recurrings", force: :cascade do |t|
     t.string   "rec_type"
-    t.integer  "event_lenght", limit: 13
+    t.string   "event_lenght"
     t.integer  "event_pid"
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "text"
     t.string   "details"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "turnos", force: :cascade do |t|
