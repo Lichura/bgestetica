@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   add_flash_types :contacto_error, :another_custom_type
+ 
+
+    before_action :set_locale
+ 
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
+
   def login_required
 
    if current_user.blank?
