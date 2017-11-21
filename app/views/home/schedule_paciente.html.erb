@@ -1,5 +1,6 @@
 
 
+<%= javascript_include_tag "locale_es" %>
 <div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
 
 
@@ -29,7 +30,7 @@
     scheduler.config.xml_date = "%Y-%m-%d %H:%i";
     scheduler.config.first_hour = 8;
     scheduler.config.last_hour = 20;
-    scheduler.config.time_step  = 30;
+    scheduler.config.time_step  = 60;
     scheduler.config.details_on_create = true;
     scheduler.ignore_week = function(date){
         if (date.getDay() == 7 || date.getDay() == 0) //hides Saturdays and Sundays
