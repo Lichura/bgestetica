@@ -1,12 +1,25 @@
 
 
-<div id="seccion-principal" class="container-fluid">
-		<h5>BG Estetica</h5>
-		<div src="" class="img-responsive" alt="Imagen responsive">
+
+<div class="index-contenedor-fondo">
+<%= image_tag("fondo", class: "imagen-fondo") %>
+
+<div class="index-contenedor-boton">
+        <% if current_user && current_user.is_paciente %>
+        <%= link_to schedule_paciente_path do %>
+          Turnos
+        <% end %>
+        <% else %>
+        <%= link_to new_user_path do %>
+          Turnos
+        <% end %>
+        <% end %>
+        </div>
 </div>
 
-<h4>imagen de fondo guay</h4>
-<h3> boton solicitar turno en un cuadrado dentro de imagen</h3>
+
+<%= button_to 'asignar colores', events_asignar_colores_path, method: :post %>
+
 
 <div id="seccion-contacto" class="container-fluid">
 	<div class="row">

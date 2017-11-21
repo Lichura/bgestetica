@@ -46,6 +46,14 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 
   end
   
+
+  def asignar_colores
+    Event.all.each do |evento|
+      evento.asignar_color_a_evento
+    end
+  end
+
+
   def confirm
     @event.estado = 3
     @paciente = User.find_by(nombre: @event.paciente)

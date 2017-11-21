@@ -15,4 +15,10 @@ class Event < ActiveRecord::Base
 	def self.today
 		where("start_date > ? AND estado = ?", Date.yesterday, "1")
 	end
+
+
+	def asignar_color_a_evento
+		self.color = Equipo.find(self.equipo).color
+		self.save
+	end
 end

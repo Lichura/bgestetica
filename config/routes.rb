@@ -36,6 +36,8 @@ end
   #get "home/data", :as => "data"
   get 'home/data', to: 'home#data', as: :data
 
+  post 'events/asignar_colores'
+
   post 'home/data', to: 'home#data'
   get 'events/new'
   post 'events/create_or_update', to: "events#create_or_update"
