@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  monto: 9.99
+  user_id: 1
+  event_id: 1
+  concepto: MyString
+
+two:
+  monto: 9.99
+  user_id: 1
+  event_id: 1
+  concepto: MyString
