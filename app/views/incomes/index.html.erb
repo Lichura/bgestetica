@@ -1,0 +1,51 @@
+
+
+<div class="flex-box d-flex justify-content-around flex-row justify-content-around">
+  <div class="p-2">
+    <%= link_to new_income_path do %>
+    <div class="paciente-box">
+      <i class="fa fa-address-card-o" aria-hidden="true"></i>
+      <span>Registrar cobro</span>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+<div class="container-fluid">
+  <h4 style="text-align: center">Ultimos cobros</h4>
+  <table id="proximos_turnos">
+
+    <thead>
+      <tr>
+        <th scope="col">Paciente</th>
+        <th scope="col">Evento</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Anular</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @cobros %>
+      <% @cobros.each do |cobro| %>
+      <tr>
+        <td data-label="Paciente"><%= User.find(cobro.paciente).fullname %></td>
+        <td data-label="Evento"><%= Equipo.find(cobro.equipo).nombre %></td>
+        <td data-label="Fecha"><%= cobro.text %></td>
+        <td data-label="Editar"><%= link_to edit_event_path(cobro) do %>
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        <td data-label="Anular"><%= link_to income, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' } do %>
+          <i class="fa fa-times" aria-hidden="true"></i>
+          <% end %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+

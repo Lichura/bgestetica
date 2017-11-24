@@ -52,6 +52,8 @@ end
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
+
+  get 'incomes/index', to: 'incomes#index'
   root :to => "home#index"
   #get 'users/index' => "user#index"
   #get 'users/edit_multiple' => "user#edit_multiple"
@@ -61,7 +63,7 @@ end
   resources :equipos_todos
   resources :password_resets
   resources :historias_clinicas  
-
+  resources :incomes
 
 
 
