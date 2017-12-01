@@ -27,7 +27,7 @@ class HomeController < ApplicationController
 
   def medico_index
     @proximos_eventos = Event.where.not(text: "Vacaciones").today.order(start_date: :asc).limit(10)
-  @eventos_pasados = Event.where.not(text: "Vacaciones").where("DATE(created_at) < ?", Date.today).order(start_date: :asc).limit(10)
+  @eventos_pasados = Event.where.not(text: "Vacaciones").where("DATE(created_at) < ?", Date.today).order(start_date: :asc).limit(5)
   end
 
   def schedule_paciente

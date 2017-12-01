@@ -50,47 +50,36 @@
 </div>
 </div>
 
-<div class="container-fluid">
-  <h4 style="text-align: center">Turnos pasados no confirmados</h4>
-  <table id="proximos_turnos">
 
-    <thead>
-      <tr>
-        <th scope="col">Paciente</th>
-        <th scope="col">Equipo</th>
-        <th scope="col">Comentarios</th>
-        <th scope="col">Inicio</th>
-        <th scope="col">Fin</th>
-        <th scope="col">Confirmar</th>
-        <th scope="col">Cancelar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @eventos_pasados %>
-      <% @eventos_pasados.each do |evento| %>
-      <tr>
-        <td data-label="Paciente"><%= User.find(evento.paciente).fullname %></td>
-        <td data-label="Equipo"><%= Equipo.find(evento.equipo).nombre %></td>
-        <td data-label="Comentarios"><%= evento.text %></td>
-        <td data-label="Inicio"><%= evento.start_date.to_formatted_s(:short) %></td>
-        <td data-label="Fin"><%= evento.end_date.to_formatted_s(:short) %></td>
-        <td data-label="Confirmar"><%= link_to  event_confirm_path(evento) do %>
+<% if @eventos_pasados %>
+<div id="tabla-confirmar-turnos-body">
+ <h4 class="medico-home-titulos" style="text-align: center">Turnos pendientes de confirmar</h4>
+<div id="pricing-table" class="clear">
+    <% @eventos_pasados.each do |evento| %>
+    <div class="plan">
+        <h3><%= User.find(evento.paciente).fullname %><span><%= link_to  event_confirm_path(evento) do %>
 
           <i class="fa fa-check" aria-hidden="true"></i>
-          <% end %>
-        </td>
-        <td data-label="Cancelar"><%= link_to evento, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' } do %>
+          <% end %></span></h3>
+        <a class="signup" href="">CONFIRMAR</a>         
+        <ul>
+            <li><b><%= evento.start_date.to_formatted_s(:short) %></b></li>
+            <li><b><%= evento.end_date.to_formatted_s(:short) %></b> </li>
+            <li><b><%= Equipo.find(evento.equipo).nombre %></b></li>
+            <li><b><%= link_to evento, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el turno?' } do %>
           <i class="fa fa-times" aria-hidden="true"></i>
-          <% end %></td>
-        </tr>
-        <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+          <% end %></b></li>      
+        </ul> 
+    </div>
+    <% end %>
+</div>
+</div>
+<% end %>
+
+
 
 <div class="container-fluid">
-  <h4 style="text-align: center">Proximos turnos</h4>
+  <h4 class="medico-home-titulos" style="text-align: center">Proximos turnos</h4>
   <table id="proximos_turnos">
 
     <thead>
