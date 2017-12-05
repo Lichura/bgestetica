@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	#after_create :set_defaults, unless: :persisted?
 
+	has_many :incomes
 	enum profile: [:admin, :medico, :usuario, :paciente ]
 	
 	#attr_accessor :password
