@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017090511) do
+ActiveRecord::Schema.define(version: 20171120112203) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20171017090511) do
     t.integer  "event_length"
     t.integer  "event_pid"
     t.integer  "estado"
+    t.decimal  "precio"
   end
 
   create_table "historia_clinicas", force: :cascade do |t|
@@ -66,6 +67,23 @@ ActiveRecord::Schema.define(version: 20171017090511) do
     t.string   "text"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "incomes", force: :cascade do |t|
+    t.decimal  "monto"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.string   "concepto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "insumos", force: :cascade do |t|
+    t.integer  "cantidad"
+    t.decimal  "costo"
+    t.integer  "alerta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "medicos", force: :cascade do |t|
