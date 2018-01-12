@@ -1,0 +1,22 @@
+<div class="login">
+	<div class="login_content">
+		<div class="login_img"><img style="width: 50px; height: 50px;" src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/edit_user-.png"/></div>
+		<%= form_tag sessions_path do %>
+			<p>
+				<%= label_tag :email %><br />
+				<%= text_field_tag :email, params[:email], :placeholder => "nombre@email.com" %>
+			</p>
+			<p>
+				<%= label_tag :password %><br />
+				<%= password_field_tag :password, :placeholder => "contraseña" %>
+			</p>
+			<p class="button"><%= submit_tag "Ingresar", :class => "login_button" %></p>
+			<p><%= link_to "recuperar contraseña", new_password_reset_path %>
+			<div class="field">
+				<%= check_box_tag :remember_me, 1, params[:remember_me] %>
+				<%= label_tag :remember_me %>
+			</div>
+		<% end %>
+
+	</div>
+</div>

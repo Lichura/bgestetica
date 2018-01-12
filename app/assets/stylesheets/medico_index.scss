@@ -1,3 +1,10 @@
+.boxes-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+}
 
 #proximos_turnos {
   font-family: "Open Sans", sans-serif;
@@ -75,4 +82,12 @@
 
 .medico-home-titulos{
   margin-top: 5%;
+}
+
+.boxes-container-eventos-pasados-fecha_desde{}
+.boxes-container-eventos-pasados-fecha_hasta{}
+.boxes-container-eventos-pasados-equipo{}
+.boxes-container-eventos-pasados-confirmar{}
+.boxes-container-eventos-pasados-cancelar{
+  
 }
