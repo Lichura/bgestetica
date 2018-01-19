@@ -1,0 +1,2 @@
+class EquipoInsumo < ApplicationRecord
+end

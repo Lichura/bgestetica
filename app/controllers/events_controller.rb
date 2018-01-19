@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   autocomplete :equipo, :nombre
-before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
+before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :cancel]
 
 	def new
 	end
@@ -55,18 +55,19 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
 
 
   def confirm
-    @event.estado = 3
-    @paciente = User.find_by(nombre: @event.paciente)
+    @event.estado = :finalizada
+    @paciente = User.find(@event.paciente)
     puts @event.paciente
-    @historia_clinica = HistoriaClinica.new
+    @historia_clinica = HistoriaClinica.new(paciente_id: @paciente.id)
     @event.save
   end
 
   def confirmar
     @historia_clinica = HistoriaClinica.new(historia_clinica_params)
-    @historia_clinica.save
-    respond_to do |format|
-      format.html { render 'home/medico_index' }
+    if @historia_clinica.save
+      respond_to do |format|
+        format.html { redirect_to medico_index_path, notice: 'El turno se confirmo con exito' }
+      end
     end
   end
 
@@ -75,6 +76,9 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
     @event.color = Equipo.find(@event.equipo).color
     respond_to do |format|
 	   if @event.save
+            # Sends email to user when user is created.
+      UserMailer.new_event(User.first, @event, "new event").deliver
+
       if current_user.is_admin
         format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
       else
@@ -88,7 +92,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
       @event.update(event_params)
           respond_to do |format|
      if @event.save
-        format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
+        format.html { redirect_to schedule_url , notice: 'El turno se actualizo con exito' }
       end
     end
   end
@@ -97,6 +101,16 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy]
     @event.destroy
     respond_to do |format|
       format.json { head :no_content }
+    end
+  end
+
+
+  def cancel
+    @event.estado = :cancelada
+    if @event.save
+      respond_to do |format|
+        format.json { head :no_content }
+      end
     end
   end
 
