@@ -1,24 +1,32 @@
+<div class="show-body">
+
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @user.name %>
-</p>
+<div class="show-title">
+  <h4>Usuario</h4>
+</div>
 
-<p>
-  <strong>Apellido:</strong>
-  <%= @user.lastname %>
-</p>
 
-<p>
-  <strong>perfil:</strong>
-  <%= @user.profile[:nombre] %>
-</p>
+  <div class="show-child">
+    <span class="show-label">Nombre:</span>
+    <span class="show-key"><%= @user.name %></span>
+  </div>
+    <div class="show-child">
+    <span class="show-label">Apellido:</span>
+    <span class="show-key"><%= @user.lastname %></span>
+  </div>
+    <div class="show-child">
+    <span class="show-label">Perfil:</span>
+    <span class="show-key"><%= @user.profile %></span>
+  </div>
+    <div class="show-child">
+    <span class="show-label">Mail:</span>
+    <span class="show-key"><%= @user.email %></span>
+  </div>
 
-<p>
-  <strong>Mail:</strong>
-  <%= @user.email %>
-</p>
+<%= link_to 'Editar', edit_user_path(@user), class: "btn btn-success" %> |
+<%= link_to 'Atras', users_path, class: "btn btn-success" %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', user_path %>
+
+</div>

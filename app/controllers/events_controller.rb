@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   autocomplete :equipo, :nombre
-before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :cancel]
+before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :cancel, :cancel_confirm]
 
 	def new
 	end
@@ -107,9 +107,16 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
 
   def cancel
     @event.estado = :cancelada
-    if @event.save
+    @event.save
+    @paciente = User.find(@event.paciente)
+    @historia_clinica = HistoriaClinica.new(paciente_id: @paciente.id)
+  end
+
+    def cancel_confirm
+    @historia_clinica = HistoriaClinica.new(historia_clinica_params)
+    if @historia_clinica.save
       respond_to do |format|
-        format.json { head :no_content }
+        format.html { redirect_to medico_index_path, notice: 'El turno se cancelo con exito' }
       end
     end
   end

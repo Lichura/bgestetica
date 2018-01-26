@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117115240) do
+ActiveRecord::Schema.define(version: 20180125102253) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
     t.string   "mail"
     t.string   "telefono"
     t.string   "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cuenta_corrientes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "saldo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -91,8 +98,10 @@ ActiveRecord::Schema.define(version: 20180117115240) do
     t.integer  "cantidad"
     t.decimal  "costo"
     t.integer  "alerta"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "name"
+    t.string   "description"
   end
 
   create_table "medicos", force: :cascade do |t|

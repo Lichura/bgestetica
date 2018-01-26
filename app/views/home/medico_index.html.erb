@@ -62,7 +62,7 @@
       <span class="boxes-container-eventos-pasados-fecha_desde"><%= evento.start_date.to_formatted_s(:short) %></span>
     </div>
     <div class="paciente-box-buttons">
-            <span class="boxes-container-eventos-pasados-cancelar"><%= link_to "Cancelar", event_cancel_path(evento), data: { confirm: 'Esta seguro que desea cancelar el turno?' }, method: :post %></span>
+            <span class="boxes-container-eventos-pasados-cancelar"><%= link_to "Cancelar", event_cancel_path(evento), data: { confirm: 'Esta seguro que desea cancelar el turno?' }%></span>
       <span class="boxes-container-eventos-pasados-confirmar"><%= link_to "Confirmar", event_confirm_path(evento) %></span>
     </div>
   </div>
@@ -107,7 +107,7 @@
           <i class="fa fa-check" aria-hidden="true"></i>
           <% end %>
         </td>
-        <td data-label="Cancelar"><%= link_to evento, method: :cancelar, data: { confirm: 'Esta seguro que desea cancelar el turno?' } do %>
+        <td data-label="Cancelar"><%= link_to event_cancel_path(evento), data: { confirm: 'Esta seguro que desea cancelar el turno?' } do %>
           <i class="fa fa-times" aria-hidden="true"></i>
           <% end %></td>
         </tr>

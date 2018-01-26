@@ -1,0 +1,62 @@
+.show-body{
+	
+}
+
+.show-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+  text-align: center;
+}
+
+.show-notice{
+	
+}
+
+.show-title{
+	text-align: center;
+}
+
+
+.show-title h4{
+	letter-spacing: 0.225em;
+	text-transform: uppercase;
+	font-weight: 800;
+	display: inline-block;
+
+
+}
+.show-title h4::before, h4::after{
+	content: '';
+	display: block;
+	height: 2px;
+	width: 100%;
+	background: black;
+}
+
+.show-child{
+	display: block;
+	text-align: center;
+	letter-spacing: 0.225em;
+	text-transform: uppercase;
+
+}
+
+.show-label{
+	display: inline-block;
+}
+
+.show-key{
+	display: inline-block;
+}
+
+.show-body .btn{
+	display: block;
+	width: 40%;
+	text-align: center;
+	text-transform: uppercase;
+	margin: 0 auto;
+	margin-top: 3%;
+}

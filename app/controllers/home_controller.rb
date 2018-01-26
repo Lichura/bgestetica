@@ -74,8 +74,6 @@ class HomeController < ApplicationController
               :event_length => event.event_lenght,
               :event_pid => event.event_pid
 		}}.to_json
-puts @events.each { |event| event.id}
-
 
 	@events = @events.map {|event| {
               :id => event.id,
