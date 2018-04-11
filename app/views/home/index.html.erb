@@ -1,105 +1,16 @@
 
-
+  <%= stylesheet_link_tag    'index' %>
 
 <div class="index-contenedor-fondo">
 <%= image_tag("fondo", class: "imagen-fondo") %>
-
-<div class="index-contenedor-boton">
-        <% if current_user && current_user.is_paciente %>
-        <%= link_to schedule_paciente_path do %>
-          Turnos
-        <% end %>
-        <% else %>
-        <%= link_to new_user_path do %>
-          Turnos
-        <% end %>
-        <% end %>
-        </div>
 </div>
 
 
-<%= button_to 'asignar colores', events_asignar_colores_path, method: :post %>
 
 
-<div id="seccion-contacto" class="container-fluid">
-	<div class="row">
-		<div class="col-xs-12 col-md-6">
-			<div class="seccion-texto">
-			<h1>Contacto</h1>
-				  <%= form_for :contacto, :url => { :action => "nuevo_contacto" } do |f| %>
-				    <div class="contacto-icono"></div> <%= f.text_field :nombre, :placeholder => "Nombre y Apellido", :required => true %></br>
-				    <div class="contacto-icono"></div> <%= f.email_field :mail, :placeholder => "maria@correo.com", :required => true %></br>
-				    <div class="contacto-icono"></div> <%= f.telephone_field :telefono, :placeholder => "2392-412345" %></br>
-				    <div class="contacto-icono"></div> <%= f.text_field :texto, :placeholder => "Ingrese aquí su consulta", :required => true %></br>
-				    <div>
-				      </br>
-				      <%= f.submit :submit, :class=> "btn btn-primary" %>
-				    </div>
-				  <% end %>
-				  <% if contacto_error %>
-    				<div class="notice"><%= contacto_error %></div>
-  				  <% end %>
-		</div>
-		</div>
-		<div class="col-xs-12 col-md-6">
-			<div id="map"></div>
-				    <script>
-				      function initMap() {
-				      	var myLatLng = {lat: -35.980520, lng: -62.725823};
-				        var mapDiv = document.getElementById('map');
-				        var map = new google.maps.Map(mapDiv, {
-				          center: myLatLng,
-				          zoom: 15
-				        });
-				        var marker = new google.maps.Marker({
-				    		position: myLatLng,
-				    		map: map,
-				    		title: 'BG Estetica'
-				  			});
-				      	}
-				    </script>
-				    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-				        async defer></script>
-		</div>
-		<div class="contacto-datos">
-			<p>Telefono: 303200302</p>
-			<p>mail: info@bgestetica.com.ar</p>
-			<p>dirección: sarasa 2121 2do piso</p>
-		</div>	
-	</div>
-</div>
+<!--<%= button_to 'asignar colores', events_asignar_colores_path, method: :post %>-->
 
 
-<script>
-$(document).ready(function(){
 
 
-$(window).on('scroll resize', check_if_in_view);
-$(window).trigger('scroll');
 
-var $animation_elements = $('.animation-element');
-var $window = $(window);
-
-function check_if_in_view() {
-  var window_height = $(window).height();
-  var window_top_position = $(window).scrollTop();
-  var window_bottom_position = (window_top_position + window_height);
-
-  $.each($animation_elements, function() {
-    var $element = $(this);
-    var element_height = $element.outerHeight();
-    var element_top_position = $element.offset().top;
-    var element_bottom_position = (element_top_position + element_height);
-
-    //check to see if this current container is within viewport
-    if ((element_bottom_position >= window_top_position) &&
-        (element_top_position <= window_bottom_position)) {
-      $element.addClass('in-view');
-    } /*else {
-      $element.removeClass('in-view');
-    }*/
-  });
-}
-
-});
-</script>

@@ -235,7 +235,7 @@
   }
 
 .index-contenedor-fondo{
-	height: 70%;
+	height: 90vh;
 	width: 100%;
 	background-size: cover;
 }
@@ -244,4 +244,8 @@
 	color: white;
 	display: block;
 	position:relative;
+}
+
+.a_filtrar_turnos{
+	text-decoration:  none;
 }
