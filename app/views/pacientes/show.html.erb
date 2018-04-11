@@ -1,40 +1,43 @@
+<div class="show-body">
+
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @paciente.nombre %>
-</p>
+<div class="show-title">
+  <h4>Paciente</h4>
+</div>
 
-<p>
-  <strong>Apellido:</strong>
-  <%= @paciente.apellido %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @paciente.email %>
-</p>
+  <div class="show-child">
+    <span class="show-label">Nombre:</span>
+    <span class="show-key"><%= @paciente.name %></span>
+  </div>
+  <div class="show-child">
+    <span class="show-label">Apellido:</span>
+    <span class="show-key"><%= @paciente.lastname %></span>
+  </div>
+  <div class="show-child">
+    <span class="show-label">Email:</span>
+    <span class="show-key"><%= @paciente.email %></span>
+  </div>
+  <div class="show-child">
+    <span class="show-label">Fecha de nacimiento:</span>
+    <span class="show-key"><%= @paciente.age %></span>
+  </div>
+  <div class="show-child">
+    <span class="show-label">Telefono:</span>
+    <span class="show-key"><%= @paciente.phone %></span>
+  </div>
+    <div class="show-child">
+    <span class="show-label">Direccion:</span>
+    <span class="show-key"><%= @paciente.address %></span>
+  </div>
 
-<p>
-  <strong>Fecha nacimiento:</strong>
-  <%= @paciente.fecha_nacimiento %>
-</p>
 
-<p>
-  <strong>Telefono:</strong>
-  <%= @paciente.telefono %>
-</p>
+<%= link_to 'Historia Clinica', paciente_historia_clinica_path(@paciente), class: "btn btn-success" %>
+<%= link_to 'Editar', edit_paciente_path(@paciente), class: "btn btn-primary" %> 
+<%= link_to 'Atras', pacientes_path, class: "btn btn-default" %>
 
-<p>
-  <strong>Dni:</strong>
-  <%= @paciente.dni %>
-</p>
+</div>
 
-<p>
-  <strong>Direccion:</strong>
-  <%= @paciente.direccion %>
-</p>
-
-<%= link_to 'Historia Clinica', paciente_historia_clinica_path(@paciente) %>
-<%= link_to 'Edit', edit_paciente_path(@paciente) %> |
-<%= link_to 'Back', pacientes_path %>
+</div>

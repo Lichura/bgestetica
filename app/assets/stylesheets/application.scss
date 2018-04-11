@@ -1,21 +1,14 @@
 
 @import "bootstrap";
 @import "font-awesome";
-@import "menu";
-@import "equipos";
-@import "home";
 @import "scaffolds";
 @import "dhtmlxscheduler";
+@import "dhtmlxscheduler-responsive";
 @import "dhtmlxcombo";
-@import "sessions";
-@import "events";
-@import "medico_index";
-@import "pacientes";
-@import "tabla-confirmar-turnos";
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 
 html, body {
-    height: 100%; /* IMPORTANT!!! stretches viewport to 100% */
+    height: 100%; 
 }
 body{
 	margin-top: 10vh;

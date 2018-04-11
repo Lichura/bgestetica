@@ -24,7 +24,7 @@ end
   #get 'sessions/new'
   get 'home/home'
   get 'vacaciones', to: 'events#vacaciones'
-  get 'medico_index', to: 'home#medico_index'
+  get 'medico_index', to: 'home#medico_index', as: "medico_index"
   #get 'users/new'
   # => get 'home/equipos.xml'
 
@@ -46,7 +46,9 @@ end
   #get 'events/edit', to: "events#edit"
   get 'events/:id/confirm', to: "events#confirm", :as => "event_confirm"
  post 'events/:id/confirm', to: "events#confirmar"
-  get 'pacientes/:id/paciente_historia_clinica', to: 'pacientes#paciente_historia_clinica', :as => "paciente_historia_clinica"
+ get "events/:id/cancel", to: "events#cancel", as: "event_cancel"
+ post "events/:id/cancel", to: "events#cancel_confirm"
+   get 'pacientes/:id/paciente_historia_clinica', to: 'pacientes#paciente_historia_clinica', :as => "paciente_historia_clinica"
   get 'paciente_inicio', to: 'pacientes#paciente_inicio'
 
   get "log_out" => "sessions#destroy", :as=> "log_out"

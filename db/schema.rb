@@ -10,13 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120112203) do
+ActiveRecord::Schema.define(version: 20180125102253) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
     t.string   "mail"
     t.string   "telefono"
     t.string   "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cuenta_corrientes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "saldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "equipo_insumos", force: :cascade do |t|
+    t.integer  "equipo_id"
+    t.integer  "insumo_id"
+    t.float    "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -29,6 +44,7 @@ ActiveRecord::Schema.define(version: 20171120112203) do
     t.datetime "updated_at",  null: false
     t.string   "color"
     t.integer  "minutes"
+    t.string   "icon"
   end
 
   create_table "eventos", force: :cascade do |t|
@@ -82,8 +98,10 @@ ActiveRecord::Schema.define(version: 20171120112203) do
     t.integer  "cantidad"
     t.decimal  "costo"
     t.integer  "alerta"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "name"
+    t.string   "description"
   end
 
   create_table "medicos", force: :cascade do |t|
@@ -124,6 +142,14 @@ ActiveRecord::Schema.define(version: 20171120112203) do
     t.string   "details"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "tratamientos", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "instrucciones"
+    t.integer  "sesiones"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "turnos", force: :cascade do |t|

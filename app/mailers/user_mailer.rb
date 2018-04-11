@@ -21,4 +21,10 @@ class UserMailer < ApplicationMailer
     @password = password
     mail(:to => user.email, :subject => "Detalles de su cuenta")
   end
+
+  def new_event(user, event, subject)
+    @user = user
+    @event = event
+    mail(:to => user.email, :subject => subject)
+  end
 end

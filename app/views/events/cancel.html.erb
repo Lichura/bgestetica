@@ -1,0 +1,22 @@
+<%= form_for @historia_clinica, :url => url_for(:controller => 'events', :action => 'cancel') do |f| %>
+  <% if @historia_clinica.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@historia_clinica.errors.count, "error") %> prohibited this paciente from being saved:</h2>
+
+      <ul>
+      <% @historia_clinica.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<h3>Agregar observaciones en la historia clinica del paciente</h3>
+      <div class="form-group">
+    <%= f.label :text, 'agregar comentarios', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :text, size: "360x10", class: "form-control" %>
+    </div>
+  </div>
+  <%= f.hidden_field :paciente_id, :value => @paciente %>
+  <%= f.submit "Enviar" %>
+  <% end %>

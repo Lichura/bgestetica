@@ -1,39 +1,54 @@
-<h1>Sign Up</h1>
+<section class="hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12">
+				<div class="card border-none">
+					<div class="card-block">
+						<div class="mt-2 text-center">
+							<h2>Registro</h2>
+						</div>
+						<p class="mt-4 text-white lead text-center">
+							Ingrese sus credenciales
+						</p>
+						<div class="mt-4">
 
-<%= form_for @user do |f| %>
-	<% if @user.errors.any? %>
-		<div class="error_messages">
-			<h2> Form ins invalid</h2>
-			<ul>
-				<% for message in @user.errors.full_messages %>
-					<li><%= message %></li>
-				<% end %>
-			</ul>
+							<%= form_for @user do |f| %>
+							<% if @user.errors.any? %>
+							<div class="error_messages">
+								<h2> Form ins invalid</h2>
+								<ul>
+									<% for message in @user.errors.full_messages %>
+									<li><%= message %></li>
+									<% end %>
+								</ul>
+							</div>
+							<% end %>
+							<div class="form-group">
+								<%= f.text_field :name, autofocus: true, class: "form-control", :placeholder => "Nombre" %>
+							</div>
+							<div class="form-group">
+								<%= f.text_field :lastname, autofocus: true, class: "form-control", :placeholder => "Apellido" %>
+							</div>
+							<div class="form-group">
+								<%= f.date_field :age,  autofocus: true, class: "form-control", :placeholder => "edad" %>
+							</div>
+
+							<div class="form-group">
+								<%= f.email_field :email, autofocus: true, class: "form-control", :placeholder => "nombre@email.com" %>
+							</div>
+							<div class="form-group">
+								<%= f.password_field :password, autocomplete: "off", class: "form-control", :placeholder => "contraseña" %>
+							</div>
+							<div class="form-group">
+								<%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", :placeholder => "contraseña" %>
+							</div>	
+							<%= f.submit "Enviar" , class: "btn btn-primary btn-block" %>
+							<% end %>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
 		</div>
-	<% end %>
-	<p>
-		<%= f.label :name %><br />
-		<%= f.text_field :name %>
-	</p>
-	<p>
-		<%= f.label :lastname %><br />
-		<%= f.text_field :lastname %>
-	</p>
-	<p>
-		<%= f.label :age %><br />
-		<%= f.date_field :age %>
-	</p>
-	<p>
-		<%= f.label :email %><br />
-		<%= f.email_field :email %>
-	</p>
-	<p>
-		<%= f.label :password %><br />
-		<%= f.password_field :password %>
-	</p>
-	<p>
-		<%= f.label :password_confirmation %><br />
-		<%= f.password_field :password_confirmation %>
-	</p>	
-	<p class="button"><%= f.submit %></p>
-<% end %>
+	</div>
+</section>

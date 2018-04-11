@@ -1,3 +1,10 @@
+.boxes-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+}
 
 #proximos_turnos {
   font-family: "Open Sans", sans-serif;
@@ -58,7 +65,7 @@
     font-size: .8em;
     text-align: right;
   }
-   #proximos_turno td:before {
+   #proximos_turnos td:before {
     /*
     * aria-label has no advantage, it won't be read inside a table
     content: attr(aria-label);
@@ -68,11 +75,32 @@
     font-weight: bold;
     text-transform: uppercase;
   }
-   #proximos_turno td:last-child {
+   #proximos_turnos td:last-child {
     border-bottom: 0;
   }
 }
 
 .medico-home-titulos{
   margin-top: 5%;
+}
+
+.boxes-container-eventos-pasados-fecha_desde{
+  display: block;
+}
+.boxes-container-eventos-pasados-fecha_hasta{}
+.boxes-container-eventos-pasados-equipo{
+  display: block;
+  color: orange;
+  text-align: center;
+  font-size: 3em;
+}
+.boxes-container-eventos-pasados-confirmar{
+  color: grey;
+  margin-right: 0;
+  text-align: right;
+}
+.boxes-container-eventos-pasados-cancelar{
+  color: grey;
+  margin-left: 0;
+  text-align: left;
 }

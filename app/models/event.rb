@@ -5,7 +5,6 @@ class Event < ActiveRecord::Base
 
 	def set_estado
 		self.estado = :pendiente
-		self.save
 	end
 
 	def cancelar_turno
