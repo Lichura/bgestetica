@@ -26,46 +26,7 @@
       width: 100%;
     }
 
-.search_button{
-	z-index: 10001;
-	display: fixed;
-	top: 30%;
-	right: 1%;
-	width: 40px;
-	height: 40px;
-	background-color: rgba(220,220,220,0.5);
-	transition: all 1s ease;
-	position: absolute;
-	border-radius: 50%;
-	img{
-		width: 60%;
-		height: 60%;
-		top: 20%;
-		left: 20%;
-		position: relative;
-	}
-	div{
-		display: none;
-		width: 0%;
-	}
-}
 
-.search_button:hover{
-	width: 200px;
-	height: 200px;
-	border-radius: 5%;
-	img{
-		display: none;
-	}
-	div{
-		display: block;
-		width: 100%;
-		top: 20%;
-
-		text-align: center;
-		position: relative;
-	}
-}
 
 .odd{
 	background-color: #CFCACA;
@@ -205,13 +166,7 @@
 }
 
 
-.panel{
-	border: 2px solid rgba(200,200,200,1);
-	border-radius: 5px;
-	margin-left: 30%;
-	margin-right: 30%;
-	color: rgba(200,200,200,1);
-}
+
 
 
 .gray{
@@ -219,10 +174,7 @@
 	opacity: 0.5;
 }
 
-.dias_bloqueados{
-	color: black;
-	text-align: center;
-}
+
 
 
 .flex-box{
@@ -246,6 +198,3 @@
 	position:relative;
 }
 
-.a_filtrar_turnos{
-	text-decoration:  none;
-}

@@ -1,6 +1,7 @@
 
 <head>
-
+ <%= stylesheet_link_tag    'events' %>
+  <%= stylesheet_link_tag    'home' %>
 </head>
 <div class="panel-group text-center">
   <div class="panel panel-default">
@@ -70,7 +71,7 @@
     
         scheduler.attachEvent("onTemplatesReady", function(){
         scheduler.templates.event_text=function(start,end,event){
-            return "<b>" + event.paciente + "</b><br><i>" + event.equipo + "</b><br><i>" + event.text + "</i>";
+            return "<b>" + event.text + "</b><br><i>" + event.equipo + "</b><br><i>" + event.paciente + "</i>";
         }
     }); 
 

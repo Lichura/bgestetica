@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
 	has_many :incomes
-    enum estado: [:pendiente, :cancelada, :finalizada ]
+    enum estado: [:pendiente, :cancelada, :finalizada, :otro ]
 	before_create :set_estado
 
 	def set_estado
