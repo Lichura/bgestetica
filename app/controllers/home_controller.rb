@@ -83,7 +83,7 @@ class HomeController < ApplicationController
               :paciente => User.find(event.paciente).fullname,
               :medico => User.find(event.medico).fullname,
               :equipo => Equipo.find(event.equipo).nombre,
-              :color => event.color,
+              :color => Equipo.find(event.equipo).color,
               :rec_type => event.rec_type,
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
