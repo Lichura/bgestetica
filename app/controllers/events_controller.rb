@@ -77,7 +77,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
     respond_to do |format|
 	   if @event.save
             # Sends email to user when user is created.
-      UserMailer.new_event(User.first, @event, "new event").deliver
+      #UserMailer.new_event(User.first, @event, "new event").deliver
 
       if current_user.is_admin
         format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
