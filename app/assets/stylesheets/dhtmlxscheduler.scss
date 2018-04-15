@@ -308,7 +308,7 @@ div.icon_delete {
 .dhx_mark {
     position: relative;
     top: 3px;
-    background-image: url(imgs/controls.gif);
+    background: image-url('imgs/controls.gif');
     background-position: 0 -43px;
     padding-left: 10px;
 }
@@ -377,17 +377,17 @@ div.icon_delete {
     cursor: pointer;
 }
 .dhx_save_btn {
-    background-image: url(imgs/controls.gif);
+    background: image-url('imgs/controls.gif');
     background-position: -84px 0;
     width: 21px;
 }
 .dhx_cancel_btn {
-    background-image: url(imgs/controls.gif);
+    background: image-url('imgs/controls.gif');
     background-position: -63px 0;
     width: 20px;
 }
 .dhx_delete_btn {
-    background-image: url(imgs/controls.gif);
+    background: image-url('imgs/controls.gif');
     background-position: -42px 0;
     width: 20px;
 }
@@ -1293,7 +1293,7 @@ input.dhx_repeat_checkbox {
     font-family: Arial,sans-serif;
 }
 div.dhx_menu_head, div.dhx_menu_icon {
-    background-image: url(imgs_dhx_terrace/controls.png);
+    background: image-url('imgs_flat/controls.png');
 }
 .dhx_cal_event_line {
     border: 1px solid transparent;
@@ -1332,11 +1332,11 @@ div.dhx_menu_head, div.dhx_menu_icon {
     border-top: 1px solid #CECECE;
 }
 .dhx_scale_holder {
-    background-image: url(imgs_dhx_terrace/databg.png);
+    background: image-url('imgs_flat/databg.png');
     border-right: 1px solid #CECECE;
 }
 .dhx_scale_holder_now {
-    background-image: url(imgs_dhx_terrace/databg_now.png);
+    background: image-url('imgs_flat/databg_now.png');
     border-right: 1px solid #CECECE;
 }
 .dhx_scale_hour {
@@ -1399,7 +1399,7 @@ div.dhx_menu_head, div.dhx_menu_icon {
 }
 .dhx_cal_prev_button {
     right: 61px;
-    background: url(imgs_dhx_terrace/arrow_left.png) no-repeat center center;
+    background: image-url('imgs_dhx_terrace/arrow_left.png') no-repeat center center;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-topleft: 5px;
@@ -1409,7 +1409,7 @@ div.dhx_menu_head, div.dhx_menu_icon {
 }
 .dhx_cal_next_button {
     right: 14px;
-    background: url(imgs_dhx_terrace/arrow_right.png) no-repeat center center;
+    background: image-url('imgs_dhx_terrace/arrow_right.png') no-repeat center center;
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     -moz-border-radius-topright: 5px;
@@ -1468,10 +1468,10 @@ div.dhx_menu_head, div.dhx_menu_icon {
     border-right: 1px solid #CECECE;
 }
 .dhx_multi_day_icon_small {
-    background-image: url(imgs_dhx_terrace/clock_small.gif);
+    background: image-url('imgs_dhx_terrace/clock_small.gif');
 }
 .dhx_multi_day_icon {
-    background-image: url(imgs_dhx_terrace/clock_big.gif);
+    background: image-url('imgs_dhx_terrace/clock_big.gif');
 }
 .dhx_after .dhx_month_body, .dhx_after .dhx_month_head, .dhx_before .dhx_month_body, .dhx_before .dhx_month_head, .dhx_month_head {
     background-color: #fff;
