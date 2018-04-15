@@ -92,13 +92,6 @@ scheduler.config.separate_short_events = true;
 
 
 
-    // //Boton de agregar nuevo usuario
-    // scheduler.locale.labels.button_new="nuevo";
-    // scheduler.form_blocks.textarea.button_click=function(index,button,shead,sbody){
-    // modal = document.getElementById('overlay');
-    // modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
-    // scheduler.hideCover();
-    // };
 
     // function overlay(){
     //       modal = document.getElementById('overlay');
@@ -147,32 +140,11 @@ scheduler.config.separate_short_events = true;
 
 
 
-    // //secciones del lightbox
-    //scheduler.config.lightbox.sections=[
-      //{ name:"Paciente", map_to:"paciente", options:pacientes, type:"combo",  image_path:"../dhtmlxCombo/", height:40, filtering:true},
-      //{name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-      //{name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
-      //{name:"time",height:20, type: "time", map_to: "auto"},
-      //{name:"estado", height: 20, type:"radio", map_to: "estado",
-       //   options:[{key:1, label:"activo"},
-       //           {key: 2, label:"completado"}, 
-      //            {key: 3, label:"cancelado"}]},
-     // {name:"comentarios", height: 60, map_to:"text", type: "textarea", focus:true, button: "new"}
-      //{name:"recurring", height:115, type:"recurring", map_to:"rec_type", 
-   // button:"recurring"},
-    //];
 
 
 
 
 
-    // scheduler.config.lightbox.sections=[
-    // { name:"Paciente", map_to:"paciente", options:pacientes, type:"select", height:20},
-    // { name:"Medico",height:20, type:"select", options:medicos_opts, map_to:"medico"},
-    // {name:"Equipo",height:20, type:"select", options:equipos, map_to:"equipo"},
-    // {name:"time",height:20, type: "time", map_to: "auto"},
-    // {name:"description", height:100, map_to:"text", type:"textarea" , focus:true}
-    // ];
 
   //scheduler.attachEvent("onClick", function (id, e){
  //   scheduler.showLightbox(id);
@@ -206,6 +178,33 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
         }
     });
     };
+
+    
+scheduler.attachEvent("onDrag", function(sId, tId, id, sObject, tObject){
+    //any custom logic here
+    alert("sarasa");
+    if(id){
+      var ev = scheduler.getEvent(id);
+      console.log(ev);
+        $.ajax({
+        url:'/events/dragAndDrop',
+        dataType: 'script',
+        type: 'POST',
+        data:{
+            event: ev.id,
+            id: ev.id,
+            start_date: ev.start_date,
+            end_date: ev.end_date,
+            text: ev.text
+        },
+        error:function(data){
+            debugger;
+        }
+         });
+    }
+
+});
+
 
 
     function save_form() {

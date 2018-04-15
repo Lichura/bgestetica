@@ -11,6 +11,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
     @pacientes = User.where(profile: [:paciente]).all
     if params[:id].length < 13
       @event = Event.find(params[:id])
+      @event_update = @event
       puts("estoy haciendo un update")
     else
      @event = Event.new(start_date: params[:start_date], end_date: params[:end_date], text: params[:text])
@@ -18,6 +19,17 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
     respond_to do |format|
       format.js { render :action => "new_event" }
     end
+  end
+
+  def dragAndDrop
+      @event = Event.find(params[:id])
+      @event.update(start_date: params[:start_date] , end_date: params[:end_date])
+      respond_to do |format|
+      if @event.save
+        format.html { redirect_to schedule_url , notice: 'El turno se actualizo con exito' }
+      end
+    end
+      puts("estoy haciendo un update por drag and drop")
   end
 
   def vacaciones
@@ -90,8 +102,8 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
 
   def update
       @event.update(event_params)
-          respond_to do |format|
-     if @event.save
+      respond_to do |format|
+      if @event.save
         format.html { redirect_to schedule_url , notice: 'El turno se actualizo con exito' }
       end
     end
@@ -100,7 +112,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
   def destroy
     @event.destroy
     respond_to do |format|
-      format.json { head :no_content }
+      format.html { redirect_to schedule_url , notice: 'El turno se elimino con exito' }
     end
   end
 

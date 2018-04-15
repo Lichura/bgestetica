@@ -88,7 +88,6 @@ class HomeController < ApplicationController
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
 
-  puts(@events)
   end
 
 
