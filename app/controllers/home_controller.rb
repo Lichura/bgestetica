@@ -26,8 +26,8 @@ class HomeController < ApplicationController
 
 
   def medico_index
-    @proximos_eventos = Event.where.not(text: "Vacaciones").today.order(start_date: :asc).limit(10)
-    @eventos_pasados = Event.where.not(text: "Vacaciones").where("DATE(created_at) < ?", Date.today).where(estado: :pendiente).order(start_date: :asc).limit(5)
+    @eventos_pasados = Event.where.not(text: "Vacaciones").where("DATE(end_date) < ?", Date.today).where(estado: :pendiente).order(start_date: :desc).limit(5)
+    @proximos_eventos = Event.where("DATE(start_date) >= ?", Date.today).order(start_date: :asc).limit(10)
   end
 
   def schedule_paciente
@@ -88,7 +88,7 @@ class HomeController < ApplicationController
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
 
-
+  puts(@events)
   end
 
 
