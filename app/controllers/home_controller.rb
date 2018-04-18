@@ -13,7 +13,6 @@ class HomeController < ApplicationController
     @event = Event.new
   end
   def nuevo_contacto
- 	
   	@contacto = Contacto.new(contacto_params)
   		if @contacto.save
   			redirect_to root_url,

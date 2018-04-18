@@ -1,0 +1,233 @@
+
+<head>
+ <%= stylesheet_link_tag    'events' %>
+  <%= stylesheet_link_tag    'home' %>
+</head>
+<div class="panel-group text-center">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" class="a_filtrar_turnos" href="#collapse1">Filtrar turnos</a>
+      </h4>
+    </div>
+    
+    <div id="collapse1" class="panel-collapse collapse">
+      <%= form_tag schedule_path do %>
+        <%= text_field_tag 'search', '' , class: "form-control"  %>
+      <div class="panel-footer"><%= submit_tag "enviar", id: "search_button", class: "btn btn-success" %></div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+<div id="scheduler_here" class="dhx_cal_container" style='margin-top: 10vh; position: absolute; width:100%; height:900px;'>
+
+
+ <div class="dhx_cal_navline">
+        <div class="dhx_cal_prev_button">&nbsp;</div>
+        <div class="dhx_cal_next_button">&nbsp;</div>
+        <div class="dhx_cal_today_button"></div>
+        <div class="dhx_cal_date"></div>
+        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+   <div class="dhx_cal_tab" name="agenda_tab" style="right: 280px;"></div>
+   <div class="dhx_cal_tab" name="equipos_tab" style="right:350px;"></div>
+   <div class="dhx_cal_tab" name="medicos_tab" style="right:350px;"></div>
+ </div>
+ <div class="dhx_cal_header">
+ </div>
+ <div class="dhx_cal_data">
+ </div>
+</div>
+
+<div id="overlay">
+  <div>
+    <%= render 'users/form' %>
+    <a href='#' onclick="overlay()" class= "btn btn-default">Cerrar</a>
+  </div>
+</div>
+
+
+
+<div id="formulario"></div>
+
+
+
+<script>
+    var data = <%= @events.html_safe %>;
+
+
+// we can block specific dates
+
+scheduler.xy.min_event_height = 80;
+    scheduler.config.multi_day = true;
+    scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+    scheduler.config.first_hour = 8;
+    scheduler.config.last_hour = 22;
+    scheduler.config.time_step  = 30;
+    scheduler.config.details_on_create = true;
+    
+        scheduler.attachEvent("onTemplatesReady", function(){
+        scheduler.templates.event_text=function(start,end,event){
+            return "<b>" + event.paciente + "</b><br><i>" + event.equipo + "</b><br><i>" + event.text + "</i>";
+        }
+    }); 
+
+    scheduler.init("scheduler_here");
+
+    scheduler.config.show_loading = true;
+    scheduler.parse(JSON.stringify(data), "json");
+    //scheduler.parse(JSON.stringify(recurring), "json");
+    scheduler.updateView();
+    var dp = new dataProcessor("<%= db_action_path %>");
+    dp.init(scheduler);
+    dp.setTransactionMode("GET", false);
+    dp.action_param = "dhx_editor_status";
+
+scheduler.config.separate_short_events = true;
+
+
+
+
+
+
+    // function overlay(){
+    //       modal = document.getElementById('overlay');
+    // modal.style.visibility = (modal.style.visibility == 'visible') ? "hidden" : "visible";
+    // };
+
+
+
+    // // Modificar colores por equipo
+
+
+    // // Tab de equipos
+    //scheduler.locale.labels.agenda_tab = "Agenda";
+    //scheduler.locale.labels.equipos_tab = "Equipo";
+    //scheduler.locale.labels.medicos_tab = "Medico";
+
+
+    // //equipos vista
+    // scheduler.createTimelineView({
+    //   name:"equipos", //Nombre de la vista
+    //   x_unit: "minute", //Unidad de medida de la vista
+    //   x_date: "%H:%i",  //
+    //   x_step: 30, // Salta de 30 minutos en 30 minutos
+    //   x_size: 24, // el numero de intervalos mostrados (en este caso 12 horas)
+    //   x_start: 16, // Desde que hora arranca por steps, en este caso a las 8am
+    //   x_lenght: 48, //la longitud del día, en este caso 48 steps de 30 minutos
+    //   y_unit: equipos, //la info para llenar
+    //   y_property: "equipo", //el campo que tiene en cuenta para llenar
+    //   render: "bar"  //el modo de mostrar la vista
+    // });
+
+    //     scheduler.createTimelineView({
+    //   name:"medicos",
+    //   x_unit: "minute",
+    //   x_date: "%H:%i",
+    //   x_step: 30,
+    //   x_size: 24,
+    //   x_start: 16,
+    //   x_lenght: 48,
+    //   y_unit: medicos_opts,
+    //   y_property: "medico",
+    //   render: "bar"
+    // });
+
+
+
+
+
+
+
+
+
+
+
+  //scheduler.attachEvent("onClick", function (id, e){
+ //   scheduler.showLightbox(id);
+ //  return true;
+  //});
+
+
+
+
+
+ 
+var html = function(id) { return document.getElementById(id); }; //just a helper
+
+    scheduler.showLightbox = function(id) {
+      var ev = scheduler.getEvent(id);
+      console.log(ev);
+      scheduler.startLightbox(id, null);
+      scheduler.hideCover();
+      $.ajax({
+        url:'/events/create_or_update',
+        dataType: 'script',
+        type: 'POST',
+        data:{
+            id: id,
+            start_date: ev.start_date,
+            end_date: ev.end_date,
+            text: ev.text
+        },
+        error:function(data){
+            debugger;
+        }
+    });
+    };
+
+    
+scheduler.attachEvent("onDrag", function(sId, tId, id, sObject, tObject){
+    //any custom logic here
+    alert("sarasa");
+    if(id){
+      var ev = scheduler.getEvent(id);
+      console.log(ev);
+        $.ajax({
+        url:'/events/dragAndDrop',
+        dataType: 'script',
+        type: 'POST',
+        data:{
+            event: ev.id,
+            id: ev.id,
+            start_date: ev.start_date,
+            end_date: ev.end_date,
+            text: ev.text
+        },
+        error:function(data){
+            debugger;
+        }
+         });
+    }
+
+});
+
+
+
+    function save_form() {
+      var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
+      ev.text = html("description").value;
+      ev.custom1 = html("custom1").value;
+      ev.custom2 = html("custom2").value;
+
+      scheduler.endLightbox(true, html("my_form"));
+    }
+
+    function close_form() {
+      scheduler.endLightbox(false, html("my_form"));
+    }
+
+    function delete_event() {
+      var event_id = scheduler.getState().lightbox_id;
+      scheduler.endLightbox(false, html("my_form"));
+      scheduler.deleteEvent(event_id);
+    }
+
+
+
+
+
+</script>

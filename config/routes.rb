@@ -44,6 +44,7 @@ end
   post 'events/dragAndDrop', to: 'events#dragAndDrop'
     post 'events/evento_paciente', to: "events#evento_paciente"
   get 'events/recurring', to: "events#recurring"
+  get 'event/scheduler', to: 'events#scheduler'
   #get 'events/edit', to: "events#edit"
   get 'events/:id/confirm', to: "events#confirm", :as => "event_confirm"
  post 'events/:id/confirm', to: "events#confirmar"
