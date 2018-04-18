@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125102253) do
+ActiveRecord::Schema.define(version: 20180418103019) do
 
   create_table "contactos", force: :cascade do |t|
     t.string   "nombre"
@@ -67,15 +67,18 @@ ActiveRecord::Schema.define(version: 20180125102253) do
     t.string   "text"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.string   "paciente"
-    t.string   "medico"
-    t.string   "equipo"
     t.string   "color"
     t.string   "rec_type"
     t.integer  "event_length"
     t.integer  "event_pid"
     t.integer  "estado"
     t.decimal  "precio"
+    t.integer  "equipo_id"
+    t.integer  "medico_id"
+    t.integer  "user_id"
+    t.index ["equipo_id"], name: "index_events_on_equipo_id"
+    t.index ["medico_id"], name: "index_events_on_medico_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "historia_clinicas", force: :cascade do |t|

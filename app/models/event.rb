@@ -1,5 +1,9 @@
 class Event < ActiveRecord::Base
 	has_many :incomes
+	belongs_to :equipo
+	belongs_to :medico
+	belongs_to :user
+	
     enum estado: [:pendiente, :cancelada, :finalizada, :otro ]
 	before_create :set_estado
 

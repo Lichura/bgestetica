@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	#after_create :set_defaults, unless: :persisted?
 
 	has_many :incomes
+	
 	enum profile: [:admin, :medico, :usuario, :paciente ]
 	
 	#attr_accessor :password
@@ -14,6 +15,14 @@ class User < ActiveRecord::Base
 	validates_presence_of :email
 	validates_uniqueness_of :email
 
+	has_many :events
+
+
+  def destroy
+    raise "No se puede eliminar un paciente con turnos asociados" unless events.count == 0
+    # ... ok, go ahead and destroy
+    super
+  end
 
 
 	

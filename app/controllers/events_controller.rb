@@ -85,7 +85,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
 
   def create
     @event = Event.new(event_params)
-    @event.color = Equipo.find(@event.equipo).color
+    #@event.color = Equipo.find(@event.equipo).color
     respond_to do |format|
 	   if @event.save
             # Sends email to user when user is created.
@@ -94,6 +94,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
       if current_user.is_admin
         format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
       else
+        #redirect_back(fallback_location: paciente_inicio_url)
         format.html { redirect_to paciente_inicio_url , notice: 'El turno se creo con exito' }
       end
       end
@@ -145,7 +146,7 @@ before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :can
     end
 
 	 def event_params
-	 	params.require(:event).permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
+	 	params.require(:event).permit(:text, :start_date, :end_date, :medico_id, :equipo_id, :user_id, :color, :rec_type, :event_length, :event_pid)
 	 end
 
    def historia_clinica_params

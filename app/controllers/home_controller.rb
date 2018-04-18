@@ -80,10 +80,10 @@ class HomeController < ApplicationController
               :start_date => event.start_date.to_formatted_s(:db),
               :end_date => event.end_date.to_formatted_s(:db),
               :text => event.text,
-              :paciente => User.find(event.paciente).fullname,
-              :medico => User.find(event.medico).fullname,
-              :equipo => Equipo.find(event.equipo).nombre,
-              :color => Equipo.find(event.equipo).color,
+              :paciente => event.user.fullname,
+              :medico => event.medico.nombre,
+              :equipo => event.equipo.nombre,
+              :color => event.equipo.color,
               :rec_type => event.rec_type,
               :event_length => event.event_length,
               :event_pid => event.event_pid}}.to_json
@@ -130,7 +130,7 @@ class HomeController < ApplicationController
 	 end
 
 	 def event_params
-	 	params.permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
+	 	params.permit(:text, :start_date, :end_date, :medico_id, :equipo_id, :user_id, :color, :rec_type, :event_length, :event_pid)
 	 end
 
 	 def update_params

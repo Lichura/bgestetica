@@ -1,5 +1,6 @@
 class Turno < ActiveRecord::Base
 
+
 	def self.search(medico, equipo, start_date)
 		start_date = DateTime.parse(start_date)
 		end_date = start_date + 50.minutes
