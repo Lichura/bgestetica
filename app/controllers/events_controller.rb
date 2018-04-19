@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   autocomplete :equipo, :nombre
   #before_action :set_event, only: [:confirm, :show, :edit, :update, :destroy, :cancel, :cancel_confirm]
   before_action :set_scheduler_data, only: [:scheduler, :create_or_update]
-
+  before_action :get_medico, only: [:vacaciones]
 
 def show
 end
@@ -44,7 +44,7 @@ def scheduler
 end
 
   def vacaciones
-    @vacaciones = Event.new(text: "Vacaciones", medico: current_user.id, equipo: 1, paciente: current_user.id)
+    @vacaciones = Event.new(text: "Vacaciones", medico: @medico, equipo: Equipo.first, user: current_user)
   end
 
   def create_or_update
@@ -82,6 +82,10 @@ end
   
     def update_params
      params.permit(:start_date, :end_date)
+    end
+
+    def get_medico
+      @medico = Medico.find(current_user.id)
     end
 
 
