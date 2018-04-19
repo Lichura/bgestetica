@@ -60,7 +60,7 @@
 <div class="boxes-container">
   <% @eventos_pasados.each do |evento| %>
   <div class="p-2">
-   <%= User.find(evento.paciente).fullname %>
+   <%= evento.user.fullname %>
     <div class="paciente-box">
       <span class="boxes-container-eventos-pasados-equipo"><i class="<%= Equipo.find(evento.equipo).icon %>" aria-hidden="true"></i></span><br>
       <span class="boxes-container-eventos-pasados-fecha_desde"><%= evento.start_date.to_formatted_s(:short) %></span>
@@ -96,8 +96,8 @@
       <% if @proximos_eventos %>
       <% @proximos_eventos.each do |evento| %>
       <tr>
-        <td data-label="Paciente"><%= User.find(evento.paciente).fullname %></td>
-        <td data-label="Equipo"><%= Equipo.find(evento.equipo).nombre %></td>
+        <td data-label="Paciente"><%= evento.user.fullname %></td>
+        <td data-label="Equipo"><%= evento.equipo.nombre %></td>
         <td data-label="Comentarios"><%= evento.text %></td>
         <td data-label="Inicio"><%= evento.start_date.to_formatted_s(:short) %></td>
         <td data-label="Fin"><%= evento.end_date.to_formatted_s(:short) %></td>
