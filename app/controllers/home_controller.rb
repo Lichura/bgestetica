@@ -12,8 +12,8 @@ class HomeController < ApplicationController
   def new
     @event = Event.new
   end
+
   def nuevo_contacto
- 	
   	@contacto = Contacto.new(contacto_params)
   		if @contacto.save
   			redirect_to root_url,
@@ -50,6 +50,8 @@ class HomeController < ApplicationController
               :start_date => event.start_date.strftime("%Y-%m-%d,%H:%M"),
               :end_date => event.end_date.strftime("%Y-%m-%d,%H:%M")}}.to_json
   end
+
+
   def schedule
 	@equipos_todos = Equipo.all
 	@medicos = User.where(profile: [:medico]).all
@@ -95,29 +97,29 @@ class HomeController < ApplicationController
 
 
 
-	def db_action
-	   mode = params[:dhx_editor_status]
+	# def db_action
+	#    mode = params[:dhx_editor_status]
 
-	   case mode
-	     when "inserted"
-	       @event = Event.create(event_params)
+	#    case mode
+	#      when "inserted"
+	#        @event = Event.create(event_params)
 
-	     when "deleted"
-	         @event = set_event
-	         @event.update(event_params)
-	         @event.destroy
+	#      when "deleted"
+	#          @event = set_event
+	#          @event.update(event_params)
+	#          @event.destroy
 
-	     when "updated"
-	     	@event = set_event
-	        @event.update(update_params)
-	   	 end
+	#      when "updated"
+	#      	@event = set_event
+	#         @event.update(update_params)
+	#    	 end
 
-	   render :json => {
-	              :type => mode,
-	              :sid => @event.id,
-	              :tid => @event.id,
-	          }
-	end
+	#    render :json => {
+	#               :type => mode,
+	#               :sid => @event.id,
+	#               :tid => @event.id,
+	#           }
+	# end
 
 
 	private

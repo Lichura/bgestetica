@@ -64,3 +64,18 @@ end
       @pacientes = Paciente.where(profile: [:paciente]).all
     end
 
+    def set_event
+      @event = Event.find(params[:id])
+    end
+
+    def recurring_event_params
+      params.require(:event).permit(:text, :start_date, :end_date, :medico, :equipo, :paciente, :color, :rec_type, :event_length, :event_pid)
+    end
+
+    def event_params
+      params.require(:event).permit(:text, :start_date, :end_date, :medico_id, :equipo_id, :user_id, :color, :rec_type, :event_length, :event_pid)
+    end
+
+    def historia_clinica_params
+      params.require(:historia_clinica).permit(:text, :paciente_id)
+    end
