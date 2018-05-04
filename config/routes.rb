@@ -42,7 +42,7 @@ end
   get 'events/new'
   post 'events/create_or_update', to: "events#create_or_update"
   post 'events/dragAndDrop', to: 'events#dragAndDrop'
-    post 'events/evento_paciente', to: "events#evento_paciente"
+  post 'events/evento_paciente', to: "events#evento_paciente"
   get 'events/recurring', to: "events#recurring"
   get 'event/scheduler', to: 'events#scheduler'
   #get 'events/edit', to: "events#edit"
