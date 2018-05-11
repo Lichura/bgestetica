@@ -1,7 +1,14 @@
 
 <head>
+    <%= javascript_include_tag "dhtmlxscheduler" %>
+<%= javascript_include_tag 'dhtmlxscheduler_limit' %>
+<%= javascript_include_tag 'dhtmlxscheduler_timeline' %>
+<%= javascript_include_tag 'dhtmlxscheduler_readonly' %>
+
+
  <%= stylesheet_link_tag    'events' %>
   <%= stylesheet_link_tag    'home' %>
+  <%= javascript_include_tag "locale_es" %>
 </head>
 <div class="panel-group text-center">
   <div class="panel panel-default">
@@ -57,6 +64,7 @@
 
 <script>
     var data = <%= @events.html_safe %>;
+    console.log(data);
 
 
 // we can block specific dates
@@ -69,17 +77,18 @@ scheduler.xy.min_event_height = 80;
     scheduler.config.time_step  = 30;
     scheduler.config.details_on_create = true;
     
-        scheduler.attachEvent("onTemplatesReady", function(){
+    scheduler.attachEvent("onTemplatesReady", function(){
         scheduler.templates.event_text=function(start,end,event){
             return "<b>" + event.paciente + "</b><br><i>" + event.equipo + "</b><br><i>" + event.text + "</i>";
         }
     }); 
 
-    scheduler.init("scheduler_here");
+    scheduler.init("scheduler_here", new Date(), "month");
 
     scheduler.config.show_loading = true;
     scheduler.parse(JSON.stringify(data), "json");
     //scheduler.parse(JSON.stringify(recurring), "json");
+
     scheduler.updateView();
     var dp = new dataProcessor("<%= db_action_path %>");
     dp.init(scheduler);
@@ -100,41 +109,7 @@ scheduler.config.separate_short_events = true;
 
 
 
-    // // Modificar colores por equipo
 
-
-    // // Tab de equipos
-    //scheduler.locale.labels.agenda_tab = "Agenda";
-    //scheduler.locale.labels.equipos_tab = "Equipo";
-    //scheduler.locale.labels.medicos_tab = "Medico";
-
-
-    // //equipos vista
-    // scheduler.createTimelineView({
-    //   name:"equipos", //Nombre de la vista
-    //   x_unit: "minute", //Unidad de medida de la vista
-    //   x_date: "%H:%i",  //
-    //   x_step: 30, // Salta de 30 minutos en 30 minutos
-    //   x_size: 24, // el numero de intervalos mostrados (en este caso 12 horas)
-    //   x_start: 16, // Desde que hora arranca por steps, en este caso a las 8am
-    //   x_lenght: 48, //la longitud del día, en este caso 48 steps de 30 minutos
-    //   y_unit: equipos, //la info para llenar
-    //   y_property: "equipo", //el campo que tiene en cuenta para llenar
-    //   render: "bar"  //el modo de mostrar la vista
-    // });
-
-    //     scheduler.createTimelineView({
-    //   name:"medicos",
-    //   x_unit: "minute",
-    //   x_date: "%H:%i",
-    //   x_step: 30,
-    //   x_size: 24,
-    //   x_start: 16,
-    //   x_lenght: 48,
-    //   y_unit: medicos_opts,
-    //   y_property: "medico",
-    //   render: "bar"
-    // });
 
 
 
@@ -163,6 +138,7 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
       console.log(ev);
       scheduler.startLightbox(id, null);
       scheduler.hideCover();
+      var mode = scheduler.getState().mode;
       $.ajax({
         url:'/events/create_or_update',
         dataType: 'script',
@@ -171,7 +147,11 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
             id: id,
             start_date: ev.start_date,
             end_date: ev.end_date,
-            text: ev.text
+            text: ev.text,
+            mode: mode
+        },
+        success:function(data){
+          alert("funciono");
         },
         error:function(data){
             debugger;
@@ -180,51 +160,51 @@ var html = function(id) { return document.getElementById(id); }; //just a helper
     };
 
     
-scheduler.attachEvent("onDrag", function(sId, tId, id, sObject, tObject){
-    //any custom logic here
-    alert("sarasa");
-    if(id){
-      var ev = scheduler.getEvent(id);
-      console.log(ev);
-        $.ajax({
-        url:'/events/dragAndDrop',
-        dataType: 'script',
-        type: 'POST',
-        data:{
-            event: ev.id,
-            id: ev.id,
-            start_date: ev.start_date,
-            end_date: ev.end_date,
-            text: ev.text
-        },
-        error:function(data){
-            debugger;
-        }
-         });
-    }
+// scheduler.attachEvent("onDrag", function(sId, tId, id, sObject, tObject){
+//     //any custom logic here
+//     alert("sarasa");
+//     if(id){
+//       var ev = scheduler.getEvent(id);
+//       console.log(ev);
+//         $.ajax({
+//         url:'/events/dragAndDrop',
+//         dataType: 'script',
+//         type: 'POST',
+//         data:{
+//             event: ev.id,
+//             id: ev.id,
+//             start_date: ev.start_date,
+//             end_date: ev.end_date,
+//             text: ev.text
+//         },
+//         error:function(data){
+//             debugger;
+//         }
+//          });
+//     }
 
-});
+// });
 
 
 
-    function save_form() {
-      var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
-      ev.text = html("description").value;
-      ev.custom1 = html("custom1").value;
-      ev.custom2 = html("custom2").value;
+//     function save_form() {
+//       var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
+//       ev.text = html("description").value;
+//       ev.custom1 = html("custom1").value;
+//       ev.custom2 = html("custom2").value;
 
-      scheduler.endLightbox(true, html("my_form"));
-    }
+//       scheduler.endLightbox(true, html("my_form"));
+//     }
 
-    function close_form() {
-      scheduler.endLightbox(false, html("my_form"));
-    }
+//     function close_form() {
+//       scheduler.endLightbox(false, html("my_form"));
+//     }
 
-    function delete_event() {
-      var event_id = scheduler.getState().lightbox_id;
-      scheduler.endLightbox(false, html("my_form"));
-      scheduler.deleteEvent(event_id);
-    }
+//     function delete_event() {
+//       var event_id = scheduler.getState().lightbox_id;
+//       scheduler.endLightbox(false, html("my_form"));
+//       scheduler.deleteEvent(event_id);
+//     }
 
 
 

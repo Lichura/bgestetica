@@ -22,3 +22,4 @@
 //= require bootstrap
 //= require dhtmlxscheduler
 //= require dhtmlxscheduler_limit
+//= require locale_es

@@ -14,7 +14,7 @@ def scheduler
   case current_user.is_admin
   when false
     @events = Event.where('start_date >= ?', Time.now).all
-    @fechas_bloqueadas = @eventos.map {|event| {
+    @fechas_bloqueadas = @event.map {|event| {
         :start_date => event.start_date.strftime("%Y-%m-%d,%H:%M"),
         :end_date => event.end_date.strftime("%Y-%m-%d,%H:%M")}}.to_json
   when true
@@ -37,7 +37,7 @@ def scheduler
         :event_length => event.event_length,
         :event_pid => event.event_pid
     }}.to_json
-
+    puts(@events)
 
     render :scheduler
   end
@@ -52,11 +52,27 @@ end
         @event = Event.find(params[:id])
         @event_update = @event
       else
-        @event = Event.new(start_date: params[:start_date], end_date: params[:end_date], text: params[:text])
+        @event = Event.new(event_params)
       end
       respond_to do |format|
         format.js { render :action => "new_event" }
       end
+  end
+
+  def create
+    @event = Event.new(event_params)
+    respond_to do |format|
+     if @event.save
+      # Sends email to user when user is created.
+      #UserMailer.new_event(User.first, @event, "new event").deliver
+      if current_user.is_admin
+        format.html { redirect_to schedule_url , notice: 'El turno se creo con exito' }
+      else
+        #redirect_back(fallback_location: paciente_inicio_url)
+        format.html { redirect_to paciente_inicio_url , notice: 'El turno se creo con exito' }
+      end
+      end
+    end
   end
 
 
@@ -77,7 +93,7 @@ end
     end
   
     def event_params
-     params.permit(:text, :start_date, :end_date, :medico_id, :equipo_id, :user_id, :color, :rec_type, :event_length, :event_pid)
+     params.permit(:id, :text, :start_date, :end_date, :medico_id, :equipo_id, :user_id, :color, :rec_type, :event_length, :event_pid)
     end
   
     def update_params

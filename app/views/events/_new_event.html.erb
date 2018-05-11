@@ -10,7 +10,7 @@
       <div class="modal-body">
 
 
-<%= form_for @event do |f| %>
+<%= form_for @event, :url => { :controller => "events", :action => "create" } do |f| %>
   <% if @event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this paciente from being saved:</h2>
